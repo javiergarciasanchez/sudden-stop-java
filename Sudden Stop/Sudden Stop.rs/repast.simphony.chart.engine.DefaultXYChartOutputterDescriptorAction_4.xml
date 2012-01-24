@@ -1,0 +1,48 @@
+<repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
+  <name>Firms</name>
+  <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
+  <dataSetHandler>
+    <dataSets>
+      <string>Global</string>
+    </dataSets>
+  </dataSetHandler>
+  <streamHandler>
+    <columns/>
+  </streamHandler>
+  <isBatchAction>false</isBatchAction>
+  <dataSetId class="string">Global</dataSetId>
+  <showLegend>true</showLegend>
+  <multipleSeries>false</multipleSeries>
+  <xColumnName>Tick</xColumnName>
+  <autoRangeX>false</autoRangeX>
+  <autoRangeY>true</autoRangeY>
+  <visibleXRange>0.0</visibleXRange>
+  <visibleYRange>0.0</visibleYRange>
+  <xMin>0.0</xMin>
+  <xMax>50.0</xMax>
+  <yMin>0.0</yMin>
+  <yMax>0.0</yMax>
+  <precisionValue>3</precisionValue>
+  <maxHistory>500</maxHistory>
+  <seriesType>LINE</seriesType>
+  <series>
+    <repast.simphony.chart.Series>
+      <seriesID>Born Firms</seriesID>
+      <valueColumn>Born Firms</valueColumn>
+      <hashCode>2037961949</hashCode>
+      <proxy>true</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Total Firms</seriesID>
+      <valueColumn>Total Firms</valueColumn>
+      <hashCode>-203892449</hashCode>
+      <proxy>true</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Dead Firms</seriesID>
+      <valueColumn>Dead Firms</valueColumn>
+      <hashCode>1102738783</hashCode>
+      <proxy>true</proxy>
+    </repast.simphony.chart.Series>
+  </series>
+</repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
