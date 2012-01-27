@@ -1,4 +1,4 @@
-<model name="Sudden Stop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/user_path">
+<model name="suddenStop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/user_path">
 	<classpath>
 		<agents path="../bin" />
 		<entry path="../lib" />

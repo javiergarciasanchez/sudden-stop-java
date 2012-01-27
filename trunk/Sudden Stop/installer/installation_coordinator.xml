@@ -14,7 +14,7 @@
 		<echo message="EclipsePluginsDirectory = ${EclipsePluginsDirectory}" />
 		
 		<!-- A hidden staging dirctory to store the install files that will be deleted at cleanup -->
-		<property name="StagingArea" value="./.temp/Sudden Stop" />
+		<property name="StagingArea" value="./.temp/suddenStop" />
 		<property name="StagingOptionalArea" value="./.temp" />
 		<echo message="StagingArea = ${StagingArea}" />
 		<property name="IzPackHomeDirectory" value="${EclipsePluginsDirectory}/repast.simphony.eclipse_${REPAST_VERSION}/setupfiles/IzPack" />

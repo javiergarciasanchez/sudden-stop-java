@@ -4,10 +4,10 @@
 
   <skipIfNotSupported/>
   
-  <programGroup defaultName="Sudden Stop" location="StartMenu"/>
+  <programGroup defaultName="suddenStop" location="StartMenu"/>
   
   <shortcut
-     name="Sudden Stop"
+     name="suddenStop"
      programGroup="yes"
      desktop="no"
      applications="no"
@@ -17,7 +17,7 @@
      commandLine=""
      workingDirectory="$INSTALL_PATH"
      description="Model"
-     iconFile="$INSTALL_PATH\Sudden Stop\icons\model.bmp"
+     iconFile="$INSTALL_PATH\suddenStop\icons\model.bmp"
      iconIndex="0"
      initialState="noShow">
      <createForPack name="Model"/>
@@ -30,7 +30,7 @@
      applications="no"
      startMenu="no"
      startup="no"
-     target="$INSTALL_PATH\Sudden Stop\docs\index.html"
+     target="$INSTALL_PATH\suddenStop\docs\index.html"
      commandLine=""
 	 iconFile="%SystemRoot%\system32\SHELL32.dll"
      iconIndex="23" 
@@ -40,7 +40,7 @@
   </shortcut>
   
   <shortcut
-     name="Sudden Stop Uninstaller"
+     name="suddenStop Uninstaller"
      programGroup="yes"
      desktop="no"
      applications="no"
