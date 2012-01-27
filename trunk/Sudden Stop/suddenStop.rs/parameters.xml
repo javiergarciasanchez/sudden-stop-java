@@ -102,6 +102,12 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
+				<parameter name="simDescription" displayName="Simulation Description" type="java.lang.String" 
+						defaultValue="Base Scenario" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
 				<parameter name="costOfCapital" displayName="Cost Of Capital" type="double" 
 						defaultValue="0.15" 
 						isReadOnly="false" 

@@ -14,7 +14,7 @@
         <string>acumQuantity</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>acumQuantity</name>
             <parameter-types/>
           </method>
@@ -24,7 +24,7 @@
         <string>Return</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>getReturn</name>
             <parameter-types/>
           </method>
@@ -34,7 +34,7 @@
         <string>marginalCost</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>marginalCost</name>
             <parameter-types/>
           </method>
@@ -44,7 +44,7 @@
         <string>quantity</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>quantity</name>
             <parameter-types/>
           </method>
@@ -54,7 +54,7 @@
         <string>Profit</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>Profit</name>
             <parameter-types/>
           </method>
@@ -70,7 +70,7 @@
         <string>rD</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>rD</name>
             <parameter-types/>
           </method>
@@ -80,7 +80,7 @@
         <string>Born</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>getBorn</name>
             <parameter-types/>
           </method>
@@ -90,7 +90,7 @@
         <string>marketShare</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>marketShare</name>
             <parameter-types/>
           </method>
@@ -100,7 +100,7 @@
         <string>Expon</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>getExpon</name>
             <parameter-types/>
           </method>
@@ -110,7 +110,7 @@
         <string>MedCost</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>getMedCost</name>
             <parameter-types/>
           </method>
@@ -120,7 +120,7 @@
         <string>performance</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>performance</name>
             <parameter-types/>
           </method>
@@ -130,7 +130,7 @@
         <string>FirstUnitCost</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>getFirstUnitCost</name>
             <parameter-types/>
           </method>
@@ -144,7 +144,7 @@
         <string>AcumProfit</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>getAcumProfit</name>
             <parameter-types/>
           </method>
@@ -154,7 +154,7 @@
         <string>age</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>age</name>
             <parameter-types/>
           </method>
@@ -164,7 +164,7 @@
         <string>VarCost</string>
         <repast.simphony.data.logging.gather.MethodMapping>
           <method>
-            <class>Sudden_Stop.Firm</class>
+            <class>suddenStop.Firm</class>
             <name>getVarCost</name>
             <parameter-types/>
           </method>
@@ -173,40 +173,60 @@
     </nameMappingTable>
     <mappingNameTable>
       <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[15]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>AcumProfit</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[17]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>VarCost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[8]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>Born</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>rD</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[9]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>marketShare</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[10]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>Expon</string>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[13]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>FirstUnitCost</string>
       </entry>
       <entry>
         <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.MethodMapping"/>
         <string>acumQuantity</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>quantity</string>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[16]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>age</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>Profit</string>
       </entry>
       <entry>
         <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry[14]/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
         <string>Tick</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[8]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>Born</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[15]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>AcumProfit</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.RunNumberMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.gather.RunNumberMapping"/>
+        <string>Run Number</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[17]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>VarCost</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>quantity</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[12]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>performance</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[10]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>Expon</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>rD</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[11]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>MedCost</string>
       </entry>
       <entry>
         <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.gather.MethodMapping"/>
@@ -217,28 +237,8 @@
         <string>Return</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[13]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>FirstUnitCost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[12]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>performance</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>Profit</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.RunNumberMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.gather.RunNumberMapping"/>
-        <string>Run Number</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[16]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>age</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[11]/repast.simphony.data.logging.gather.MethodMapping"/>
-        <string>MedCost</string>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[9]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>marketShare</string>
       </entry>
     </mappingNameTable>
   </dataMappingContainer>
@@ -248,5 +248,5 @@
     <alternatedNameTable/>
     <nameAlternatedTable/>
   </aggregateContainer>
-  <agentClass>Sudden_Stop.Firm</agentClass>
+  <agentClass>suddenStop.Firm</agentClass>
 </repast.simphony.data.engine.DefaultDataGathererDescriptor>

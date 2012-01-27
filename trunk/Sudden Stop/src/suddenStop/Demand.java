@@ -1,4 +1,4 @@
-package Sudden_Stop;
+package suddenStop;
 
 import repast.simphony.ui.probe.*;
 import static java.lang.Math.*;
