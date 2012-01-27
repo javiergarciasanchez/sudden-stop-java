@@ -10,7 +10,7 @@
  * Set the package name.
  *
  */
-package Sudden_Stop;
+package suddenStop;
 
 import static java.lang.Math.*;
 import static repast.simphony.essentials.RepastEssentials.*;
@@ -295,4 +295,5 @@ public class Firm {
 	public double age() {
 		return GetTickCount() - born;
 	}
+
 }

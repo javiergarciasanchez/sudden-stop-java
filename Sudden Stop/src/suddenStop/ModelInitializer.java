@@ -10,7 +10,7 @@
  * Set the package name.
  *
  */
-package Sudden_Stop;
+package suddenStop;
 
 /**
  *
@@ -35,29 +35,42 @@ import javax.swing.*;
  */
 public class ModelInitializer {
 
-	
 	@ScheduledMethod(start = 0d, shuffle = true)
 	public static void initializeModel() {
 
-
-		if (checkParam()){
+		if (checkParam()) {
 			@SuppressWarnings("unchecked")
-			Context<Object> context = FindContext("Sudden Stop");
+			Context<Object> context = FindContext("suddenStop");
 
 			// Previous supply manager should be eliminated
-			IndexedIterable<Object> tmpSuppManList = context.getObjects(SupplyManager.class);
-			if (tmpSuppManList.size()== 1){
+			IndexedIterable<Object> tmpSuppManList = context
+					.getObjects(SupplyManager.class);
+			if (tmpSuppManList.size() == 1) {
 				context.remove(tmpSuppManList.get(0));
 			}
 
-			new SupplyManager(context);
+			SupplyManager sm = new SupplyManager(context);
+
+			/*
+			 * In Batch run, creates the DataCollector if it doesn't exist and
+			 * sets the link to the new supplyManager in it
+			 */
+			if (RunEnvironment.getInstance().isBatch()) {
+				DataCollector dc;
+				IndexedIterable<Object> dataColls = context.getObjects(DataCollector.class);
+				if (dataColls.size()==0) {
+					dc = new DataCollector(context);
+				} else {
+					dc = (DataCollector) dataColls.get(0);
+				}
+				dc.suppMan = sm;
+			}
+
 			RunEnvironment.getInstance().endAt((Double) GetParameter("stopAt"));
-			
-		} else {			
+
+		} else {
 			EndSimulationRun();
 		}
-			
-	
 
 	}
 

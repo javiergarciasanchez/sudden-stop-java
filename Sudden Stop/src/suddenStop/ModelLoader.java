@@ -1,4 +1,4 @@
-package Sudden_Stop;
+package suddenStop;
 
 import static repast.simphony.random.RandomHelper.*;
 import static repast.simphony.essentials.RepastEssentials.*;
@@ -20,8 +20,8 @@ public class ModelLoader extends DefaultContext<Object> implements
 		if (seed != null)
 			setSeed(seed);
 
-		context.setId("Sudden_Stop");
-
+		context.setId("suddenStop");
+		
 		return context;
 		
 	}
