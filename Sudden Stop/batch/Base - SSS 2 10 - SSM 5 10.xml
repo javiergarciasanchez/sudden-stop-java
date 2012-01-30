@@ -25,6 +25,8 @@
 <parameter name="rDEfficiencyMean" type="constant" constant_type="number" value="0.9" />
 <parameter name="rDEfficiencyStdDev" type="constant" constant_type="number" value="0.1" />
 <parameter name="simDescription" type="constant" constant_type="string" value="Base Scenario" />
+<parameter name="SQLServer" type="constant" constant_type="string" value="localhost" />
+<parameter name="database" type="constant" constant_type="string" value="Simulations" />
 <parameter name="stopAt" type="constant" constant_type="number" value="50.0" />
 <parameter name="suddenStopDuration" type="constant" constant_type="number" value="1" />
 <parameter name="supplyElasticity" type="constant" constant_type="number" value="2.0" />

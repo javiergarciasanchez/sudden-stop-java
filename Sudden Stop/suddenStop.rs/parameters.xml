@@ -6,16 +6,16 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
-				<parameter name="maxExternalFunding" displayName="Max External Funding" type="double" 
-						defaultValue="0.3" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-									
-		/>
 				<parameter name="randomSeed" displayName="Default Random Seed" type="int" 
 						defaultValue="__NULL__"
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="maxExternalFunding" displayName="Max External Funding" type="double" 
+						defaultValue="0.3" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
 				<parameter name="priceOfSubstitute" displayName="Price Of Substitute" type="double" 
@@ -108,6 +108,18 @@
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
+						<parameter name="SQLServer" displayName="SQL Server" type="java.lang.String" 
+						defaultValue="localhost" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
+				<parameter name="database" displayName="Database Name" type="java.lang.String" 
+						defaultValue="Simulations" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>		
 				<parameter name="costOfCapital" displayName="Cost Of Capital" type="double" 
 						defaultValue="0.15" 
 						isReadOnly="false" 
