@@ -1,16 +1,16 @@
 <repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
-  <name>Price Cost</name>
+  <name>Price - Cost</name>
   <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
   <dataSetHandler>
     <dataSets>
-      <string>Firms Aggregate</string>
+      <string>Agregate Firms</string>
     </dataSets>
   </dataSetHandler>
   <streamHandler>
     <columns/>
   </streamHandler>
   <isBatchAction>false</isBatchAction>
-  <dataSetId class="string">Firms Aggregate</dataSetId>
+  <dataSetId class="string">Agregate Firms</dataSetId>
   <showLegend>true</showLegend>
   <multipleSeries>false</multipleSeries>
   <xColumnName>Tick</xColumnName>
@@ -27,33 +27,27 @@
   <seriesType>LINE</seriesType>
   <series>
     <repast.simphony.chart.Series>
-      <seriesID>CurrPrice</seriesID>
+      <seriesID>Med Cost Mean</seriesID>
+      <valueColumn>Med Cost Mean</valueColumn>
+      <hashCode>-946129919</hashCode>
+      <proxy>false</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Med Cost Max</seriesID>
+      <valueColumn>Med Cost Max</valueColumn>
+      <hashCode>1632066215</hashCode>
+      <proxy>false</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Med Cost Min</seriesID>
+      <valueColumn>Med Cost Min</valueColumn>
+      <hashCode>1632075259</hashCode>
+      <proxy>false</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Price</seriesID>
       <valueColumn>Price</valueColumn>
-      <hashCode>-942067355</hashCode>
-      <proxy>false</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>Max MedCost</seriesID>
-      <valueColumn>Max Med Cost</valueColumn>
-      <hashCode>-1027684489</hashCode>
-      <proxy>false</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>Min MedCost</seriesID>
-      <valueColumn>Min Med Cost</valueColumn>
-      <hashCode>151539375</hashCode>
-      <proxy>false</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>Avg MedCost</seriesID>
-      <valueColumn>Avg Med Cost</valueColumn>
-      <hashCode>1315618991</hashCode>
-      <proxy>false</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>Avg VarCost</seriesID>
-      <valueColumn>Avg Var Cost</valueColumn>
-      <hashCode>689022683</hashCode>
+      <hashCode>-1354430721</hashCode>
       <proxy>false</proxy>
     </repast.simphony.chart.Series>
   </series>

@@ -1,6 +1,6 @@
 <repast.simphony.data.engine.DefaultDataGathererDescriptor>
-  <name>Firms Aggregate</name>
-  <dataSetId class="string">Firms Aggregate</dataSetId>
+  <name>Agregate Firms</name>
+  <dataSetId class="string">Agregate Firms</dataSetId>
   <scheduleParameters>
     <start>1.0</start>
     <interval>1.0</interval>
@@ -15,301 +15,7 @@
   <aggregateContainer class="repast.simphony.data.logging.gather.DefaultAggregateDataMappingContainer">
     <nameMappingTable>
       <entry>
-        <string>Tick</string>
-        <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
-      </entry>
-      <entry>
-        <string>Max Med Cost</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getMedCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Min Profit</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>Profit</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Max AcumProfit</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getAcumProfit</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Run Number</string>
-        <repast.simphony.data.logging.gather.RunNumberMapping/>
-      </entry>
-      <entry>
-        <string>Avg MktShare</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>marketShare</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
-      </entry>
-      <entry>
-        <string>Min Quantity</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>quantity</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Min AcumProfit</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getAcumProfit</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Max FirstUnitCost</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getFirstUnitCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Avg FirstUnitCost</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getFirstUnitCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
-      </entry>
-      <entry>
-        <string>Min Med Cost</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getMedCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Min Var Cost</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getVarCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Max Quantity</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>quantity</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Max Performance</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>performance</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Avg AcumProfit</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getAcumProfit</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
-      </entry>
-      <entry>
-        <string>Max Var Cost</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getVarCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Min Performance</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>performance</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Max Profit</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>Profit</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Min MktShare</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>marketShare</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Herfindahl</string>
-        <repast.simphony.data.logging.gather.aggregate.SumsqMapping>
-          <type>Sumsq</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>marketShare</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.SumsqMapping>
-      </entry>
-      <entry>
-        <string>Min FirstUnitCost</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getFirstUnitCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Avg Performance</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>performance</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
-      </entry>
-      <entry>
-        <string>Avg Quantity</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>quantity</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
-      </entry>
-      <entry>
-        <string>Max MktShare</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>marketShare</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Avg Med Cost</string>
+        <string>Med Cost Mean</string>
         <repast.simphony.data.logging.gather.aggregate.MeanMapping>
           <type>Mean</type>
           <decorated class="repast.simphony.data.logging.gather.MethodMapping">
@@ -322,30 +28,17 @@
         </repast.simphony.data.logging.gather.aggregate.MeanMapping>
       </entry>
       <entry>
-        <string>Avg Var Cost</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
+        <string>Return Min</string>
+        <repast.simphony.data.logging.gather.aggregate.MinMapping>
+          <type>Min</type>
           <decorated class="repast.simphony.data.logging.gather.MethodMapping">
             <method>
               <class>suddenStop.Firm</class>
-              <name>getVarCost</name>
+              <name>getReturn</name>
               <parameter-types/>
             </method>
           </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
-      </entry>
-      <entry>
-        <string>Avg Profit</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>Profit</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
+        </repast.simphony.data.logging.gather.aggregate.MinMapping>
       </entry>
       <entry>
         <string>Price</string>
@@ -360,158 +53,95 @@
           </decorated>
         </repast.simphony.data.logging.gather.aggregate.MaxMapping>
       </entry>
-    </nameMappingTable>
-    <mappingNameTable>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[14]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Max Performance</string>
+        <string>Tick</string>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[21]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Min FirstUnitCost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Avg MktShare</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.SumsqMapping reference="../../../nameMappingTable/entry[20]/repast.simphony.data.logging.gather.aggregate.SumsqMapping"/>
-        <string>Herfindahl</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Min Quantity</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[24]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Max MktShare</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[23]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Avg Quantity</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>Profit</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
-        <string>Avg Profit</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[11]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Min Med Cost</string>
-      </entry>
-      <entry>
+        <string>Med Cost Min</string>
         <repast.simphony.data.logging.gather.aggregate.MinMapping>
           <type>Min</type>
           <decorated class="repast.simphony.data.logging.gather.MethodMapping">
             <method>
               <class>suddenStop.Firm</class>
-              <name>Profit</name>
+              <name>getMedCost</name>
               <parameter-types/>
             </method>
           </decorated>
         </repast.simphony.data.logging.gather.aggregate.MinMapping>
-        <string>Min Profit</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Min Profit</string>
-      </entry>
-      <entry>
+        <string>Return Max</string>
         <repast.simphony.data.logging.gather.aggregate.MaxMapping>
           <type>Max</type>
           <decorated class="repast.simphony.data.logging.gather.MethodMapping">
             <method>
               <class>suddenStop.Firm</class>
-              <name>Profit</name>
+              <name>getReturn</name>
               <parameter-types/>
             </method>
           </decorated>
         </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-        <string>Max Profit</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[13]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Max Quantity</string>
+        <string>Med Cost Max</string>
+        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
+          <type>Max</type>
+          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
+            <method>
+              <class>suddenStop.Firm</class>
+              <name>getMedCost</name>
+              <parameter-types/>
+            </method>
+          </decorated>
+        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[26]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Avg Var Cost</string>
+        <string>Return Mean</string>
+        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
+          <type>Mean</type>
+          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
+            <method>
+              <class>suddenStop.Firm</class>
+              <name>getReturn</name>
+              <parameter-types/>
+            </method>
+          </decorated>
+        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
+      </entry>
+    </nameMappingTable>
+    <mappingNameTable>
+      <entry>
+        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
+        <string>Med Cost Mean</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Max AcumProfit</string>
+        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[8]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
+        <string>Return Mean</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[19]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Min MktShare</string>
+        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
+        <string>Return Max</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[18]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Max Profit</string>
+        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
+        <string>Med Cost Max</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[27]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Avg Profit</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Max Med Cost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[28]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
+        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
         <string>Price</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
         <string>Tick</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[15]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Avg AcumProfit</string>
+        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
+        <string>Med Cost Min</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[10]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Avg FirstUnitCost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[16]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Max Var Cost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[25]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Avg Med Cost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.RunNumberMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.gather.RunNumberMapping"/>
-        <string>Run Number</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[9]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Max FirstUnitCost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[12]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Min Var Cost</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[22]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Avg Performance</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[17]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Min Performance</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[8]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Min AcumProfit</string>
+        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
+        <string>Return Min</string>
       </entry>
     </mappingNameTable>
     <alternatedNameTable/>

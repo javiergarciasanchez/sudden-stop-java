@@ -1,6 +1,6 @@
 <repast.simphony.data.engine.DefaultDataGathererDescriptor>
-  <name>Global</name>
-  <dataSetId class="string">Global</dataSetId>
+  <name>supplyManager</name>
+  <dataSetId class="string">supplyManager</dataSetId>
   <scheduleParameters>
     <start>1.0</start>
     <interval>1.0</interval>
@@ -9,100 +9,109 @@
     <frequency>REPEAT</frequency>
   </scheduleParameters>
   <dataMappingContainer class="repast.simphony.data.logging.gather.DefaultDataMappingContainer">
-    <nameMappingTable/>
-    <mappingNameTable/>
-  </dataMappingContainer>
-  <aggregateContainer class="repast.simphony.data.logging.gather.DefaultAggregateDataMappingContainer">
     <nameMappingTable>
+      <entry>
+        <string>TotalFirms</string>
+        <repast.simphony.data.logging.gather.MethodMapping>
+          <method>
+            <class>suddenStop.SupplyManager</class>
+            <name>getTotalFirms</name>
+            <parameter-types/>
+          </method>
+        </repast.simphony.data.logging.gather.MethodMapping>
+      </entry>
+      <entry>
+        <string>BornFirms</string>
+        <repast.simphony.data.logging.gather.MethodMapping>
+          <method>
+            <class>suddenStop.SupplyManager</class>
+            <name>getBornFirms</name>
+            <parameter-types/>
+          </method>
+        </repast.simphony.data.logging.gather.MethodMapping>
+      </entry>
+      <entry>
+        <string>Dead Label</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;Dead Firms&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
       <entry>
         <string>Tick</string>
         <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
       </entry>
       <entry>
-        <string>Total Firms</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.SupplyManager</class>
-              <name>getTotalFirms</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
+        <string>Born Label</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;Born Firms&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
       </entry>
       <entry>
-        <string>TotalQuantity</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.SupplyManager</class>
-              <name>getTotalQuantity</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
+        <string>Dead</string>
+        <repast.simphony.data.logging.gather.MethodMapping>
+          <method>
+            <class>suddenStop.SupplyManager</class>
+            <name>getDead</name>
+            <parameter-types/>
+          </method>
+        </repast.simphony.data.logging.gather.MethodMapping>
       </entry>
       <entry>
-        <string>Dead Firms</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.SupplyManager</class>
-              <name>getDead</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Run Number</string>
-        <repast.simphony.data.logging.gather.RunNumberMapping>
-          <runNumber>1</runNumber>
-        </repast.simphony.data.logging.gather.RunNumberMapping>
-      </entry>
-      <entry>
-        <string>Born Firms</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.SupplyManager</class>
-              <name>getBornFirms</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
+        <string>Total Label</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;Total Firms&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
       </entry>
     </nameMappingTable>
     <mappingNameTable>
       <entry>
-        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Dead Label</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Born Label</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>TotalFirms</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>BornFirms</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
         <string>Tick</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Total Firms</string>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
+        <string>Tick</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Dead Firms</string>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
+        <string>Tick</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>TotalQuantity</string>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>Dead</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Born Firms</string>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
+        <string>Tick</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.RunNumberMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.gather.RunNumberMapping"/>
-        <string>Run Number</string>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Total Label</string>
       </entry>
     </mappingNameTable>
+  </dataMappingContainer>
+  <aggregateContainer class="repast.simphony.data.logging.gather.DefaultAggregateDataMappingContainer">
+    <nameMappingTable/>
+    <mappingNameTable/>
     <alternatedNameTable/>
     <nameAlternatedTable/>
   </aggregateContainer>

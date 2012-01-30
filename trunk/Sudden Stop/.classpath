@@ -5,6 +5,5 @@
 	<classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
 	<classpathentry kind="con" path="REPAST_SIMPHONY_SUPPORT"/>
 	<classpathentry kind="lib" path="C:/Program Files/Microsoft SQL Server JDBC Driver 3.0/sqljdbc_3.0/enu/sqljdbc4.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/eclipse/plugins/repast.simphony.batch_2.0.0/bin"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
