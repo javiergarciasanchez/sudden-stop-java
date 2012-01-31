@@ -72,6 +72,12 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
+				<parameter name="SQLServer" displayName="SQL Server" type="java.lang.String" 
+						defaultValue="localhost" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
 				<parameter name="demandElasticity" displayName="Demand Elasticity" type="double" 
 						defaultValue="1.0" 
 						isReadOnly="false" 
@@ -108,18 +114,6 @@
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
-						<parameter name="SQLServer" displayName="SQL Server" type="java.lang.String" 
-						defaultValue="localhost" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
-									
-		/>
-				<parameter name="database" displayName="Database Name" type="java.lang.String" 
-						defaultValue="Simulations" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
-									
-		/>		
 				<parameter name="costOfCapital" displayName="Cost Of Capital" type="double" 
 						defaultValue="0.15" 
 						isReadOnly="false" 
@@ -136,6 +130,12 @@
 						defaultValue="2.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
+				<parameter name="database" displayName="Database Name" type="java.lang.String" 
+						defaultValue="Simulations" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
 				<parameter name="iniKMean" displayName="Ini K Mean" type="double" 
