@@ -36,7 +36,32 @@ public class Firm {
 		private double rDEfficiency = 0.0;
 		private double costOfCapital = 0.0;
 		private double fixedCost = 0.0;
-		private double acumProfit = 0.0;
+
+		private FirmState() {
+
+			born = GetTickCount();
+
+			// A minimum FUC is set to 10% of mean
+			firstUnitCost = max(
+					0.1 * (Double) GetParameter("firstUnitCostMean"),
+					supplyManager.firstUnitCostNormal.nextDouble());
+			capitalProductivity = (Double) GetParameter("capitalProductivity");
+
+			capital = max((Double) GetParameter("minimumCapital"),
+					supplyManager.iniKNormal.nextDouble());
+
+			// 0.5 < learning rate <= 1.0
+			double learningRate = min(1.0,
+					max(supplyManager.learningRateDistrib.nextDouble(), 0.51));
+			expon = log(learningRate) / log(2.0);
+			rDEfficiency = max(0.0,
+					supplyManager.rDEfficiencyNormal.nextDouble());
+
+			costOfCapital = (Double) GetParameter("costOfCapital");
+			fixedCost = (Double) GetParameter("fixedCost");
+			performance = (Double) GetParameter("initialPerformance");
+
+		}
 
 		@Override
 		protected FirmState clone() {
@@ -77,46 +102,36 @@ public class Firm {
 		context.add(this);
 
 		nextState = new FirmState();
-
-		nextState.born = GetTickCount();
-
-		// A minimum FUC is set to 10% of mean
-		nextState.firstUnitCost = max(
-				0.1 * (Double) GetParameter("firstUnitCostMean"),
-				supplyManager.firstUnitCostNormal.nextDouble());
-		nextState.capitalProductivity = (Double) GetParameter("capitalProductivity");
-
-		nextState.capital = max((Double) GetParameter("minimumCapital"),
-				supplyManager.iniKNormal.nextDouble());
-
-		// 0.5 < learning rate <= 1.0
-		double learningRate = min(1.0,
-				max(supplyManager.learningRateDistrib.nextDouble(), 0.51));
-		nextState.expon = log(learningRate) / log(2.0);
-		nextState.rDEfficiency = max(0.0,
-				supplyManager.rDEfficiencyNormal.nextDouble());
-
-		nextState.costOfCapital = (Double) GetParameter("costOfCapital");
-		nextState.fixedCost = (Double) GetParameter("fixedCost");
-		nextState.performance = (Double) GetParameter("initialPerformance");
-
 		currentState = nextState.clone();
-		
+
 		// Sets next decision
 		nextDecision = new Decision();
-
 		nextDecision.rD = 0.0;
 		nextDecision.quantity = nextState.capital
 				* nextState.capitalProductivity;
+		
+		currentDecision = nextDecision.clone();
 
+	}
+
+	/*
+	 * Estimates if nextDecision would be an exit given nextState and price
+	 * It works like ProcessResponseToDemand but without changing the current
+	 * situation
+	 */
+	public boolean estimateResponseToDemand(double price) {
+		
+		FirmState tmpSt = nextState.clone();
+	
+		tmpSt.performance = calcPerformance(tmpSt, nextDecision, price);
+		
+		return !isExit(tmpSt);
+		
 	}
 
 	public double offer() {
 
-		currentState = nextState.clone();
-		currentDecision = nextDecision.clone();
-
-		return currentDecision.quantity;
+		return nextDecision.quantity;
 
 	}
 
@@ -124,29 +139,28 @@ public class Firm {
 	 * 
 	 * Process demand respond and returns false if firm exits the industry,
 	 * otherwise returns true
+	 * @param price 
 	 * 
 	 * @method processDemandResponse
 	 * 
 	 */
-	public boolean processDemandResponse() {
+	public boolean processResponseToDemand(double price) {
+		
+		currentState = nextState.clone();
+		currentDecision = nextDecision.clone();
 
-		// Calculates profit & Performance
-		double profit = calcProfit(currentState, currentDecision,
-				supplyManager.price);
+		// Updates Performance
+		currentState.performance = calcPerformance(currentState,
+				currentDecision, price);
 
-		currentState.performance = (Double) GetParameter("performanceWeight")
-				* currentState.performance
-				+ (1 - (Double) GetParameter("performanceWeight")) * profit
-				/ currentState.capital;
-
-		// accumulates Q & profit
+		// accumulates Q
 		currentState.acumQ += currentDecision.quantity;
-		currentState.acumProfit += profit;
 
-		// if it is an exit, returns false
-		return !(currentState.performance < (Double) GetParameter("minimumPerformance") || currentState.capital < (Double) GetParameter("minimumCapital"));
+		// Returns true if it is not an exit
+		return !isExit(currentState);
 
 	}
+
 
 	public void plan() {
 
@@ -189,16 +203,9 @@ public class Firm {
 
 	}
 
-	/*
-	 * Estimates potential performance for next decision at given price
-	 */
-	public Double estimatePerformance(double price) {
+	public boolean isExit(FirmState st) {
 
-		return (Double) GetParameter("performanceWeight")
-				* currentState.performance
-				+ (1 - (Double) GetParameter("performanceWeight"))
-				* calcProfit(nextState, nextDecision, price)
-				/ nextState.capital;
+		return ((st.performance < (Double) GetParameter("minimumPerformance")) || (st.capital < (Double) GetParameter("minimumCapital")));
 
 	}
 
@@ -207,6 +214,13 @@ public class Firm {
 		return price * dec.quantity - calcTotVarCost(state, dec)
 				- calcFixedCost(state, dec);
 
+	}
+
+	private double calcPerformance(FirmState st, Decision dec, double price) {
+
+		return (Double) GetParameter("performanceWeight") * st.performance
+				+ (1 - (Double) GetParameter("performanceWeight"))
+				* calcProfit(st, dec, price) / st.capital;
 	}
 
 	// Calculates cost using learning curve: cost of new acummulated Q minus
@@ -311,9 +325,4 @@ public class Firm {
 	public double getExpon() {
 		return currentState.expon;
 	}
-
-	public double getAcumProfit() {
-		return currentState.acumProfit;
-	}
-
 }
