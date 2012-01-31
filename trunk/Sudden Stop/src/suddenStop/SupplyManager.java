@@ -94,7 +94,7 @@ public class SupplyManager {
 			tmpFirm = new Firm(context);
 
 			// Destroy if not profitable
-			if (tmpFirm.estimatePerformance(price) <= (Double) GetParameter("minimumPerformance")) {
+			if (!tmpFirm.estimateResponseToDemand(price)) {
 				RemoveAgentFromModel(tmpFirm);
 			} else {
 				bornFirms++;
@@ -127,7 +127,7 @@ public class SupplyManager {
 		for (Object f : context.getObjects(Firm.class)) {
 
 			// Process Demand Response
-			if (!((Firm) f).processDemandResponse()) {
+			if (!((Firm) f).processResponseToDemand(price)) {
 				toKill.add((Firm) f);
 			}
 
