@@ -6,14 +6,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunInfo;
 import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.util.collections.IndexedIterable;
-import suddenStop.Firm.Decision;
-import suddenStop.Firm.State;
 import static repast.simphony.engine.schedule.ScheduleParameters.*;
 
 public class DataCollector {
@@ -84,13 +81,11 @@ public class DataCollector {
 
 	private void saveFirmData(int run, double tick, Firm f) {
 
-		State cs = f.currentState;
-		Decision cd = f.currentDecision;
 
 		String sqlStr = "INSERT INTO [Individual Firms] ("
 				+ "Simulation, [Run Number], Tick, [Firm ID], "
 				+ "Profit, quantity, rD, FirstUnitCost, "
-				+ "Born, Expon, VarCost, MedCost) VALUES ("
+				+ "Born, Expon, MedCost) VALUES ("
 
 				+ simID
 				+ ", "
@@ -101,23 +96,21 @@ public class DataCollector {
 				+ "'"
 				+ f.toString()
 				+ "', "
+				
+				+ f.getProfit()
+				+ ", "
+				+ f.getQuantity()
+				+ ", "
+				+ f.getRD()
+				+ ", "
+				+ f.getFirstUnitCost()
+				+ ", "
 
-				+ cs.profit
+				+ f.getBorn()
 				+ ", "
-				+ cd.quantity
+				+ f.getExpon()
 				+ ", "
-				+ cd.rD
-				+ ", "
-				+ cs.firstUnitCost
-				+ ", "
-
-				+ f.born
-				+ ", "
-				+ f.expon
-				+ ", "
-				+ f.varCost
-				+ ", "
-				+ f.medCost
+				+ f.getMedCost()
 				+ " )";
 
 		Statement stmt = null;

@@ -65,26 +65,36 @@ public class SupplyManager {
 
 	}
 
+	@ScheduledMethod(start = 1d, pick = 9223372036854775807l, interval = 1d, shuffle = true)
+	public void step() {
+	
+		// Manage Entry
+		double potentialEntrants = entrantsNormal.nextDouble();
+		if (potentialEntrants > 0)
+			entry((int) round(potentialEntrants));
+	
+		processOffers();
+	
+		// Planning
+		IndexedIterable<Object> firms = context.getObjects(Firm.class);
+		for (Object f : firms)
+			((Firm) f).plan();
+	
+	}
+
 	private void entry(int potentialEntrants) {
 
 		// Check different types of Entry
 		Firm tmpFirm;
-		double tmpPerformance;
 		bornFirms = 0;
 
 		// This is a loop.
 		for (int j = 1; j <= potentialEntrants; j++) {
 
-			// Destroy if not profitable
 			tmpFirm = new Firm(context);
 
-			tmpPerformance = (Double) GetParameter("performanceWeight")
-					* (Double) GetParameter("initialPerformance")
-					+ (1 - (Double) GetParameter("performanceWeight"))
-					* tmpFirm.profit(tmpFirm.currentState,
-							tmpFirm.nextDecision, price)
-					/ tmpFirm.currentState.capital;
-			if (tmpPerformance <= (Double) GetParameter("minimumPerformance")) {
+			// Destroy if not profitable
+			if (tmpFirm.estimatePerformance(price) <= (Double) GetParameter("minimumPerformance")) {
 				RemoveAgentFromModel(tmpFirm);
 			} else {
 				bornFirms++;
@@ -138,31 +148,12 @@ public class SupplyManager {
 		} else {
 			double tmpQ = 0.0;
 			for (Object f : firms) {
-				tmpQ += ((Firm) f).currentDecision.quantity;
+				tmpQ += ((Firm) f).getQuantity();
 			}
 			totalQuantity = tmpQ;
 		}
 
 	}
-
-	@ScheduledMethod(start = 1d, pick = 9223372036854775807l, interval = 1d, shuffle = true)
-	public void step() {
-
-		// Manage Entry
-		double potentialEntrants = entrantsNormal.nextDouble();
-		if (potentialEntrants > 0)
-			entry((int) round(potentialEntrants));
-
-		processOffers();
-
-		// Planning
-		IndexedIterable<Object> firms = context.getObjects(Firm.class);
-		for (Object f : firms)
-			((Firm) f).plan();
-
-	}
-
-
 
 	public String toString() {
 

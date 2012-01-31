@@ -1,25 +1,25 @@
 <repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
-  <name>Firms</name>
+  <name>Individual Quantities</name>
   <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
   <dataSetHandler>
     <dataSets>
-      <string>supplyManager</string>
+      <string>Individual Firms</string>
     </dataSets>
   </dataSetHandler>
   <streamHandler>
     <columns/>
   </streamHandler>
   <isBatchAction>false</isBatchAction>
-  <dataSetId class="string">supplyManager</dataSetId>
-  <showLegend>true</showLegend>
+  <dataSetId class="string">Individual Firms</dataSetId>
+  <showLegend>false</showLegend>
   <multipleSeries>false</multipleSeries>
   <xColumnName>Tick</xColumnName>
-  <autoRangeX>false</autoRangeX>
+  <autoRangeX>true</autoRangeX>
   <autoRangeY>true</autoRangeY>
-  <visibleXRange>0.0</visibleXRange>
+  <visibleXRange>50.0</visibleXRange>
   <visibleYRange>0.0</visibleYRange>
   <xMin>0.0</xMin>
-  <xMax>50.0</xMax>
+  <xMax>0.0</xMax>
   <yMin>0.0</yMin>
   <yMax>0.0</yMax>
   <precisionValue>3</precisionValue>
@@ -27,21 +27,9 @@
   <seriesType>LINE</seriesType>
   <series>
     <repast.simphony.chart.Series>
-      <seriesID>Born Label</seriesID>
-      <valueColumn>BornFirms</valueColumn>
-      <hashCode>-1690661018</hashCode>
-      <proxy>false</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>Total Label</seriesID>
-      <valueColumn>TotalFirms</valueColumn>
-      <hashCode>1826894162</hashCode>
-      <proxy>false</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>Dead Label</seriesID>
-      <valueColumn>Dead</valueColumn>
-      <hashCode>-1441139835</hashCode>
+      <seriesID>toString</seriesID>
+      <valueColumn>Quantity</valueColumn>
+      <hashCode>1753025840</hashCode>
       <proxy>false</proxy>
     </repast.simphony.chart.Series>
   </series>
