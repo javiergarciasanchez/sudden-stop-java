@@ -1,6 +1,6 @@
 <repast.simphony.data.engine.DefaultDataGathererDescriptor>
-  <name>Agregate Firms</name>
-  <dataSetId class="string">Agregate Firms</dataSetId>
+  <name>Individual Firms</name>
+  <dataSetId class="string">Individual Firms</dataSetId>
   <scheduleParameters>
     <start>1.0</start>
     <interval>1.0</interval>
@@ -9,180 +9,114 @@
     <frequency>REPEAT</frequency>
   </scheduleParameters>
   <dataMappingContainer class="repast.simphony.data.logging.gather.DefaultDataMappingContainer">
-    <nameMappingTable/>
-    <mappingNameTable/>
-  </dataMappingContainer>
-  <aggregateContainer class="repast.simphony.data.logging.gather.DefaultAggregateDataMappingContainer">
     <nameMappingTable>
-      <entry>
-        <string>Med Cost Min</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getMedCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Return Max MODIF</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getMedCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Price</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getPrice</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Return Min MODIF</string>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping>
-          <type>Min</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getMedCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MinMapping>
-      </entry>
-      <entry>
-        <string>Med Cost Max</string>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping>
-          <type>Max</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getMedCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MaxMapping>
-      </entry>
-      <entry>
-        <string>Return Mean</string>
-        <repast.simphony.data.logging.formula.FormulaMapping>
-          <evaluator>
-            <formula>mean(getProfit()/getCapital());</formula>
-            <agentClasses>
-              <java-class>suddenStop.Firm</java-class>
-            </agentClasses>
-          </evaluator>
-          <tmpList/>
-          <rep>Aggregate Formula: mean(getProfit()/getCapital());</rep>
-        </repast.simphony.data.logging.formula.FormulaMapping>
-      </entry>
-      <entry>
-        <string>Return Min</string>
-        <repast.simphony.data.logging.formula.FormulaMapping>
-          <evaluator>
-            <formula>min(getProfit()/getCapital());</formula>
-            <agentClasses>
-              <java-class>suddenStop.Firm</java-class>
-            </agentClasses>
-          </evaluator>
-          <tmpList/>
-          <rep>Aggregate Formula: min(getProfit()/getCapital());</rep>
-        </repast.simphony.data.logging.formula.FormulaMapping>
-      </entry>
-      <entry>
-        <string>Return Mean Modif</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getMedCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
-      </entry>
       <entry>
         <string>Tick</string>
         <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
       </entry>
       <entry>
-        <string>Return Max</string>
-        <repast.simphony.data.logging.formula.FormulaMapping>
-          <evaluator>
-            <formula>max(getProfit()/getCapital());</formula>
-            <agentClasses>
-              <java-class>suddenStop.Firm</java-class>
-            </agentClasses>
-          </evaluator>
-          <tmpList/>
-          <rep>Aggregate Formula: max(getProfit()/getCapital());</rep>
-        </repast.simphony.data.logging.formula.FormulaMapping>
+        <string>ROE</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getProfit()/(agent.get(&quot;capital&quot;)-agent.get(&quot;debt&quot;));</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
       </entry>
       <entry>
-        <string>Med Cost Mean</string>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping>
-          <type>Mean</type>
-          <decorated class="repast.simphony.data.logging.gather.MethodMapping">
-            <method>
-              <class>suddenStop.Firm</class>
-              <name>getMedCost</name>
-              <parameter-types/>
-            </method>
-          </decorated>
-        </repast.simphony.data.logging.gather.aggregate.MeanMapping>
+        <string>ROA</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getEBIT()/agent.get(&quot;capital&quot;);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>RD</string>
+        <repast.simphony.data.logging.gather.MethodMapping>
+          <method>
+            <class>suddenStop.Firm</class>
+            <name>getRD</name>
+            <parameter-types/>
+          </method>
+        </repast.simphony.data.logging.gather.MethodMapping>
+      </entry>
+      <entry>
+        <string>toString</string>
+        <repast.simphony.data.logging.gather.MethodMapping>
+          <method>
+            <class>suddenStop.Firm</class>
+            <name>toString</name>
+            <parameter-types/>
+          </method>
+        </repast.simphony.data.logging.gather.MethodMapping>
+      </entry>
+      <entry>
+        <string>Quantity</string>
+        <repast.simphony.data.logging.gather.MethodMapping>
+          <method>
+            <class>suddenStop.Firm</class>
+            <name>getQuantity</name>
+            <parameter-types/>
+          </method>
+        </repast.simphony.data.logging.gather.MethodMapping>
+      </entry>
+      <entry>
+        <string>Age</string>
+        <repast.simphony.data.logging.gather.MethodMapping>
+          <method>
+            <class>suddenStop.Firm</class>
+            <name>getAge</name>
+            <parameter-types/>
+          </method>
+        </repast.simphony.data.logging.gather.MethodMapping>
+      </entry>
+      <entry>
+        <string>FirstUnitCost</string>
+        <repast.simphony.data.logging.gather.MethodMapping>
+          <method>
+            <class>suddenStop.Firm</class>
+            <name>getFirstUnitCost</name>
+            <parameter-types/>
+          </method>
+        </repast.simphony.data.logging.gather.MethodMapping>
       </entry>
     </nameMappingTable>
     <mappingNameTable>
       <entry>
-        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry[9]/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[8]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>FirstUnitCost</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>Quantity</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>Age</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>RD</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROA</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
         <string>Tick</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Med Cost Max</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MeanMapping reference="../../../nameMappingTable/entry[11]/repast.simphony.data.logging.gather.aggregate.MeanMapping"/>
-        <string>Med Cost Mean</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.formula.FormulaMapping"/>
-        <string>Return Mean</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[10]/repast.simphony.data.logging.formula.FormulaMapping"/>
-        <string>Return Max</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MinMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.aggregate.MinMapping"/>
-        <string>Med Cost Min</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.gather.aggregate.MaxMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.gather.aggregate.MaxMapping"/>
-        <string>Price</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.formula.FormulaMapping"/>
-        <string>Return Min</string>
+        <repast.simphony.data.logging.gather.MethodMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.gather.MethodMapping"/>
+        <string>toString</string>
       </entry>
     </mappingNameTable>
+  </dataMappingContainer>
+  <aggregateContainer class="repast.simphony.data.logging.gather.DefaultAggregateDataMappingContainer">
+    <nameMappingTable/>
+    <mappingNameTable/>
     <alternatedNameTable/>
     <nameAlternatedTable/>
   </aggregateContainer>

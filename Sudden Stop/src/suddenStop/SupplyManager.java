@@ -15,18 +15,24 @@ import static repast.simphony.essentials.RepastEssentials.*;
 public class SupplyManager {
 
 	private Context<Object> context;
+	private IndependentVarsManager independentVarsManager;
 
-	public SupplyManager(Context<Object> context) {
+	public Normal iniKNormal = null;
+	public Beta learningRateDistrib = null;
+	public Normal entrantsNormal = null;
+	public Normal rDEfficiencyNormal = null;
+	public Normal innovationErrorNormal = null;
+	public Normal firstUnitCostNormal = null;
+	public Normal leverageNormal = null;
+
+	public SupplyManager(Context<Object> context, IndependentVarsManager independentVarsManager) {
 
 		this.context = context;
+		this.independentVarsManager = independentVarsManager;
 		context.add(this);
 
 		price = (Double) GetParameter("priceOfSubstitute");
 
-		rDEfficiencyNormal = RandomHelper.createNormal(
-				(Double) GetParameter("rDEfficiencyMean"),
-				(Double) GetParameter("rDEfficiencyStdDev")
-						* (Double) GetParameter("rDEfficiencyMean"));
 		iniKNormal = RandomHelper.createNormal(
 				(Double) GetParameter("iniKMean"),
 				(Double) GetParameter("iniKStdDev")
@@ -35,13 +41,26 @@ public class SupplyManager {
 				(Double) GetParameter("entrantsMean"),
 				(Double) GetParameter("entrantsStdDev")
 						* (Double) GetParameter("entrantsMean"));
+		
 		innovationErrorNormal = RandomHelper.createNormal(1.0,
 				(Double) GetParameter("innovationErrorStdDev"));
-		firstUnitCostNormal = RandomHelper.createNormal(
-				(Double) GetParameter("firstUnitCostMean"),
-				(Double) GetParameter("firstUnitCostStdDev")
-						* (Double) GetParameter("firstUnitCostMean"));
+		
 
+		double rDEfMean = (Double) GetParameter("rDEfficiencyMean");
+		double rDEfStdDev = (Double) GetParameter("rDEfficiencyStdDev")
+				* rDEfMean;
+		rDEfficiencyNormal = RandomHelper.createNormal(rDEfMean, rDEfStdDev);
+
+		double fUCMean = (Double) GetParameter("firstUnitCostMean");
+		double fUCStdDev = (Double) GetParameter("firstUnitCostStdDev")
+				* fUCMean;
+		firstUnitCostNormal = RandomHelper.createNormal(fUCMean, fUCStdDev);
+
+		double levMean = (Double) GetParameter("leverageMean");
+		double levStdDev = (Double) GetParameter("leverageStdDev")
+				* levMean;
+		leverageNormal = RandomHelper.createNormal(levMean, levStdDev);
+		
 		/*
 		 * If the learning rate variance is too big for the mean, it is set to
 		 * the minimum value
@@ -61,37 +80,78 @@ public class SupplyManager {
 				* ((lRMean - 0.5) * (1 - lRMean) - lRVar);
 		learningRateDistrib = RandomHelper.createBeta(alfa, beta);
 
+		IndepVarsDistribParams params = new IndepVarsDistribParams();
+		params.fUCParams[0] = fUCMean;
+		params.fUCParams[1] = fUCStdDev;
+		params.rDEfParams[0] = rDEfMean;
+		params.rDEfParams[1] = rDEfStdDev;
+		params.lRParams[0] = alfa;
+		params.lRParams[1] = beta;
+		independentVarsManager.setCohortLimits(params);
+
 		Firm.supplyManager = this;
 
 	}
 
-	@ScheduledMethod(start = 1d, pick = 9223372036854775807l, interval = 1d, shuffle = true)
+	@ScheduledMethod(start = 1d, interval = 1d)
 	public void step() {
-	
+
 		// Manage Entry
 		double potentialEntrants = entrantsNormal.nextDouble();
 		if (potentialEntrants > 0)
 			entry((int) round(potentialEntrants));
-	
+
 		processOffers();
-	
+
 		// Planning
 		IndexedIterable<Object> firms = context.getObjects(Firm.class);
 		for (Object f : firms)
 			((Firm) f).plan();
-	
+
+		// Collect data per Cohort
+		independentVarsManager.collectPerCohort();
+
 	}
 
-	private void entry(int potentialEntrants) {
 
-		// Check different types of Entry
-		Firm tmpFirm;
+	private void entry(int potEnt) {
 		bornFirms = 0;
 
-		// This is a loop.
-		for (int j = 1; j <= potentialEntrants; j++) {
+		double entAlone = potEnt * (Double) GetParameter("alonePerc");
+		double entDebt = potEnt * (Double) GetParameter("debtPerc");
+		double entEquity = potEnt - entAlone - entDebt;
 
-			tmpFirm = new Firm(context);
+		try {
+			entry(Class.forName("suddenStop.AloneFirm"), entAlone);
+			entry(Class.forName("suddenStop.DebtFirm"), entDebt);
+			entry(Class.forName("suddenStop.EquityFirm"), entEquity);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void entry(Class<?> firmClass, double pot) {
+
+		Firm tmpFirm = null;
+
+		for (int j = 1; j <= pot; j++) {
+
+			Class<?> c = null;
+			try {
+				c = Class.forName("repast.simphony.context.Context");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			Class<?>[] args = { c };
+
+			try {
+				tmpFirm = (Firm) firmClass.getConstructor(args).newInstance(
+						context);
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
 
 			// Destroy if not profitable
 			if (!tmpFirm.estimateResponseToDemand(price)) {
@@ -245,16 +305,5 @@ public class SupplyManager {
 
 	public double totalFBeforeExit = 1.0;
 
-	public Normal iniKNormal = null;
-
-	public Beta learningRateDistrib = null;
-
-	public Normal entrantsNormal = null;
-
-	public Normal rDEfficiencyNormal = null;
-
-	public Normal innovationErrorNormal = null;
-
-	public Normal firstUnitCostNormal = null;
 
 }

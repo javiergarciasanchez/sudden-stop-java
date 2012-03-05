@@ -1,0 +1,168 @@
+<repast.simphony.data.engine.DefaultDataGathererDescriptor>
+  <name>Firms per Type</name>
+  <dataSetId class="string">Firms per Type</dataSetId>
+  <scheduleParameters>
+    <start>1.0</start>
+    <interval>1.0</interval>
+    <priority>-Infinity</priority>
+    <duration>-1.0</duration>
+    <frequency>REPEAT</frequency>
+  </scheduleParameters>
+  <dataMappingContainer class="repast.simphony.data.logging.gather.DefaultDataMappingContainer">
+    <nameMappingTable/>
+    <mappingNameTable/>
+  </dataMappingContainer>
+  <aggregateContainer class="repast.simphony.data.logging.gather.DefaultAggregateDataMappingContainer">
+    <nameMappingTable>
+      <entry>
+        <string>Capital-EquityF</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum((getTypeNum()==2)*getCapital())/sum(getTypeNum()==2);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum((getTypeNum()==2)*getCapital())/sum(getTypeNum()==2);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>Capital-DebtF</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum((getTypeNum()==1)*getCapital())/sum(getTypeNum()==1);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum((getTypeNum()==1)*getCapital())/sum(getTypeNum()==1);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>#Debt</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getTypeNum()==1);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getTypeNum()==1);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>Debt-DebtF</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum((getTypeNum()==1)*getDebt())/sum(getTypeNum()==1);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum((getTypeNum()==1)*getDebt())/sum(getTypeNum()==1);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>#Alone</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getTypeNum()==0);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getTypeNum()==0);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>Debt-EquityF</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum((getTypeNum()==2)*getDebt())/sum(getTypeNum()==2);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum((getTypeNum()==2)*getDebt())/sum(getTypeNum()==2);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>Capital-AloneF</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum((getTypeNum()==0) * getCapital())/sum(getTypeNum()==0);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum((getTypeNum()==0) * getCapital())/sum(getTypeNum()==0);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>Tick</string>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
+      </entry>
+      <entry>
+        <string>#Equity</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getTypeNum()==2);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getTypeNum()==2);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+    </nameMappingTable>
+    <mappingNameTable>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>#Alone</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry[8]/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
+        <string>Tick</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>Capital-AloneF</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>#Debt</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>Debt-EquityF</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>Capital-EquityF</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[9]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>#Equity</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>Debt-DebtF</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>Capital-DebtF</string>
+      </entry>
+    </mappingNameTable>
+    <alternatedNameTable/>
+    <nameAlternatedTable/>
+  </aggregateContainer>
+  <agentClass>suddenStop.Firm</agentClass>
+</repast.simphony.data.engine.DefaultDataGathererDescriptor>

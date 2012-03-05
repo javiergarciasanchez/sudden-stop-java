@@ -12,14 +12,14 @@
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
 		/>
-				<parameter name="maxExternalFunding" displayName="Max External Funding" type="double" 
-						defaultValue="0.3" 
+				<parameter name="priceOfSubstitute" displayName="Price Of Substitute" type="double" 
+						defaultValue="3.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
-				<parameter name="priceOfSubstitute" displayName="Price Of Substitute" type="double" 
-						defaultValue="3.0" 
+				<parameter name="leverageMean" displayName="Target Leverage Mean" type="double" 
+						defaultValue="0.4" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -38,6 +38,12 @@
 		/>
 				<parameter name="rDEfficiencyMean" displayName="RD Efficiency Mean" type="double" 
 						defaultValue="0.9" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
+				<parameter name="alonePerc" displayName="Alone Firms %" type="double" 
+						defaultValue="0.33" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -66,6 +72,18 @@
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
 		/>
+				<parameter name="costOfEquity" displayName="Cost Of Equity" type="double" 
+						defaultValue="0.15" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
+				<parameter name="maxLeverage" displayName="Max Leverage" type="double" 
+						defaultValue="0.8" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
 				<parameter name="minimumPerformance" displayName="Minimum Performance" type="double" 
 						defaultValue="0.0" 
 						isReadOnly="false" 
@@ -78,8 +96,20 @@
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
+				<parameter name="cohorts" displayName="Cohorts" type="int" 
+						defaultValue="3" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
 				<parameter name="demandElasticity" displayName="Demand Elasticity" type="double" 
 						defaultValue="1.0" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
+				<parameter name="leverageStdDev" displayName="Target Leverage Std Dev" type="double" 
+						defaultValue="0.1" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -114,8 +144,8 @@
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
-				<parameter name="costOfCapital" displayName="Cost Of Capital" type="double" 
-						defaultValue="0.15" 
+				<parameter name="firstUnitCostMean" displayName="First Unit Cost Mean" type="double" 
+						defaultValue="2.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -126,8 +156,14 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
-				<parameter name="firstUnitCostMean" displayName="First Unit Cost Mean" type="double" 
-						defaultValue="2.0" 
+				<parameter name="debtPerc" displayName="Debt Firms %" type="double" 
+						defaultValue="0.33" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
+				<parameter name="costOfDebt" displayName="Cost Of Debt" type="double" 
+						defaultValue="0.8" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -151,7 +187,7 @@
 									
 		/>
 				<parameter name="entrantsMean" displayName="Entrants Mean" type="double" 
-						defaultValue="40.0" 
+						defaultValue="10.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									

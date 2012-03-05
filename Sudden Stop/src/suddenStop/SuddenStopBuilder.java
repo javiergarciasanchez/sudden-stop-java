@@ -30,7 +30,8 @@ public class SuddenStopBuilder extends DefaultContext<Object> implements
 
 		if (checkParam()) {
 
-			SupplyManager sm = new SupplyManager(context);
+			IndependentVarsManager ivm = new IndependentVarsManager(context);
+			SupplyManager sm = new SupplyManager(context,ivm);
 
 			if (RunEnvironment.getInstance().isBatch()) {
 
@@ -54,7 +55,7 @@ public class SuddenStopBuilder extends DefaultContext<Object> implements
 					
 				}
 
-				new DataCollector(con, simID, context, sm);
+				new SQLDataCollector(con, simID, context, sm);
 
 				saveRunParams();
 

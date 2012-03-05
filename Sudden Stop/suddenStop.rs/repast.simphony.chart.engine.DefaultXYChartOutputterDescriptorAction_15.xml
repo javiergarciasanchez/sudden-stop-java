@@ -1,16 +1,16 @@
 <repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
-  <name>Firms</name>
+  <name>Capital Structure per Type</name>
   <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
   <dataSetHandler>
     <dataSets>
-      <string>supplyManager</string>
+      <string>Firms per Type</string>
     </dataSets>
   </dataSetHandler>
   <streamHandler>
     <columns/>
   </streamHandler>
   <isBatchAction>false</isBatchAction>
-  <dataSetId class="string">supplyManager</dataSetId>
+  <dataSetId class="string">Firms per Type</dataSetId>
   <showLegend>true</showLegend>
   <multipleSeries>false</multipleSeries>
   <xColumnName>Tick</xColumnName>
@@ -27,22 +27,34 @@
   <seriesType>LINE</seriesType>
   <series>
     <repast.simphony.chart.Series>
-      <seriesID>Born Label</seriesID>
-      <valueColumn>BornFirms</valueColumn>
-      <hashCode>-1690661018</hashCode>
-      <proxy>false</proxy>
+      <seriesID>Capital-DebtF</seriesID>
+      <valueColumn>Capital-DebtF</valueColumn>
+      <hashCode>1516105661</hashCode>
+      <proxy>true</proxy>
     </repast.simphony.chart.Series>
     <repast.simphony.chart.Series>
-      <seriesID>Dead Label</seriesID>
-      <valueColumn>Dead</valueColumn>
-      <hashCode>-1441139835</hashCode>
-      <proxy>false</proxy>
+      <seriesID>Capital-AloneF</seriesID>
+      <valueColumn>Capital-AloneF</valueColumn>
+      <hashCode>1045374537</hashCode>
+      <proxy>true</proxy>
     </repast.simphony.chart.Series>
     <repast.simphony.chart.Series>
-      <seriesID>Total Label</seriesID>
-      <valueColumn>TotalFirms</valueColumn>
-      <hashCode>1826894162</hashCode>
-      <proxy>false</proxy>
+      <seriesID>Debt-EquityF</seriesID>
+      <valueColumn>Debt-EquityF</valueColumn>
+      <hashCode>-936818381</hashCode>
+      <proxy>true</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Capital-EquityF</seriesID>
+      <valueColumn>Capital-EquityF</valueColumn>
+      <hashCode>1152831825</hashCode>
+      <proxy>true</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Debt-DebtF</seriesID>
+      <valueColumn>Debt-DebtF</valueColumn>
+      <hashCode>-1770981345</hashCode>
+      <proxy>true</proxy>
     </repast.simphony.chart.Series>
   </series>
 </repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
