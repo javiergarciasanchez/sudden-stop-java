@@ -1,0 +1,177 @@
+<repast.simphony.data.engine.DefaultDataGathererDescriptor>
+  <name>Per FUC Cohort</name>
+  <dataSetId class="string">Per FUC Cohort</dataSetId>
+  <scheduleParameters>
+    <start>1.0</start>
+    <interval>1.0</interval>
+    <priority>-Infinity</priority>
+    <duration>-1.0</duration>
+    <frequency>REPEAT</frequency>
+  </scheduleParameters>
+  <dataMappingContainer class="repast.simphony.data.logging.gather.DefaultDataMappingContainer">
+    <nameMappingTable>
+      <entry>
+        <string>Tick</string>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
+      </entry>
+      <entry>
+        <string>C3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value =&quot;C3&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>C2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value =&quot;C2&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>C1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value =&quot;C1&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+    </nameMappingTable>
+    <mappingNameTable>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.BSFMapping"/>
+        <string>C2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.BSFMapping"/>
+        <string>C1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.BSFMapping"/>
+        <string>C3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
+        <string>Tick</string>
+      </entry>
+    </mappingNameTable>
+  </dataMappingContainer>
+  <aggregateContainer class="repast.simphony.data.logging.gather.DefaultAggregateDataMappingContainer">
+    <nameMappingTable>
+      <entry>
+        <string>Tick</string>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
+      </entry>
+      <entry>
+        <string>ROE by FUC C3</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getProfit()/getEquity()*(getFUCCohort()==3))/sum(getFUCCohort()==3);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getProfit()/getEquity()*(getFUCCohort()==3))/sum(getFUCCohort()==3);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>ROE by FUC C2</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getProfit()/getEquity()*(getFUCCohort()==2))/sum(getFUCCohort()==2);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getProfit()/getEquity()*(getFUCCohort()==2))/sum(getFUCCohort()==2);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>RONA by FUC C3</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getEBIT()/getCapital()*(getFUCCohort()==3))/sum(getFUCCohort()==3);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getEBIT()/getCapital()*(getFUCCohort()==3))/sum(getFUCCohort()==3);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>ROE by FUC C1</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getProfit()/getEquity()*(getFUCCohort()==1))/sum(getFUCCohort()==1);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getProfit()/getEquity()*(getFUCCohort()==1))/sum(getFUCCohort()==1);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>RONA by FUC C2</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getEBIT()/getCapital()*(getFUCCohort()==2))/sum(getFUCCohort()==2);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getEBIT()/getCapital()*(getFUCCohort()==2))/sum(getFUCCohort()==2);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+      <entry>
+        <string>RONA by FUC C1</string>
+        <repast.simphony.data.logging.formula.FormulaMapping>
+          <evaluator>
+            <formula>sum(getEBIT()/getCapital()*(getFUCCohort()==1))/sum(getFUCCohort()==1);</formula>
+            <agentClasses>
+              <java-class>suddenStop.Firm</java-class>
+            </agentClasses>
+          </evaluator>
+          <tmpList/>
+          <rep>Aggregate Formula: sum(getEBIT()/getCapital()*(getFUCCohort()==1))/sum(getFUCCohort()==1);</rep>
+        </repast.simphony.data.logging.formula.FormulaMapping>
+      </entry>
+    </nameMappingTable>
+    <mappingNameTable>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>ROE by FUC C1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>RONA by FUC C1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
+        <string>Tick</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>RONA by FUC C3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>RONA by FUC C2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>ROE by FUC C2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.formula.FormulaMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.formula.FormulaMapping"/>
+        <string>ROE by FUC C3</string>
+      </entry>
+    </mappingNameTable>
+    <alternatedNameTable/>
+    <nameAlternatedTable/>
+  </aggregateContainer>
+  <agentClass>suddenStop.Firm</agentClass>
+</repast.simphony.data.engine.DefaultDataGathererDescriptor>

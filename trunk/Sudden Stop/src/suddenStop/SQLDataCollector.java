@@ -13,7 +13,7 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.util.collections.IndexedIterable;
 import static repast.simphony.engine.schedule.ScheduleParameters.*;
 
-public class DataCollector {
+public class SQLDataCollector {
 
 	private int simID;
 	private Connection con;
@@ -21,7 +21,7 @@ public class DataCollector {
 	private SupplyManager suppMan = null;
 	private RunInfo runInfo;
 
-	public DataCollector(Connection con, int simID, Context<Object> context, SupplyManager sm) {
+	public SQLDataCollector(Connection con, int simID, Context<Object> context, SupplyManager sm) {
 
 		this.con = con;
 		this.simID = simID;

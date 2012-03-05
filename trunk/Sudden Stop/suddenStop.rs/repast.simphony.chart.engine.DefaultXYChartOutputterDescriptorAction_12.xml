@@ -1,25 +1,25 @@
 <repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
-  <name>Return</name>
+  <name>ROE by Learning Rate</name>
   <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
   <dataSetHandler>
     <dataSets>
-      <string>Agregate Firms</string>
+      <string>PerCohort</string>
     </dataSets>
   </dataSetHandler>
   <streamHandler>
     <columns/>
   </streamHandler>
   <isBatchAction>false</isBatchAction>
-  <dataSetId class="string">Agregate Firms</dataSetId>
+  <dataSetId class="string">PerCohort</dataSetId>
   <showLegend>true</showLegend>
   <multipleSeries>false</multipleSeries>
   <xColumnName>Tick</xColumnName>
-  <autoRangeX>true</autoRangeX>
+  <autoRangeX>false</autoRangeX>
   <autoRangeY>true</autoRangeY>
-  <visibleXRange>50.0</visibleXRange>
+  <visibleXRange>0.0</visibleXRange>
   <visibleYRange>0.0</visibleYRange>
   <xMin>0.0</xMin>
-  <xMax>0.0</xMax>
+  <xMax>50.0</xMax>
   <yMin>0.0</yMin>
   <yMax>0.0</yMax>
   <precisionValue>3</precisionValue>
@@ -27,22 +27,22 @@
   <seriesType>LINE</seriesType>
   <series>
     <repast.simphony.chart.Series>
-      <seriesID>Return Mean</seriesID>
-      <valueColumn>Return Mean</valueColumn>
-      <hashCode>351155655</hashCode>
-      <proxy>true</proxy>
+      <seriesID>C1</seriesID>
+      <valueColumn>ROE by LR C1</valueColumn>
+      <hashCode>-909504058</hashCode>
+      <proxy>false</proxy>
     </repast.simphony.chart.Series>
     <repast.simphony.chart.Series>
-      <seriesID>Return Min</seriesID>
-      <valueColumn>Return Min</valueColumn>
-      <hashCode>1951017845</hashCode>
-      <proxy>true</proxy>
+      <seriesID>C3</seriesID>
+      <valueColumn>ROE by LR C3</valueColumn>
+      <hashCode>-909503982</hashCode>
+      <proxy>false</proxy>
     </repast.simphony.chart.Series>
     <repast.simphony.chart.Series>
-      <seriesID>Return Max</seriesID>
-      <valueColumn>Return Max</valueColumn>
-      <hashCode>1951008801</hashCode>
-      <proxy>true</proxy>
+      <seriesID>C2</seriesID>
+      <valueColumn>ROE by LR C2</valueColumn>
+      <hashCode>-909504020</hashCode>
+      <proxy>false</proxy>
     </repast.simphony.chart.Series>
   </series>
 </repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
