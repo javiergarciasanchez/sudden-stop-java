@@ -7,9 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import java.awt.Component;
-import javax.swing.JOptionPane;
-
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
@@ -28,64 +25,41 @@ public class SuddenStopBuilder extends DefaultContext<Object> implements
 	@Override
 	public Context<Object> build(Context<Object> context) {
 
-		if (checkParam()) {
+		IndependentVarsManager ivm = new IndependentVarsManager(context);
+		SupplyManager sm = new SupplyManager(context, ivm);
 
-			IndependentVarsManager ivm = new IndependentVarsManager(context);
-			SupplyManager sm = new SupplyManager(context,ivm);
+		if (RunEnvironment.getInstance().isBatch()) {
 
-			if (RunEnvironment.getInstance().isBatch()) {
-
-				if (firstRun()) {
-					// Creates the connection to database server
-					try {
-						con = createCon();
-						System.out
-								.println("Connection to database established");
-					} catch (SQLException e) {
-						e.printStackTrace();
-						System.err
-								.println("Connection to database server could not be established");
-						System.exit(-1);
-					}
-
-					// Gets the next simID from database
-					simID = nextSimID();
-					
-					saveSimInfo();
-					
+			if (firstRun()) {
+				// Creates the connection to database server
+				try {
+					con = createCon();
+					System.out.println("Connection to database established");
+				} catch (SQLException e) {
+					e.printStackTrace();
+					System.err
+							.println("Connection to database server could not be established");
+					System.exit(-1);
 				}
 
-				new SQLDataCollector(con, simID, context, sm);
+				// Gets the next simID from database
+				simID = nextSimID();
 
-				saveRunParams();
+				saveSimInfo();
 
 			}
 
-			RunEnvironment.getInstance().endAt((Double) GetParameter("stopAt"));
+			new SQLDataCollector(con, simID, context, sm);
 
-		} else {
-			EndSimulationRun();
+			saveRunParams();
+
 		}
+
+		RunEnvironment.getInstance().endAt((Double) GetParameter("stopAt"));
+
 		return context;
 	}
 
-	private boolean checkParam() {
-		/*
-		 * Check consistency of Learning rate Mean
-		 */
-		double lRMean = (Double) GetParameter("learningRateMean");
-
-		if (lRMean >= 1.0 || lRMean <= 0.5) {
-			Component frame = null;
-			JOptionPane.showMessageDialog(frame,
-					"The Learning Rate Mean should be < 1 and > 0.5",
-					"Inconsistent Learning Rate Parameter",
-					JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
-
-		return true;
-	}
 
 	private Connection createCon() throws SQLException {
 		// Creates the connection to SQL Server

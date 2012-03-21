@@ -1,6 +1,6 @@
 <repast.simphony.data.engine.DefaultDataGathererDescriptor>
-  <name>PerCohort independen Vars</name>
-  <dataSetId class="string">PerCohort independen Vars</dataSetId>
+  <name>VarsManager</name>
+  <dataSetId class="string">VarsManager</dataSetId>
   <scheduleParameters>
     <start>1.0</start>
     <interval>1.0</interval>
@@ -11,113 +11,377 @@
   <dataMappingContainer class="repast.simphony.data.logging.gather.DefaultDataMappingContainer">
     <nameMappingTable>
       <entry>
-        <string>ROE by FUC C3</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = agent.getROEMeanByFUCCohort(2);</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
-        <string>ROE by LR C3</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = agent.getROEMeanByLRCohort(2);</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
-        <string>ROE by FUC C2</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = agent.getROEMeanByFUCCohort(1);</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
-        <string>ROE by FUC C1</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = agent.getROEMeanByFUCCohort(0);</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
-        <string>ROE by LR C2</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = agent.getROEMeanByLRCohort(1);</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
-        <string>ROE by LR C1</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = agent.getROEMeanByLRCohort(0);</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
-        <string>C3</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = &quot;Cohort 3&quot;;</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
-        <string>C2</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = &quot;Cohort 2&quot;;</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
-        <string>C1</string>
-        <repast.simphony.data.logging.BSFMapping>
-          <bsfExpression>value = &quot;Cohort 1&quot;;</bsfExpression>
-          <bsfLanguage>beanshell</bsfLanguage>
-        </repast.simphony.data.logging.BSFMapping>
-      </entry>
-      <entry>
         <string>Tick</string>
         <repast.simphony.data.logging.gather.DefaultTimeDataMapping/>
+      </entry>
+      <entry>
+        <string>ROE LR3 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(3, 2);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE LR3 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(3, 1);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR1 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR1 T3&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev1 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLevCohort(1,3);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev1 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLevCohort(1,2);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR1 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR1 T2&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev1 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value=agent.getROEMeanByLevCohort(1,1);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR1 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR1 T1&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>Count LR1 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getFirmsCountByLRCohort(1,3);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR2 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR2 T3&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>Count LR1 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getFirmsCountByLRCohort(1,2);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev2 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLevCohort(2,3);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR2 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR2 T2&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>Count LR1 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getFirmsCountByLRCohort(1,1);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev2 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLevCohort(2,2);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev2 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLevCohort(2,1);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR2 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR2 T1&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR3 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR3 T3&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev3 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLevCohort(3,3);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR3 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR3 T2&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev3 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLevCohort(3,2);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>LR3 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = &quot;LR3 T1&quot;;</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE Lev3 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLevCohort(3,1);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>Count LR3 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getFirmsCountByLRCohort(3,3);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE LR1 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(1, 3);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>Count LR3 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getFirmsCountByLRCohort(3,2);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>Count LR3 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getFirmsCountByLRCohort(3,1);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE LR1 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(1, 2);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE LR1 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(1,1 );</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE LR2 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(2, 3);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE LR2 T2</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(2, 2);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE LR2 T1</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(2, 1);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
+      </entry>
+      <entry>
+        <string>ROE LR3 T3</string>
+        <repast.simphony.data.logging.BSFMapping>
+          <bsfExpression>value = agent.getROEMeanByLRCohort(3, 3);</bsfExpression>
+          <bsfLanguage>beanshell</bsfLanguage>
+        </repast.simphony.data.logging.BSFMapping>
       </entry>
     </nameMappingTable>
     <mappingNameTable>
       <entry>
-        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.BSFMapping"/>
-        <string>ROE by FUC C2</string>
-      </entry>
-      <entry>
-        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.BSFMapping"/>
-        <string>ROE by LR C1</string>
-      </entry>
-      <entry>
         <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[7]/repast.simphony.data.logging.BSFMapping"/>
-        <string>C3</string>
+        <string>LR1 T2</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[9]/repast.simphony.data.logging.BSFMapping"/>
-        <string>C1</string>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[21]/repast.simphony.data.logging.BSFMapping"/>
+        <string>LR3 T2</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.BSFMapping"/>
-        <string>ROE by LR C3</string>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[12]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Count LR1 T2</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.BSFMapping"/>
-        <string>ROE by LR C2</string>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[22]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev3 T2</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.BSFMapping"/>
-        <string>ROE by FUC C3</string>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[30]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR1 T1</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[8]/repast.simphony.data.logging.BSFMapping"/>
-        <string>C2</string>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[24]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev3 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[18]/repast.simphony.data.logging.BSFMapping"/>
+        <string>LR2 T1</string>
       </entry>
       <entry>
         <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[4]/repast.simphony.data.logging.BSFMapping"/>
-        <string>ROE by FUC C1</string>
+        <string>LR1 T3</string>
       </entry>
       <entry>
-        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry[10]/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[5]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev1 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[16]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev2 T2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[13]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev2 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[11]/repast.simphony.data.logging.BSFMapping"/>
+        <string>LR2 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[23]/repast.simphony.data.logging.BSFMapping"/>
+        <string>LR3 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[33]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR2 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[9]/repast.simphony.data.logging.BSFMapping"/>
+        <string>LR1 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[19]/repast.simphony.data.logging.BSFMapping"/>
+        <string>LR3 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[10]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Count LR1 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[25]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Count LR3 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[32]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR2 T2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[14]/repast.simphony.data.logging.BSFMapping"/>
+        <string>LR2 T2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[28]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Count LR3 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[2]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR3 T2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[20]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev3 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[27]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Count LR3 T2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[8]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev1 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[6]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev1 T2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[3]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR3 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[29]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR1 T2</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[26]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR1 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[15]/repast.simphony.data.logging.BSFMapping"/>
+        <string>Count LR1 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[17]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE Lev2 T1</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[31]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR2 T3</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.gather.DefaultTimeDataMapping reference="../../../nameMappingTable/entry/repast.simphony.data.logging.gather.DefaultTimeDataMapping"/>
         <string>Tick</string>
+      </entry>
+      <entry>
+        <repast.simphony.data.logging.BSFMapping reference="../../../nameMappingTable/entry[34]/repast.simphony.data.logging.BSFMapping"/>
+        <string>ROE LR3 T3</string>
       </entry>
     </mappingNameTable>
   </dataMappingContainer>

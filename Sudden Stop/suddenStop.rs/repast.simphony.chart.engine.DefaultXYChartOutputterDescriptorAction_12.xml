@@ -1,16 +1,16 @@
 <repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
-  <name>ROE by Learning Rate</name>
+  <name>Firms LR</name>
   <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
   <dataSetHandler>
     <dataSets>
-      <string>PerCohort</string>
+      <string>VarsManager</string>
     </dataSets>
   </dataSetHandler>
   <streamHandler>
     <columns/>
   </streamHandler>
   <isBatchAction>false</isBatchAction>
-  <dataSetId class="string">PerCohort</dataSetId>
+  <dataSetId class="string">VarsManager</dataSetId>
   <showLegend>true</showLegend>
   <multipleSeries>false</multipleSeries>
   <xColumnName>Tick</xColumnName>
@@ -19,7 +19,7 @@
   <visibleXRange>0.0</visibleXRange>
   <visibleYRange>0.0</visibleYRange>
   <xMin>0.0</xMin>
-  <xMax>50.0</xMax>
+  <xMax>100.0</xMax>
   <yMin>0.0</yMin>
   <yMax>0.0</yMax>
   <precisionValue>3</precisionValue>
@@ -27,21 +27,39 @@
   <seriesType>LINE</seriesType>
   <series>
     <repast.simphony.chart.Series>
-      <seriesID>C1</seriesID>
-      <valueColumn>ROE by LR C1</valueColumn>
-      <hashCode>-909504058</hashCode>
+      <seriesID>LR1 T1</seriesID>
+      <valueColumn>Count LR1 T1</valueColumn>
+      <hashCode>-1954289498</hashCode>
       <proxy>false</proxy>
     </repast.simphony.chart.Series>
     <repast.simphony.chart.Series>
-      <seriesID>C3</seriesID>
-      <valueColumn>ROE by LR C3</valueColumn>
-      <hashCode>-909503982</hashCode>
+      <seriesID>LR1 T3</seriesID>
+      <valueColumn>Count LR1 T3</valueColumn>
+      <hashCode>-1954289422</hashCode>
       <proxy>false</proxy>
     </repast.simphony.chart.Series>
     <repast.simphony.chart.Series>
-      <seriesID>C2</seriesID>
-      <valueColumn>ROE by LR C2</valueColumn>
-      <hashCode>-909504020</hashCode>
+      <seriesID>LR3 T3</seriesID>
+      <valueColumn>Count LR3 T3</valueColumn>
+      <hashCode>-1952025306</hashCode>
+      <proxy>false</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>LR3 T1</seriesID>
+      <valueColumn>Count LR3 T1</valueColumn>
+      <hashCode>-1952025382</hashCode>
+      <proxy>false</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>LR1 T2</seriesID>
+      <valueColumn>Count LR1 T2</valueColumn>
+      <hashCode>-1954289460</hashCode>
+      <proxy>false</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>LR3 T2</seriesID>
+      <valueColumn>Count LR3 T2</valueColumn>
+      <hashCode>-1952025344</hashCode>
       <proxy>false</proxy>
     </repast.simphony.chart.Series>
   </series>

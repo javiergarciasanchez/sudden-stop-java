@@ -1,17 +1,17 @@
 <repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
-  <name>ROE by First Unit Cost</name>
+  <name>Quantity</name>
   <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
   <dataSetHandler>
     <dataSets>
-      <string>PerCohort</string>
+      <string>supplyManager</string>
     </dataSets>
   </dataSetHandler>
   <streamHandler>
     <columns/>
   </streamHandler>
   <isBatchAction>false</isBatchAction>
-  <dataSetId class="string">PerCohort</dataSetId>
-  <showLegend>true</showLegend>
+  <dataSetId class="string">supplyManager</dataSetId>
+  <showLegend>false</showLegend>
   <multipleSeries>false</multipleSeries>
   <xColumnName>Tick</xColumnName>
   <autoRangeX>false</autoRangeX>
@@ -19,7 +19,7 @@
   <visibleXRange>0.0</visibleXRange>
   <visibleYRange>0.0</visibleYRange>
   <xMin>0.0</xMin>
-  <xMax>50.0</xMax>
+  <xMax>100.0</xMax>
   <yMin>0.0</yMin>
   <yMax>0.0</yMax>
   <precisionValue>3</precisionValue>
@@ -27,21 +27,9 @@
   <seriesType>LINE</seriesType>
   <series>
     <repast.simphony.chart.Series>
-      <seriesID>C2</seriesID>
-      <valueColumn>ROE by FUC C2</valueColumn>
-      <hashCode>1699092576</hashCode>
-      <proxy>false</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>C1</seriesID>
-      <valueColumn>ROE by FUC C1</valueColumn>
-      <hashCode>1699092538</hashCode>
-      <proxy>false</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>C3</seriesID>
-      <valueColumn>ROE by FUC C3</valueColumn>
-      <hashCode>1699092614</hashCode>
+      <seriesID>Born Label</seriesID>
+      <valueColumn>TotalQuantity</valueColumn>
+      <hashCode>-314084567</hashCode>
       <proxy>false</proxy>
     </repast.simphony.chart.Series>
   </series>
