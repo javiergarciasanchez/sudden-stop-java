@@ -1,16 +1,16 @@
 <repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
-  <name>Price - Cost</name>
+  <name>ROE - LR1</name>
   <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
   <dataSetHandler>
     <dataSets>
-      <string>Agregate Firms</string>
+      <string>VarsManager</string>
     </dataSets>
   </dataSetHandler>
   <streamHandler>
     <columns/>
   </streamHandler>
   <isBatchAction>false</isBatchAction>
-  <dataSetId class="string">Agregate Firms</dataSetId>
+  <dataSetId class="string">VarsManager</dataSetId>
   <showLegend>true</showLegend>
   <multipleSeries>false</multipleSeries>
   <xColumnName>Tick</xColumnName>
@@ -19,7 +19,7 @@
   <visibleXRange>0.0</visibleXRange>
   <visibleYRange>0.0</visibleYRange>
   <xMin>0.0</xMin>
-  <xMax>50.0</xMax>
+  <xMax>100.0</xMax>
   <yMin>0.0</yMin>
   <yMax>0.0</yMax>
   <precisionValue>3</precisionValue>
@@ -27,28 +27,22 @@
   <seriesType>LINE</seriesType>
   <series>
     <repast.simphony.chart.Series>
-      <seriesID>Med Cost Mean</seriesID>
-      <valueColumn>Med Cost Mean</valueColumn>
-      <hashCode>-946129919</hashCode>
-      <proxy>true</proxy>
+      <seriesID>LR1 T1</seriesID>
+      <valueColumn>ROE LR1 T1</valueColumn>
+      <hashCode>-1942947379</hashCode>
+      <proxy>false</proxy>
     </repast.simphony.chart.Series>
     <repast.simphony.chart.Series>
-      <seriesID>Med Cost Max</seriesID>
-      <valueColumn>Med Cost Max</valueColumn>
-      <hashCode>1632066215</hashCode>
-      <proxy>true</proxy>
+      <seriesID>LR1 T2</seriesID>
+      <valueColumn>ROE LR1 T2</valueColumn>
+      <hashCode>-1942947341</hashCode>
+      <proxy>false</proxy>
     </repast.simphony.chart.Series>
     <repast.simphony.chart.Series>
-      <seriesID>Med Cost Min</seriesID>
-      <valueColumn>Med Cost Min</valueColumn>
-      <hashCode>1632075259</hashCode>
-      <proxy>true</proxy>
-    </repast.simphony.chart.Series>
-    <repast.simphony.chart.Series>
-      <seriesID>Price</seriesID>
-      <valueColumn>Price</valueColumn>
-      <hashCode>-1354430721</hashCode>
-      <proxy>true</proxy>
+      <seriesID>LR1 T3</seriesID>
+      <valueColumn>ROE LR1 T3</valueColumn>
+      <hashCode>-1942947303</hashCode>
+      <proxy>false</proxy>
     </repast.simphony.chart.Series>
   </series>
 </repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>

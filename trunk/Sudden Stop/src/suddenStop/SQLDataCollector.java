@@ -84,7 +84,7 @@ public class SQLDataCollector {
 
 		String sqlStr = "INSERT INTO [Individual Firms] ("
 				+ "Simulation, [Run Number], Tick, [Firm ID], "
-				+ "Profit, quantity, rD, FirstUnitCost, "
+				+ "Profit, quantitySum, rD, FirstUnitCost, "
 				+ "Born, Expon, MedCost) VALUES ("
 
 				+ simID

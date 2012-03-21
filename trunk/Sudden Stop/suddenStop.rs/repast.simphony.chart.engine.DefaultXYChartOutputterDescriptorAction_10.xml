@@ -1,25 +1,25 @@
 <repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>
-  <name>Individual Quantities</name>
+  <name>ROE</name>
   <outputterFactory class="repast.simphony.chart.wizard.XYChartMappingsStep$XYFactory"/>
   <dataSetHandler>
     <dataSets>
-      <string>Individual Firms</string>
+      <string>Aggregate Firms</string>
     </dataSets>
   </dataSetHandler>
   <streamHandler>
     <columns/>
   </streamHandler>
   <isBatchAction>false</isBatchAction>
-  <dataSetId class="string">Individual Firms</dataSetId>
-  <showLegend>false</showLegend>
+  <dataSetId class="string">Aggregate Firms</dataSetId>
+  <showLegend>true</showLegend>
   <multipleSeries>false</multipleSeries>
   <xColumnName>Tick</xColumnName>
-  <autoRangeX>true</autoRangeX>
+  <autoRangeX>false</autoRangeX>
   <autoRangeY>true</autoRangeY>
-  <visibleXRange>50.0</visibleXRange>
+  <visibleXRange>0.0</visibleXRange>
   <visibleYRange>0.0</visibleYRange>
   <xMin>0.0</xMin>
-  <xMax>0.0</xMax>
+  <xMax>100.0</xMax>
   <yMin>0.0</yMin>
   <yMax>0.0</yMax>
   <precisionValue>3</precisionValue>
@@ -27,10 +27,22 @@
   <seriesType>LINE</seriesType>
   <series>
     <repast.simphony.chart.Series>
-      <seriesID>toString</seriesID>
-      <valueColumn>Quantity</valueColumn>
-      <hashCode>1753025840</hashCode>
-      <proxy>false</proxy>
+      <seriesID>Min ROE</seriesID>
+      <valueColumn>Min ROE</valueColumn>
+      <hashCode>546409093</hashCode>
+      <proxy>true</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Mean ROE</seriesID>
+      <valueColumn>Mean ROE</valueColumn>
+      <hashCode>-575520233</hashCode>
+      <proxy>true</proxy>
+    </repast.simphony.chart.Series>
+    <repast.simphony.chart.Series>
+      <seriesID>Max ROE</seriesID>
+      <valueColumn>Max ROE</valueColumn>
+      <hashCode>784019761</hashCode>
+      <proxy>true</proxy>
     </repast.simphony.chart.Series>
   </series>
 </repast.simphony.chart.engine.DefaultXYChartOutputterDescriptor>

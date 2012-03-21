@@ -19,60 +19,34 @@ import java.lang.reflect.Field;
 
 import repast.simphony.context.Context;
 
-/**
- * 
- * This is an agent.
- * 
- */
-public abstract class Firm {
+public class Firm {
 
 	public static SupplyManager supplyManager;
 	public static IndependentVarsManager independentVarsManager;
 
 	private FirmState currentState, nextState;
 
-	private class Decision implements Cloneable {
-		private double quantity = 0.0;
-		private double rD = 0.0;
-
-		@Override
-		protected Decision clone() {
-			try {
-				return (Decision) super.clone();
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-	}
-
-	private Decision currentDecision, nextDecision;
-
 	protected static long agentIDCounter = 1;
 	protected String agentID = "Firm " + (agentIDCounter++);
-
-	protected abstract void tryMeetCapitalNeeds(FirmState st);
-
-	protected abstract void getFunds(FirmState st, double funds);
 
 	public Firm(Context<Object> context) {
 
 		context.add(this);
 
 		nextState = new FirmState();
+
+		nextState.quantity = nextState.getCapital()
+				* nextState.getCapitalProductivity();
+
 		currentState = nextState.clone();
-
-		// Sets next decision
-		nextDecision = new Decision();
-		nextDecision.rD = 0.0;
-		nextDecision.quantity = nextState.capital
-				* nextState.capitalProductivity;
-
-		currentDecision = nextDecision.clone();
 
 	}
 
-	/*
+	public void moveToNextState() {
+		currentState = nextState.clone();
+	}
+
+	/**
 	 * Estimates if nextDecision would be an exit given nextState and price It
 	 * works like ProcessResponseToDemand but without changing the current
 	 * situation
@@ -81,15 +55,11 @@ public abstract class Firm {
 
 		FirmState tmpSt = nextState.clone();
 
-		updateState(tmpSt, nextDecision, price);
+		// updates current profit & performance
+		tmpSt.profit = calcProfit(tmpSt, price);
+		tmpSt.performance = calcPerformance(tmpSt);
 
 		return !isExit(tmpSt);
-
-	}
-
-	public double offer() {
-
-		return nextDecision.quantity;
 
 	}
 
@@ -98,67 +68,47 @@ public abstract class Firm {
 	 * Process demand respond and returns false if firm exits the industry,
 	 * otherwise returns true
 	 * 
-	 * @param price
-	 * 
-	 * @method processDemandResponse
-	 * 
 	 */
-	public boolean processResponseToDemand(double price) {
+	public void processResponseToDemand(double price) {
 
-		currentState = nextState.clone();
-		currentDecision = nextDecision.clone();
+		// updates current profit & performance
+		double profit = calcProfit(currentState, price);
+		currentState.profit = profit;
+		currentState.performance = calcPerformance(currentState);
 
-		// Modifies state according to decision and price
-		updateState(currentState, currentDecision, price);
+		// updates next state
+		nextState.capital = currentState.getCapital()
+				* (1 - (Double) GetParameter("depreciation"));
+		nextState.acumQ = currentState.getAcumQ() + currentState.getQuantity();
 
-		// Returns true if firms continues in industry
-		return !isExit(currentState);
+		// Loss increases debt
+		nextState.debt += (profit < 0.0) ? -profit : 0.0;
+		// Gains increase equity available
+		nextState.equityAvailable = (profit > 0.0) ? profit
+				: 0.0 + currentState.getExternalEquityAvailable();
 
-	}
+		adjustLeverage(nextState);
 
-	private void updateState(FirmState st, Decision dec, double price) {
-
-		// applies depreciation
-		st.capital *= (1 - (Double) GetParameter("depreciation"));
-		
-
-		/*
-		 *  applies profit
-		 *  If profit is negative cash Excess is used to absorb it
-		 *  In case cash Excess is not sufficient, capital is reduced
-		 */
-		double profit = calcProfit(st, dec, price);
-		st.capital += min(st.cashExcess + profit, 0.0);
-		st.cashExcess -= min(-profit, st.cashExcess);
-
-
-		/*
-		 * Check if more capital is needed to avoid exit. Investment needs are
-		 * checked later, in the plan stage
-		 */
-		if (survivalCapitalNeeds(st) > 0.0) {
-			tryMeetCapitalNeeds(st);
+		// Meet minimum capital
+		double minCap = (Double) GetParameter("minimumCapital");
+		if (minCap > nextState.getCapital()) {
+			getFunds(nextState, minCap - nextState.getCapital());
 		}
 
-		// updates performance
-		st.performance = calcPerformance(st, dec, price);
-
-		// accumulates Q
-		st.acumQ += dec.quantity;
 	}
 
 	public void plan() {
 
 		// it is assumed there is no divesture
-		double optInvest = max(
-				0.0,
-				calcNetInvestment(currentState, currentDecision,
-						supplyManager.price));
+		double optInvest = max(0.0,
+				getNetInvestment(currentState, supplyManager.price));
 
-		nextState = currentState.clone();
-		getFunds(nextState, optInvest * nextState.capital);
+		getFunds(nextState, optInvest * nextState.getCapital());
+		// It is necessary to reduce cash excess, because profit was acummulated
+		// as cash
+		reduceCashExcess(nextState);
 
-		nextDecision.quantity = nextState.capital
+		nextState.quantity = nextState.getCapital()
 				* nextState.capitalProductivity;
 
 		// Then new R&D is determined to optimize First unit cost.The maxFunding
@@ -166,119 +116,182 @@ public abstract class Firm {
 		double optRD = pow(
 				nextState.firstUnitCost
 						/ nextState.rDEfficiency
-						* (pow(nextState.acumQ + nextDecision.quantity,
+						* (pow(nextState.acumQ + nextState.quantity,
 								1.0 + nextState.expon) - pow(nextState.acumQ,
 								1.0 + nextState.expon)), 0.5) - 1.0;
 
 		/*
 		 * There is a minimum amount of RD to make FUC decrease
 		 */
-		nextDecision.rD = max(1.0 / nextState.rDEfficiency - 1.0, optRD);
+		nextState.rD = max(1.0 / nextState.rDEfficiency - 1.0, optRD);
 
 		// apply innovation
 		nextState.firstUnitCost = nextState.firstUnitCost * 1.0
-				/ ((nextDecision.rD + 1.0) * nextState.rDEfficiency)
+				/ ((nextState.rD + 1.0) * nextState.rDEfficiency)
 				* supplyManager.innovationErrorNormal.nextDouble();
 
 	}
 
-	public boolean isExit(FirmState st) {
+	public boolean isExit() {
+		return isExit(currentState);
+	}
 
+	private void adjustLeverage(FirmState st) {
+
+		double needs = st.getDebt() - st.getCapital() * st.targetLeverage;
+
+		if (needs > 0.0) {
+			// reduce debt by increasing equity
+			st.debt -= min(st.getEquityAvailable(), needs);
+			st.equityAvailable -= min(st.getEquityAvailable(), needs);
+
+		}
+	}
+
+	/*
+	 * Looks for funds to increase capital.
+	 * 
+	 * See Mathematica notebook for the equations getFunds.nb
+	 */
+	private void getFunds(FirmState st, double funds) {
+
+		double newDebt;
+		double newEquity = st.getEquityAvailable();
+		double availLeverage = st.targetLeverage * st.capital - st.debt;
+
+		if (Demand.isSS()) {
+			// only cash can be used
+			newDebt = st.getCash();
+		} else {
+			newDebt = (availLeverage + newEquity * st.targetLeverage)
+					/ (1 - st.targetLeverage);
+		}
+
+		if ((newEquity + newDebt) > funds) {
+			newDebt = newDebt * funds / (newEquity + newDebt);
+			newEquity = funds - newDebt;
+		}
+
+		st.debt += newDebt;
+		st.capital += newEquity + newDebt;
+		st.equityAvailable -= newEquity;
+
+	}
+
+	/*
+	 * Reduces cash excess to the required by target leverage
+	 */
+	private void reduceCashExcess(FirmState st) {
+		double cashExcess = st.getCash()
+				- max(0.0, st.getCapital() * (-st.targetLeverage));
+
+		if (cashExcess > 0.0) {
+			// reduce cash through dividends payment
+			st.debt += cashExcess;
+		}
+
+	}
+
+	private boolean isExit(FirmState st) {
 		/*
-		 * Exits happens if: a) perf < minPerf OR b) capital requirements are
-		 * not met
+		 * Exits happens if: a) perf < cost of Equity b) capital < minimum
+		 * capital c) default
 		 */
-		return ((st.performance < (Double) GetParameter("minimumPerformance")) || survivalCapitalNeeds(st) > 0.0);
+		return ((st.getPerformance() < (Double) GetParameter("costOfEquity"))
+				|| (st.getCapital() < (Double) GetParameter("minimumCapital")) || (st
+				.getEquity() < 0.0));
 
 	}
 
-	private double survivalCapitalNeeds(FirmState st) {
-		double minCapNeed = (Double) GetParameter("minimumCapital")
-				- getCapital();
-		double defaultNeed = getDebt() - getAssets();
+	private double calcProfit(FirmState st, double price) {
 
-		return max(minCapNeed, defaultNeed);
-	}
-
-	private double calcProfit(FirmState st, Decision dec, double price) {
-
-		return price * dec.quantity - calcTotVarCost(st, dec)
-				- calcFixedCost(st, dec);
+		return price * st.quantity - getTotVarCost(st) - getFixedCost(st)
+				- st.costOfDebt * st.getDebt();
 
 	}
 
-	private double calcPerformance(FirmState st, Decision dec, double price) {
-
+	private double calcPerformance(FirmState st) {
 		return (Double) GetParameter("performanceWeight") * st.performance
-				+ (1 - (Double) GetParameter("performanceWeight"))
-				* calcProfit(st, dec, price) / getEquity();
+				+ (1 - (Double) GetParameter("performanceWeight")) * st.profit
+				/ st.getEquity();
 	}
 
 	// Calculates cost using learning curve: cost of new acummulated Q minus
 	// old acummulated Q. See http://maaw.info/LearningCurveSummary.htm
 	// (Wright model)
-	private double calcTotVarCost(FirmState st, Decision dec) {
+	private double getTotVarCost(FirmState st) {
 
 		return st.firstUnitCost
-				* (pow(st.acumQ + dec.quantity, 1.0 + currentState.expon) - pow(
+				* (pow(st.acumQ + st.quantity, 1.0 + currentState.expon) - pow(
 						st.acumQ, 1.0 + currentState.expon));
 
 	}
 
-	private double calcFixedCost(FirmState st, Decision dec) {
+	private double getFixedCost(FirmState st) {
 
-		return st.costOfEquity * getEquity() + st.costOfDebt
-				* getDebt() + (Double) GetParameter("depreciation") * getCapital()
-				- dec.rD - st.fixedCost;
+		return (Double) GetParameter("depreciation") * getCapital() + st.rD
+				+ st.fixedCost;
 
 	}
 
-	private double calcNetInvestment(FirmState st, Decision dec, double price) {
-		double mktSh = dec.quantity / supplyManager.totalQuantity;
+	// Maximizes Economic Profit
+	private double getNetInvestment(FirmState st, double price) {
+		double mktSh = st.quantity / supplyManager.totalQuantity;
+		double demElast = (Double) GetParameter("demandElasticity");
+		double supElast = (Double) GetParameter("supplyElasticity");
 
-		double optimalMarkUp = ((Double) GetParameter("demandElasticity") + (1 - mktSh)
-				* (Double) GetParameter("supplyElasticity"))
-				/ ((Double) GetParameter("demandElasticity") + (1 - mktSh)
-						* (Double) GetParameter("supplyElasticity") - mktSh);
+		double marginalCost = st.firstUnitCost * (1.0 + st.expon)
+				* pow(st.acumQ + st.quantity, st.expon)
+				+ (getWACC(st) + (Double) GetParameter("depreciation"))
+				/ st.capitalProductivity;
 
-		// dejo Winter a un lado y pongo el máximo igual al mark up del
-		// substituto
+		double optimalMarkUp = (demElast + (1 - mktSh) * supElast)
+				/ (demElast + (1 - mktSh) * supElast - mktSh);
+
 		return (Double) GetParameter("investmentParam")
-				* (1 - optimalMarkUp * calcMarginalCost(st, dec) / price);
+				* (1 - optimalMarkUp * marginalCost / price);
 
 	}
 
-	private double calcMarginalCost(FirmState st, Decision dec) {
-
-		return st.firstUnitCost
-					* (1.0 + st.expon)
-					* pow(st.acumQ + dec.quantity, st.expon)
-				+ (st.costOfDebt * getLeverage()
-						+ st.costOfEquity * (1.0 - getLeverage())
-						+ (Double) GetParameter("depreciation"))
-					/ st.capitalProductivity;
-
+	private Double getWACC(FirmState st) {
+		return st.getCostOfDebt() * st.getLeverage() + st.getCostOfEquity()
+				* (1 - st.getLeverage());
 	}
 
 	public double getAge() {
-		return GetTickCount() - currentState.born;
+		return GetTickCount() - currentState.getBorn();
 	}
 
+	// It includes equity cost
 	public double getMedCost() {
-		return (calcTotVarCost(currentState, currentDecision) + calcFixedCost(
-				currentState, currentDecision)) / currentDecision.quantity;
+		return (getTotVarCost(currentState) + getFixedCost(currentState)
+				+ getInterest() + currentState.getCostOfEquity()
+				* currentState.getEquity())
+				/ currentState.getQuantity();
 	}
 
 	public double getEBIT() {
 		return getProfit() + getInterest();
 	}
 
+	public double getROA() {
+		return getEBIT() / getAssets();
+	}
+
+	public double getRONA() {
+		return getEBIT() / getCapital();
+	}
+
 	public double getInterest() {
-		return currentState.debt * currentState.costOfDebt;
+		return currentState.getDebt() * currentState.getCostOfDebt();
 	}
 
 	public double getProfit() {
-		return calcProfit(currentState, currentDecision, supplyManager.price);
+		return currentState.getProfit();
+	}
+
+	public double getROE() {
+		return getProfit() / getEquity();
 	}
 
 	public double getPrice() {
@@ -289,19 +302,19 @@ public abstract class Firm {
 		return currentState.getCapital();
 	}
 
+	public double getCash() {
+		return currentState.getCash();
+	}
+
+	public double getAssets() {
+		return currentState.getAssets();
+	}
+
 	public double getDebt() {
 		return currentState.getDebt();
 	}
-	
-	public double getAssets(){
-		return currentState.getAssets();
-	}
-	
-	public double getNetLeverage(){
-		return currentState.getNetLeverage();
-	}
-	
-	public double getLeverage(){
+
+	public double getLeverage() {
 		return currentState.getLeverage();
 	}
 
@@ -309,24 +322,28 @@ public abstract class Firm {
 		return currentState.getEquity();
 	}
 
-	public double getQuantity() {
-		return currentDecision.quantity;
-	}
-
 	public double getPerformance() {
-		return currentState.performance;
-	}
-
-	public double getRD() {
-		return currentDecision.rD;
+		return currentState.getPerformance();
 	}
 
 	public double getFirstUnitCost() {
-		return currentState.firstUnitCost;
+		return currentState.getFirstUnitCost();
 	}
 
 	public double getAcumQuantity() {
-		return currentState.acumQ;
+		return currentState.getAcumQ();
+	}
+
+	public double getRD() {
+		return currentState.getRD();
+	}
+
+	public double getTargetLeverage() {
+		return currentState.getTargetLeverage();
+	}
+
+	public double getQuantity() {
+		return currentState.getQuantity();
 	}
 
 	public String toString() {
@@ -341,46 +358,35 @@ public abstract class Firm {
 		return currentState.expon;
 	}
 
-	public String getType() {
-		return this.getClass().getSimpleName();
-	}
-
-	public int getTypeNum() {
-		String firmType = this.getClass().getSimpleName();
-		if (firmType.equals("AloneFirm")) {
-			return 0;
-		} else if (firmType.equals("DebtFirm")) {
-			return 1;
-		} else if (firmType.equals("EquityFirm")) {
-			return 2;
-		} else {
-			System.err.println("Invalid Firm Type");
-			System.exit(-1);
-			return -1;
-		}
+	public int getFUCCohort() {
+		return getCohort(currentState.firstUnitCost,
+				independentVarsManager.getFirstUnitCostLimit());
 	}
 
 	public int getRDEfCohort() {
 		return getCohort(currentState.rDEfficiency,
-				independentVarsManager.rDEfficiency.limit);
-	}
-
-	public int getFUCCohort() {
-		return getCohort(currentState.firstUnitCost,
-				independentVarsManager.firstUnitCost.limit);
+				independentVarsManager.getRDEfficiencyLimit());
 	}
 
 	public int getLevCohort() {
 		return getCohort(currentState.targetLeverage,
-				independentVarsManager.leverage.limit);
+				independentVarsManager.getLeverageLimit());
 	}
-	
+
+	public int getEquityCohort() {
+		return getCohort(currentState.targetLeverage,
+				independentVarsManager.getEquityAccessLimit());
+	}
+
 	public int getLRCohort() {
 		return getCohort(exp(currentState.expon * log(2.0)),
-				independentVarsManager.learningRate.limit);
+				independentVarsManager.getLearningRateLimit());
 	}
-	
-	
+
+	public int getTimeCohort() {
+		return getCohort(currentState.born,
+				independentVarsManager.getTimeCohortLimit());
+	}
 
 	private int getCohort(double fVal, double[] lim) {
 
@@ -392,16 +398,16 @@ public abstract class Firm {
 		return independentVarsManager.cohorts;
 
 	}
-	
-	public double get(String var){
+
+	public double get(String var) {
 		Field f = null;
 		try {
-			f = Class.forName("suddenStop.Firm$FirmState").getDeclaredField(var);
+			f = Class.forName("suddenStop.FirmState").getDeclaredField(var);
 		} catch (Throwable e) {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		try {
 			return f.getDouble(this.currentState);
 		} catch (Throwable e) {
@@ -409,6 +415,30 @@ public abstract class Firm {
 			System.exit(-1);
 		}
 		return 0;
-		
+
+	}
+
+	public double getROELRTime(int lRCoh, int timeCoh) {
+		if (getLRCohort() == lRCoh && getTimeCohort() == timeCoh) {
+			return getProfit() / getEquity();
+		} else {
+			return 0.0;
+		}
+	}
+
+	public double getROALRTime(int lRCoh, int timeCoh) {
+		if (getLRCohort() == lRCoh && getTimeCohort() == timeCoh) {
+			return getEBIT() / getAssets();
+		} else {
+			return 0.0;
+		}
+	}
+
+	public double getQuantityLRTime(int lRCoh, int timeCoh) {
+		if (getLRCohort() == lRCoh && getTimeCohort() == timeCoh) {
+			return getEBIT() / getAssets();
+		} else {
+			return 0.0;
+		}
 	}
 }

@@ -46,4 +46,8 @@ public class Demand {
 	public String toString() {
 		return "Demand";
 	}
+
+	public static boolean isSS() {
+		return Demand.getSSMagnitude() > 0.0;
+	}
 }

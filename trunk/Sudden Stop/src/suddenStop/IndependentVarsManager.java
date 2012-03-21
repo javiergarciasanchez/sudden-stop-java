@@ -1,13 +1,14 @@
 package suddenStop;
 
-import static cern.jet.stat.Probability.normalInverse;
+import static java.lang.Math.max;
 import static repast.simphony.essentials.RepastEssentials.GetParameter;
 
-import org.apache.commons.math.JGS.MathException;
-import org.apache.commons.math.JGS.distribution.BetaDistributionImpl;
-import org.apache.commons.math.JGS.stat.descriptive.DescriptiveStatistics;
+import cern.jet.random.*;
+import static cern.jet.stat.Probability.normalInverse;
 
 import repast.simphony.context.Context;
+import repast.simphony.essentials.RepastEssentials;
+import repast.simphony.random.RandomHelper;
 import repast.simphony.util.collections.IndexedIterable;
 
 public class IndependentVarsManager {
@@ -15,30 +16,32 @@ public class IndependentVarsManager {
 	Context<Object> context;
 
 	public int cohorts;
+	public double[] timeCohortsLimit;
 
 	IndepVar firstUnitCost;
 	IndepVar rDEfficiency;
-	IndepVar learningRate;
 	IndepVar leverage;
+	IndepVar equityAccess;
+	IndepVar learningRate;
 
-	class IndepVar {
-		double[] limit = new double[cohorts];
-		CollectableData data = new CollectableData();
+	private class DepVars {
+		public double[][] roeSum;
+		public double[][] roaSum;
+		public double[][] quantitySum;
+		public double[][] firmsCount;
+
+		public DepVars() {
+			roeSum = new double[cohorts][timeCohortsLimit.length + 1];
+			roaSum = new double[cohorts][timeCohortsLimit.length + 1];
+			quantitySum = new double[cohorts][timeCohortsLimit.length + 1];
+			firmsCount = new double[cohorts][timeCohortsLimit.length + 1];
+		}
 	}
 
-	// Structure to collect data for each cohort
-	private class CollectableData {
-		DescriptiveStatistics[] roa = new DescriptiveStatistics[cohorts];
-		DescriptiveStatistics[] roe = new DescriptiveStatistics[cohorts];
-		DescriptiveStatistics[] output = new DescriptiveStatistics[cohorts];
-
-		public CollectableData() {
-			for (int i = 0; i < cohorts; i++) {
-				roa[i] = new DescriptiveStatistics();
-				roe[i] = new DescriptiveStatistics();
-				output[i] = new DescriptiveStatistics();
-			}
-		}
+	private class IndepVar {
+		double[] limit = new double[cohorts-1];
+		AbstractContinousDistribution distrib;
+		DepVars depVars;
 	}
 
 	// Distribution parameters to estimate limit of each cohort
@@ -48,135 +51,350 @@ public class IndependentVarsManager {
 
 		cohorts = (Integer) GetParameter("cohorts");
 
+		// Time Cohorts
+		String[] tmp = ((String) RepastEssentials.GetParameter("timeCohorts"))
+				.split(";");
+		timeCohortsLimit = new double[tmp.length];
+		for (int i = 0; i < timeCohortsLimit.length; i++) {
+			timeCohortsLimit[i] = new Double(tmp[i]);
+		}
+
 		firstUnitCost = new IndepVar();
 		rDEfficiency = new IndepVar();
-		learningRate = new IndepVar();
 		leverage = new IndepVar();
+		equityAccess = new IndepVar();
+		learningRate = new IndepVar();
+
+		double fUCMean = (Double) GetParameter("firstUnitCostMean");
+		double fUCStdDev = (Double) GetParameter("firstUnitCostStdDev")
+				* fUCMean;
+		firstUnitCost.distrib = RandomHelper.createNormal(fUCMean, fUCStdDev);
+
+		double equityMean = (Double) GetParameter("equityMean");
+		double equityStdDev = (Double) GetParameter("equityStdDev")
+				* equityMean;
+		equityAccess.distrib = RandomHelper.createNormal(equityMean,
+				equityStdDev);
+
+		/*
+		 * R&D Efficiency follows a uniform distribution between min and max
+		 * parameters
+		 */
+
+		double rDEfMin = (Double) GetParameter("rDEfficiencyMin");
+		double rDEfMax = (Double) GetParameter("rDEfficiencyMax");
+		rDEfficiency.distrib = RandomHelper.createUniform(rDEfMin, rDEfMax);
+
+		/*
+		 * Leverage follows a uniform distribution between min and max
+		 * parameters
+		 */
+		double levMin = (Double) GetParameter("leverageMin");
+		double levMax = (Double) GetParameter("leverageMax");
+		leverage.distrib = RandomHelper.createUniform(levMin, levMax);
+
+		/*
+		 * Learning rate follows a uniform distribution between min and max
+		 * possible values
+		 */
+		double lRMin = (Double) GetParameter("learningRateMin");
+		double lRMax = (Double) GetParameter("learningRateMax");
+		learningRate.distrib = RandomHelper.createUniform(lRMin, lRMax);
+
+		// set Cohort limits
+		for (int i = 1; i < cohorts; i++) {
+
+			firstUnitCost.limit[i - 1] = fUCMean + fUCStdDev
+					* normalInverse(1.0 * i / cohorts);
+
+			equityAccess.limit[i - 1] = equityMean + equityStdDev
+					* normalInverse(1.0 * i / cohorts);
+
+			rDEfficiency.limit[i - 1] = rDEfMin
+					+ ((rDEfMax - rDEfMin) * i / cohorts);
+
+			leverage.limit[i - 1] = levMin + ((levMax - levMin) * i / cohorts);
+
+			learningRate.limit[i-1] = lRMin + ((lRMax - lRMin) * i / cohorts);
+
+		}
 
 		Firm.independentVarsManager = this;
 
 	}
 
 	/*
-	 * Assign cohort limits for each var
+	 * Get random indep vars
 	 */
-	public void setCohortLimits(IndepVarsDistribParams params) {
+	public double getRandfirstUnitCost() {
+		// A minimum FUC is set to 10% of mean
+		return max(0.1 * (Double) GetParameter("firstUnitCostMean"),
+				firstUnitCost.distrib.nextDouble());
+	}
 
-		BetaDistributionImpl betDist = new BetaDistributionImpl(
-				params.lRParams[0], params.lRParams[1]);
-		for (int i = 0; i < cohorts - 1; i++) {
+	public double getRandRDEfficiency() {
+		return max(0.0, rDEfficiency.distrib.nextDouble());
+	}
 
-			rDEfficiency.limit[i] = params.rDEfParams[0] + params.rDEfParams[1]
-					* normalInverse(1.0 * (i + 1) / cohorts);
+	public double getRandTargetLeverage() {
+		return leverage.distrib.nextDouble();
+	}
 
-			firstUnitCost.limit[i] = params.fUCParams[0] + params.fUCParams[1]
-					* normalInverse(1.0 * (i + 1) / cohorts);
+	public double getRandEquityAccess() {
+		return equityAccess.distrib.nextDouble();
+	}
 
-			leverage.limit[i] = params.levParams[0] + params.levParams[1]
-					* normalInverse(1.0 * (i + 1) / cohorts);
+	public double getRandLearningRate() {
+		return learningRate.distrib.nextDouble();
+	}
 
-			try {
-				learningRate.limit[i] = betDist
-						.inverseCumulativeProbability(1.0 * (i + 1) / cohorts);
-			} catch (MathException e) {
-				e.printStackTrace();
-			}
+	/*
+	 * Get limits of indep vars cohorts
+	 */
+	public double[] getFirstUnitCostLimit() {
+		return firstUnitCost.limit;
+	}
 
+	public double[] getRDEfficiencyLimit() {
+		return rDEfficiency.limit;
+	}
+
+	public double[] getLeverageLimit() {
+		return leverage.limit;
+	}
+
+	public double[] getEquityAccessLimit() {
+		return equityAccess.limit;
+	}
+
+	public double[] getLearningRateLimit() {
+		return learningRate.limit;
+	}
+
+	public double[] getTimeCohortLimit() {
+		return timeCohortsLimit;
+	}
+
+	public void collectData() {
+
+		// Reset Variables
+		firstUnitCost.depVars = new DepVars();
+		rDEfficiency.depVars = new DepVars();
+		leverage.depVars = new DepVars();
+		equityAccess.depVars = new DepVars();
+		learningRate.depVars = new DepVars();
+
+		IndexedIterable<Object> firms = context.getObjects(Firm.class);
+		for (Object o : firms) {
+			Firm f = (Firm) o;
+
+			collectPerIndVar(f, firstUnitCost, f.getFUCCohort() - 1);
+			collectPerIndVar(f, rDEfficiency, f.getRDEfCohort() - 1);
+			collectPerIndVar(f, leverage, f.getLevCohort() - 1);
+			collectPerIndVar(f, equityAccess, f.getEquityCohort() - 1);
+			collectPerIndVar(f, learningRate, f.getLRCohort() - 1);
 		}
 	}
 
-	public void collectPerCohort() {
-		IndexedIterable<Object> firms = context.getObjects(Firm.class);
+	private void collectPerIndVar(Firm f, IndepVar var, int varIdx) {
 
-		firstUnitCost.data = new CollectableData();
-		rDEfficiency.data = new CollectableData();
-		learningRate.data = new CollectableData();
-		leverage.data = new CollectableData();
+		double roe = f.getProfit() / f.getEquity();
+		double roa = f.getEBIT() / f.getAssets();
+		double quantity = f.getQuantity();
 
-		if (firms.size() > 0.0) {
-			for (Object o : firms) {
-				Firm f = (Firm) o;
+		int timeIdx = f.getTimeCohort() - 1;
 
-				// Collects ROA
-				double roa = f.getEBIT() / f.getCapital();
-				firstUnitCost.data.roa[f.getFUCCohort() - 1].addValue(roa);
-				rDEfficiency.data.roa[f.getRDEfCohort() - 1].addValue(roa);
-				learningRate.data.roa[f.getLRCohort() - 1].addValue(roa);
-				leverage.data.roa[f.getLevCohort()-1].addValue(roa);
-
-				// Collects ROE
-				double roe = f.getProfit() / f.getEquity();
-				firstUnitCost.data.roe[f.getFUCCohort() - 1].addValue(roe);
-				rDEfficiency.data.roe[f.getRDEfCohort() - 1].addValue(roe);
-				learningRate.data.roe[f.getLRCohort() - 1].addValue(roe);
-				leverage.data.roe[f.getLevCohort()-1].addValue(roe);
-
-				// Collects output
-				double output = f.getQuantity();
-				firstUnitCost.data.output[f.getFUCCohort() - 1]
-						.addValue(output);
-				rDEfficiency.data.output[f.getRDEfCohort() - 1]
-						.addValue(output);
-				learningRate.data.output[f.getLRCohort() - 1].addValue(output);
-				leverage.data.output[f.getLevCohort()-1].addValue(output);
-			}
-		}
+		var.depVars.roeSum[varIdx][timeIdx] += roe;
+		var.depVars.roaSum[varIdx][timeIdx] += roa;
+		var.depVars.quantitySum[varIdx][timeIdx] += quantity;
+		var.depVars.firmsCount[varIdx][timeIdx] += 1;
 
 	}
 
 	// Mean by FUC Cohort
-	public double getROAMeanByFUCCohort(int coh) {
-		return firstUnitCost.data.roa[coh].getMean();
+	public double getROAMeanByFUCCohort(int varCoh, int timeCoh) {
+		double firms = firstUnitCost.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return firstUnitCost.depVars.roaSum[varCoh - 1][timeCoh - 1]
+					/ firms;
+		} else {
+			return 0.0;
+		}
 	}
 
-	public double getROEMeanByFUCCohort(int coh) {
-		return firstUnitCost.data.roe[coh].getMean();
+	public double getROEMeanByFUCCohort(int varCoh, int timeCoh) {
+		double firms = firstUnitCost.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return firstUnitCost.depVars.roeSum[varCoh - 1][timeCoh - 1]
+					/ firms;
+		} else {
+			return 0.0;
+		}
 	}
 
-	public double getOutputMeanByFUCCohort(int coh) {
-		return firstUnitCost.data.output[coh].getMean();
+	public double getQuantityMeanByFUCCohort(int varCoh, int timeCoh) {
+		double firms = firstUnitCost.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+
+			return firstUnitCost.depVars.quantitySum[varCoh - 1][timeCoh - 1]
+					/ firms;
+		} else {
+			return 0.0;
+		}
 	}
-	
+
+	public double getFirmsCountByFUCCohort(int varCoh, int timeCoh) {
+		return firstUnitCost.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+	}
 
 	// Mean by R&D Efficiency Cohort
-	public double getROAMeanByRDEfficiencyCohort(int coh) {
-		return rDEfficiency.data.roa[coh].getMean();
+	public double getROAMeanByRDEfficiencyCohort(int varCoh, int timeCoh) {
+		double firms = rDEfficiency.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return rDEfficiency.depVars.roaSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
 	}
 
-	public double getROEMeanByRDEfficiencyCohort(int coh) {
-		return rDEfficiency.data.roe[coh].getMean();
+	public double getROEMeanByRDEfficiencyCohort(int varCoh, int timeCoh) {
+		double firms = rDEfficiency.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return rDEfficiency.depVars.roeSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
+
 	}
 
-	public double getOutputMeanByRDEfficiencyCohort(int coh) {
-		return rDEfficiency.data.output[coh].getMean();
+	public double getQuantityMeanByRDEfficiencyCohort(int varCoh, int timeCoh) {
+		double firms = rDEfficiency.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return rDEfficiency.depVars.quantitySum[varCoh - 1][timeCoh - 1]
+					/ firms;
+		} else {
+			return 0.0;
+		}
+
 	}
-	
-	
+
+	public double getFirmsCountByRDEfficiencyCohort(int varCoh, int timeCoh) {
+		return rDEfficiency.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+	}
+
 	// Mean by Learning Rate Cohort
-	public double getROAMeanByLRCohort(int coh) {
-		return learningRate.data.roa[coh].getMean();
+	public double getROAMeanByLRCohort(int varCoh, int timeCoh) {
+		double firms = learningRate.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return learningRate.depVars.roaSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
 	}
 
-	public double getROEMeanByLRCohort(int coh) {
-		return learningRate.data.roe[coh].getMean();
+	public double getROEMeanByLRCohort(int varCoh, int timeCoh) {
+		double firms = learningRate.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return learningRate.depVars.roeSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
 	}
 
-	public double getOutputMeanByLRCohort(int coh) {
-		return learningRate.data.output[coh].getMean();
+	public double getQuantityMeanByLRCohort(int varCoh, int timeCoh) {
+		double firms = learningRate.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return learningRate.depVars.quantitySum[varCoh - 1][timeCoh - 1]
+					/ firms;
+		} else {
+			return 0.0;
+		}
 	}
-	
+
+	public double getFirmsCountByLRCohort(int varCoh, int timeCoh) {
+		return learningRate.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+	}
+
 	
 	// Mean by Leverage Cohort
-	public double getROAMeanByLevCohort(int coh) {
-		return leverage.data.roa[coh].getMean();
+	public double getROAMeanByLevCohort(int varCoh, int timeCoh) {
+		double firms = leverage.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return leverage.depVars.roaSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
 	}
 
-	public double getROEMeanByLevCohort(int coh) {
-		return leverage.data.roe[coh].getMean();
+	public double getROEMeanByLevCohort(int varCoh, int timeCoh) {
+		double firms = leverage.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return leverage.depVars.roeSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
 	}
 
-	public double getOutputMeanByLevCohort(int coh) {
-		return leverage.data.output[coh].getMean();
+	public double getQuantityMeanByLevCohort(int varCoh, int timeCoh) {
+		double firms = leverage.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return leverage.depVars.quantitySum[varCoh - 1][timeCoh - 1]
+					/ firms;
+		} else {
+			return 0.0;
+		}
 	}
-	
+
+	public double getFirmsCountByLevCohort(int varCoh, int timeCoh) {
+		return leverage.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+	}
+
+	// Mean by Equity Access Cohort
+	public double getROAMeanByEquityCohort(int varCoh, int timeCoh) {
+		double firms = equityAccess.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+		
+		if (firms!=0.0){
+			return equityAccess.depVars.roaSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
+	}
+
+	public double getROEMeanByEquityCohort(int varCoh, int timeCoh) {
+		double firms = equityAccess.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return equityAccess.depVars.roeSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
+	}
+
+	public double getQuantityMeanByEquityCohort(int varCoh, int timeCoh) {
+		double firms = equityAccess.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return equityAccess.depVars.quantitySum[varCoh - 1][timeCoh - 1]
+					/ firms;
+		} else {
+			return 0.0;
+		}
+	}
+
+	public double getFirmsCountByEquityCohort(int varCoh, int timeCoh) {
+		return equityAccess.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+	}
+
 }
