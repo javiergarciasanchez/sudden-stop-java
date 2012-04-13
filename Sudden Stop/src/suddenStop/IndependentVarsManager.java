@@ -29,12 +29,14 @@ public class IndependentVarsManager {
 		public double[][] roaSum;
 		public double[][] quantitySum;
 		public double[][] firmsCount;
+		public double[][] performanceSum;
 
 		public DepVars() {
 			roeSum = new double[cohorts][timeCohortsLimit.length + 1];
 			roaSum = new double[cohorts][timeCohortsLimit.length + 1];
 			quantitySum = new double[cohorts][timeCohortsLimit.length + 1];
 			firmsCount = new double[cohorts][timeCohortsLimit.length + 1];
+			performanceSum = new double[cohorts][timeCohortsLimit.length + 1];
 		}
 	}
 
@@ -201,6 +203,7 @@ public class IndependentVarsManager {
 		double roe = f.getProfit() / f.getEquity();
 		double roa = f.getEBIT() / f.getAssets();
 		double quantity = f.getQuantity();
+		double performance = f.getPerformance();
 
 		int timeIdx = f.getTimeCohort() - 1;
 
@@ -208,6 +211,7 @@ public class IndependentVarsManager {
 		var.depVars.roaSum[varIdx][timeIdx] += roa;
 		var.depVars.quantitySum[varIdx][timeIdx] += quantity;
 		var.depVars.firmsCount[varIdx][timeIdx] += 1;
+		var.depVars.performanceSum[varIdx][timeIdx] += performance;
 
 	}
 
@@ -249,7 +253,20 @@ public class IndependentVarsManager {
 	public double getFirmsCountByFUCCohort(int varCoh, int timeCoh) {
 		return firstUnitCost.depVars.firmsCount[varCoh - 1][timeCoh - 1];
 	}
+	
+	public double getPerformanceMeanByFUCCohort(int varCoh, int timeCoh) {
+		double firms = firstUnitCost.depVars.firmsCount[varCoh - 1][timeCoh - 1];
 
+		if (firms != 0.0) {
+
+			return firstUnitCost.depVars.performanceSum[varCoh - 1][timeCoh - 1]
+					/ firms;
+		} else {
+			return 0.0;
+		}
+	}
+	
+	
 	// Mean by R&D Efficiency Cohort
 	public double getROAMeanByRDEfficiencyCohort(int varCoh, int timeCoh) {
 		double firms = rDEfficiency.depVars.firmsCount[varCoh - 1][timeCoh - 1];
@@ -288,6 +305,18 @@ public class IndependentVarsManager {
 		return rDEfficiency.depVars.firmsCount[varCoh - 1][timeCoh - 1];
 	}
 
+	public double getPerformanceeanByRDEfficiencyCohort(int varCoh, int timeCoh) {
+		double firms = rDEfficiency.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return rDEfficiency.depVars.performanceSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
+	}
+
+
+	
 	// Mean by Learning Rate Cohort
 	public double getROAMeanByLRCohort(int varCoh, int timeCoh) {
 		double firms = learningRate.depVars.firmsCount[varCoh - 1][timeCoh - 1];
@@ -322,6 +351,16 @@ public class IndependentVarsManager {
 
 	public double getFirmsCountByLRCohort(int varCoh, int timeCoh) {
 		return learningRate.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+	}
+	
+	public double getPerformanceMeanByLRCohort(int varCoh, int timeCoh) {
+		double firms = learningRate.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return learningRate.depVars.performanceSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
 	}
 
 	
@@ -361,6 +400,17 @@ public class IndependentVarsManager {
 		return leverage.depVars.firmsCount[varCoh - 1][timeCoh - 1];
 	}
 
+	public double getPerformanceMeanByLevCohort(int varCoh, int timeCoh) {
+		double firms = leverage.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+
+		if (firms != 0.0) {
+			return leverage.depVars.performanceSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
+	}
+
+	
 	// Mean by Equity Access Cohort
 	public double getROAMeanByEquityCohort(int varCoh, int timeCoh) {
 		double firms = equityAccess.depVars.firmsCount[varCoh - 1][timeCoh - 1];
@@ -395,6 +445,16 @@ public class IndependentVarsManager {
 
 	public double getFirmsCountByEquityCohort(int varCoh, int timeCoh) {
 		return equityAccess.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+	}
+	
+	public double getROAPerformanceByEquityCohort(int varCoh, int timeCoh) {
+		double firms = equityAccess.depVars.firmsCount[varCoh - 1][timeCoh - 1];
+		
+		if (firms!=0.0){
+			return equityAccess.depVars.performanceSum[varCoh - 1][timeCoh - 1] / firms;
+		} else {
+			return 0.0;
+		}
 	}
 
 }

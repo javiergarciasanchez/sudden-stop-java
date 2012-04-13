@@ -15,14 +15,16 @@ public class Demand {
 	public static double price(double quantity) {
 
 		double tmpCrisisImpact = 1.0 - getSSMagnitude();
+		double elast = (Double) GetParameter("demandElasticity");
+		double subst = (Double) GetParameter("priceOfSubstitute");
+		double demandParam = (Double) GetParameter("demandParameter");
+		double demandShift = (Double) GetParameter("demandShift");
+		double tick = GetTickCount();
 
 		if (quantity > 0) {
-			return min(
-					(Double) GetParameter("priceOfSubstitute"),
-					pow((Double) GetParameter("demandParameter")
-							* pow((1.0 + (Double) GetParameter("demandShift")),
-									GetTickCount()) / quantity,
-							1.0 / (Double) GetParameter("demandElasticity")))
+			return min(subst,
+					demandParam * pow(1.0 + demandShift, tick / elast)
+							* pow(quantity, -1.0 / elast))
 					* tmpCrisisImpact;
 		} else {
 			return (Double) GetParameter("priceOfSubstitute") * tmpCrisisImpact;
