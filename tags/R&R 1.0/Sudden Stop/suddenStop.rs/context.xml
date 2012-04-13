@@ -1,0 +1,6 @@
+<context id="suddenStop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context"
+	class="suddenStop.SuddenStopBuilder">
+
+</context>
