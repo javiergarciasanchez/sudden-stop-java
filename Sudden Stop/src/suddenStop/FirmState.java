@@ -18,18 +18,20 @@ public class FirmState implements Cloneable {
 	 */
 	double capital;
 	double debt;
-	double externalEquityAvailable;
-	double availableFundsFromOperations;
-	double capitalProductivity;
-	double born;
+	double availableFundsFromOperationsPerPeriod;
 	double firstUnitCost;
 	double acumQ;
-	double structuralCost;
-	double fixedCost;
-	double profit;
-	double performance;
-	double quantity;
-	double rD;
+	double profitPerPeriod;
+	double quantityPerPeriod;
+	double rDPerPeriod;
+
+	private double born;
+
+	private double externalEquityAvailablePerPeriod;
+	private double capitalProductivity;
+	private double minVarCost;
+	private double fixedCost;
+	private double performance;
 
 	public FirmState() {
 
@@ -56,7 +58,7 @@ public class FirmState implements Cloneable {
 		 * Read constant state variables
 		 */
 		capitalProductivity = (Double) GetParameter("capitalProductivity");
-		structuralCost = (Double) GetParameter("structuralCost");
+		minVarCost = (Double) GetParameter("minVarCost");
 		fixedCost = (Double) GetParameter("fixedCost");
 		performance = (Double) GetParameter("initialPerformance");
 
@@ -81,12 +83,14 @@ public class FirmState implements Cloneable {
 		return log(learningRate) / log(2.0);
 	}
 
-	public double resetExternalEquityAvailable() {
+	public void resetExternalEquityAvailable() {
+		int periods = (Integer) GetParameter("periods");
 
 		if (Demand.isSS() && !(Boolean) GetParameter("equityOnSS")) {
-			return 0.0;
+			externalEquityAvailablePerPeriod = 0.0;
 		} else {
-			return maxExternalEquity * getCapital();
+			externalEquityAvailablePerPeriod = getMaxExternalEquity()
+					* getCapital() / periods;
 		}
 
 	}
@@ -152,32 +156,39 @@ public class FirmState implements Cloneable {
 
 	}
 
-	// It includes equity cost
-	public double getMedCost() {
-		return (getTotVarCost() + getTotFixedCost() + getInterest() + getExpectedEquityRetribution())
-				/ getQuantity();
+	/*
+	 * Expected Capital retribution includes interest and invested equity
+	 * retribution It does not include cost of cash excess.
+	 * 
+	 * By assuming M&M, it is assumed that cash excess receives a proper return
+	 * according to risk
+	 */
+	public double getMedCostPerPeriod() {
+		return getTotVarCostPerPeriod() + getTotFixedCostPerPeriod()
+				+ getExpectedCapitalRetributionPerPeriod();
 	}
 
 	// Calculates cost using learning curve: cost of new acummulated Q minus
 	// old acummulated Q. See http://maaw.info/LearningCurveSummary.htm
 	// (Wright model)
-	public double getTotVarCost() {
+	public double getTotVarCostPerPeriod() {
 
 		return firstUnitCost
-				* (pow(getAcumQ() + getQuantity(), 1.0 + getLRExpon()) - pow(
-						getAcumQ(), 1.0 + getLRExpon()));
+				* (pow(getAcumQ() + getQuantityPerPeriod(), 1.0 + getLRExpon()) - pow(
+						getAcumQ(), 1.0 + getLRExpon())) + getMinVarCost()
+				* getQuantityPerPeriod();
 
 	}
 
-	public double getTotFixedCost() {
+	public double getTotFixedCostPerPeriod() {
 
-		return (Double) GetParameter("depreciation") * getCapital() + getRD()
-				+ getStructuralCost() + getFixedCost();
+		return getDepreciationPerPeriod() + getRDPerPeriod()
+				+ getFixedCostPerPeriod();
 
 	}
 
-	public double getProfit() {
-		return profit;
+	public double getProfitPerPeriod() {
+		return profitPerPeriod;
 	}
 
 	public double getCapital() {
@@ -212,10 +223,6 @@ public class FirmState implements Cloneable {
 		return (Double) GetParameter("wACC");
 	}
 
-	public double getBorn() {
-		return born;
-	}
-
 	public double getAcumQ() {
 		return acumQ;
 	}
@@ -236,12 +243,8 @@ public class FirmState implements Cloneable {
 		return maxExternalEquity;
 	}
 
-	public double getCapitalProductivity() {
-		return capitalProductivity;
-	}
-
-	public double getrDEfficiency() {
-		return rDEfficiency;
+	public double getCapitalProductivityPerPeriod() {
+		return capitalProductivity / (Integer) GetParameter("periods");
 	}
 
 	public double getCostOfDebt() {
@@ -254,48 +257,66 @@ public class FirmState implements Cloneable {
 				* (1 + getDebt() / getEquity());
 	}
 
-	public double getStructuralCost() {
-		return structuralCost * capital;
+	public double getMinVarCost() {
+		return minVarCost;
 	}
 
-	public double getFixedCost() {
-		return fixedCost;
+	public double getFixedCostPerPeriod() {
+		return fixedCost / (Integer) GetParameter("periods");
 	}
 
-	public double getEBITDA() {
-		return profit + getInterest() + getDepreciation();
+	public double getEBITDAPerPeriod() {
+		return getProfitPerPeriod() + getInterestPerPeriod()
+				+ getDepreciationPerPeriod();
 	}
 
-	public double getEBIT() {
-		return getProfit() + getInterest();
+	public double getEBITPerPeriod() {
+		return getProfitPerPeriod() + getInterestPerPeriod();
 	}
 
-	public double getInterest() {
-		return getCostOfDebt() * getDebt();
+	public double getInterestPerPeriod() {
+		return getCostOfDebt() * getDebt() / (Integer) GetParameter("periods");
 	}
 
-	public double getExpectedEquityRetribution() {
-		return getCostOfEquity() * getEquity();
+	public double getExpectedEquityRetributionPerPeriod() {
+		return getCostOfEquity() * getEquity()
+				/ (Integer) GetParameter("periods");
 	}
 
-	public double getDepreciation() {
-		return (Double) GetParameter("depreciation") * getCapital();
+	public double getExpectedCapitalRetributionPerPeriod() {
+		return getWACC() * getCapital() / (Integer) GetParameter("periods");
+	}
+
+	public double getDepreciationPerPeriod() {
+		return (Double) GetParameter("depreciation") * getCapital()
+				/ (Integer) GetParameter("periods");
 	}
 
 	public double getROE() {
-		return getProfit() / getEquity();
+		return getProfitPerPeriod() * (Integer) GetParameter("periods")
+				/ getEquity();
+	}
+
+	public double getROI() {
+		return getEBITPerPeriod() * (Integer) GetParameter("periods")
+				/ getCapital();
 	}
 
 	public double getROA() {
-		return getProfit() / getAssets();
-	}
-
-	public double getRONA() {
-		return getEBIT() / (getDebt() + getEquity());
+		return getEBITPerPeriod() * (Integer) GetParameter("periods")
+				/ getAssets();
 	}
 
 	public double getPerformance() {
 		return performance;
+	}
+
+	public double getBorn() {
+		return born;
+	}
+
+	public double getBornInYears() {
+		return born / (Integer) GetParameter("periods");
 	}
 
 	public void setBorn(double born) {
@@ -326,10 +347,6 @@ public class FirmState implements Cloneable {
 		this.maxExternalEquity = maxExternalEquity;
 	}
 
-	public void setEquityRaised(double equityRaised) {
-		this.externalEquityAvailable = equityRaised;
-	}
-
 	public void setCapitalProductivity(double capitalProductivity) {
 		this.capitalProductivity = capitalProductivity;
 	}
@@ -339,35 +356,31 @@ public class FirmState implements Cloneable {
 	}
 
 	public void setProfit(double profit) {
-		this.profit = profit;
+		this.profitPerPeriod = profit;
 	}
 
 	public void setPerformance(double performance) {
 		this.performance = performance;
 	}
 
-	public double getQuantity() {
-		return quantity;
+	public double getQuantityPerPeriod() {
+		return quantityPerPeriod;
 	}
 
-	public void setQuantity(double quantity) {
-		this.quantity = quantity;
+	public void setQuantityPerPeriod(double quantity) {
+		this.quantityPerPeriod = quantity;
 	}
 
-	public double getRD() {
-		return rD;
+	public double getRDPerPeriod() {
+		return rDPerPeriod;
 	}
 
-	public double getExternalEquityAvailable() {
-		return externalEquityAvailable;
+	public double getExternalEquityAvailablePerPeriod() {
+		return externalEquityAvailablePerPeriod;
 	}
 
-	public double getAvailableFundsFromOperations() {
-		return availableFundsFromOperations;
-	}
-
-	public void setRD(double rD) {
-		this.rD = rD;
+	public double getAvailableFundsFromOperationsPerPeriod() {
+		return availableFundsFromOperationsPerPeriod;
 	}
 
 	public double getNetDebt() {
@@ -380,5 +393,39 @@ public class FirmState implements Cloneable {
 
 	public double getLearningRate() {
 		return learningRate;
+	}
+
+	public double getCapitalProductivity() {
+		return capitalProductivity;
+	}
+
+	public void setAvailableFundsFromOperationsPerPeriod(
+			double availableFundsFromOperations) {
+		this.availableFundsFromOperationsPerPeriod = availableFundsFromOperations;
+	}
+
+	public void setExternalEquityAvailablePerPeriod(
+			double externalEquityAvailablePerPeriod) {
+		this.externalEquityAvailablePerPeriod = externalEquityAvailablePerPeriod;
+	}
+
+	public double getIndepVarValue(IndepVarsNames key) {
+
+		switch (key) {
+		case FIRST_UNIT_COST:
+			return getFirstUnitCost();
+		case TARGET_LEVERAGE:
+			return getTargetLeverage();
+		case RD_EFFICIENCY:
+			return this.getRDEfficiency();
+		case EQUITY_ACCESS:
+			return this.getMaxExternalEquity();
+		case LEARNING_RATE:
+			return this.getLearningRate();
+		case TIME_OF_ENTRY:
+			return this.getBornInYears();
+		}
+
+		return 0;
 	}
 }

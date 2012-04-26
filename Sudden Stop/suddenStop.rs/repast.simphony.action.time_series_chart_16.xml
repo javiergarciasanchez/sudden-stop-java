@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Firms # Lev</name>
+  <name>Optimal MkUP</name>
   <dataSet>Per Lev</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Firms # by Lev</chartTitle>
+  <chartTitle>Optimal MkUP</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -20,21 +20,9 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>Firms# Lev3</string>
+      <string>OptMkUP Lev1</string>
       <SeriesData>
-        <label>Firms# Lev3</label>
-        <color>
-          <red>255</red>
-          <green>51</green>
-          <blue>153</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>Firms# Lev1</string>
-      <SeriesData>
-        <label>Firms# Lev1</label>
+        <label>OptMkUP Lev1</label>
         <color>
           <red>0</red>
           <green>255</green>
@@ -44,13 +32,25 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>Firms# Lev2</string>
+      <string>OptMkUP Lev2</string>
       <SeriesData>
-        <label>Firms# Lev2</label>
+        <label>OptMkUP Lev2</label>
         <color>
           <red>255</red>
           <green>255</green>
           <blue>0</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>OptMkUP Lev3</string>
+      <SeriesData>
+        <label>OptMkUP Lev3</label>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>102</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

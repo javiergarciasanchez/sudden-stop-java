@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Firms # Lev</name>
-  <dataSet>Per Lev</dataSet>
+  <name>MedCost</name>
+  <dataSet>Firm_Agr</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Firms # by Lev</chartTitle>
+  <chartTitle>MedCost</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -20,36 +20,24 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>Firms# Lev3</string>
+      <string>Price</string>
       <SeriesData>
-        <label>Firms# Lev3</label>
+        <label>Price</label>
         <color>
           <red>255</red>
-          <green>51</green>
-          <blue>153</blue>
+          <green>0</green>
+          <blue>255</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
     </entry>
     <entry>
-      <string>Firms# Lev1</string>
+      <string>MedCost Mean</string>
       <SeriesData>
-        <label>Firms# Lev1</label>
-        <color>
-          <red>0</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>Firms# Lev2</string>
-      <SeriesData>
-        <label>Firms# Lev2</label>
+        <label>MedCost Mean</label>
         <color>
           <red>255</red>
-          <green>255</green>
+          <green>0</green>
           <blue>0</blue>
           <alpha>255</alpha>
         </color>

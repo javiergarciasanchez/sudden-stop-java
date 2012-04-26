@@ -14,17 +14,21 @@ public class Demand {
 	 */
 	public static double price(double quantity) {
 
-		double tmpCrisisImpact = 1.0 - getSSMagnitude();
+		int periods = (Integer) GetParameter("periods");
+		double passthru = (Double) GetParameter("SSPassthru");		
 		double elast = (Double) GetParameter("demandElasticity");
 		double subst = (Double) GetParameter("priceOfSubstitute");
 		double demandParam = (Double) GetParameter("demandParameter");
-		double demandShift = (Double) GetParameter("demandShift");
+		double demandShift = (Double) GetParameter("demandShift") / periods;
 		double tick = GetTickCount();
 
+		double tmpCrisisImpact = 1.0 - getSSMagnitude() * passthru;
+
 		if (quantity > 0) {
-			return min(subst,
+			return min(
+					subst,
 					demandParam * pow(1.0 + demandShift, tick / elast)
-							* pow(quantity, -1.0 / elast))
+							* pow(quantity * periods, -1.0 / elast))
 					* tmpCrisisImpact;
 		} else {
 			return (Double) GetParameter("priceOfSubstitute") * tmpCrisisImpact;
@@ -33,10 +37,13 @@ public class Demand {
 	}
 
 	public static double getSSMagnitude() {
+		int sSDuration = (Integer) GetParameter("suddenStopDuration")
+				* (Integer) GetParameter("periods");
+		int sSStart = (Integer) GetParameter("suddenStopStart")
+				* (Integer) GetParameter("periods");
 
-		if (((Integer) GetParameter("suddenStopDuration")
-				+ (Integer) GetParameter("suddenStopStart") > GetTickCount())
-				&& (GetTickCount() >= (Integer) GetParameter("suddenStopStart"))) {
+		if ((sSDuration + sSStart > GetTickCount())
+				&& (GetTickCount() >= sSStart)) {
 			return (Double) GetParameter("suddenStopMagnitude");
 		} else {
 			return 0.0;

@@ -19,7 +19,9 @@ public class SuddenStopBuilder extends DefaultContext<Object> implements
 			new SQLDataCollector(context, sm);
 		}
 
-		RunEnvironment.getInstance().endAt((Double) GetParameter("stopAt"));
+		RunEnvironment.getInstance().endAt(
+				(Double) GetParameter("stopAt")
+						* (Integer) GetParameter("periods"));
 
 		return context;
 	}
