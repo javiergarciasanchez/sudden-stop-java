@@ -1,67 +1,55 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Price Cost</name>
-  <dataSet>Firm_Agr</dataSet>
+  <name>ROI by Lev</name>
+  <dataSet>Per Lev</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Price Cost</chartTitle>
+  <chartTitle>ROI by Lev</chartTitle>
   <type>TIME_SERIES</type>
   <background>
-    <red>255</red>
-    <green>255</green>
-    <blue>255</blue>
+    <red>192</red>
+    <green>192</green>
+    <blue>192</blue>
     <alpha>255</alpha>
   </background>
   <gridLineColor>
-    <red>0</red>
-    <green>0</green>
-    <blue>0</blue>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
     <alpha>255</alpha>
   </gridLineColor>
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>MedCost Max</string>
+      <string>ROI Lev3</string>
       <SeriesData>
-        <label>MedCost Max</label>
+        <label>ROI Lev3</label>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>102</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>ROI Lev1</string>
+      <SeriesData>
+        <label>ROI Lev1</label>
         <color>
           <red>0</red>
-          <green>0</green>
-          <blue>255</blue>
+          <green>255</green>
+          <blue>0</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
     </entry>
     <entry>
-      <string>MedCost Min</string>
+      <string>ROI Lev2</string>
       <SeriesData>
-        <label>MedCost Min</label>
+        <label>ROI Lev2</label>
         <color>
           <red>255</red>
-          <green>102</green>
-          <blue>153</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>Price</string>
-      <SeriesData>
-        <label>Price</label>
-        <color>
-          <red>255</red>
-          <green>0</green>
-          <blue>255</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>MedCost Mean</string>
-      <SeriesData>
-        <label>MedCost Mean</label>
-        <color>
-          <red>255</red>
-          <green>0</green>
+          <green>255</green>
           <blue>0</blue>
           <alpha>255</alpha>
         </color>

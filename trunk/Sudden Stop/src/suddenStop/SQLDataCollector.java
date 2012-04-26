@@ -67,18 +67,41 @@ public class SQLDataCollector {
 
 		saveRunParams();
 
+		/*
+		 * This is redundat, it will replace saveRunParams and part of
+		 * saveSimInfo (param info) The idea is to split params that depend on
+		 * run from the ones that depend on Sim, later using sql. This will
+		 * provide more flexibility for robustness check
+		 */
+		saveAllParams();
+
 		createPrepStatments();
 
 	}
 
 	private Connection createCon() throws SQLException {
+		
+		/*
+		 * The class loader used when the GUI calls the batch doesn't find
+		 * the sql driver.
+		 * Nick Nicollier suggested using another class loader and it worked 
+		 */
+		ClassLoader current = Thread.currentThread().getContextClassLoader();
+		Thread.currentThread().setContextClassLoader(Context.class.getClassLoader());
+		
 		// Creates the connection to SQL Server
 		String sqlSrv = (String) GetParameter("SQLServer");
 		String db = (String) GetParameter("database");
 		String conStr = "jdbc:sqlserver://" + sqlSrv + ";databaseName=" + db
 				+ ";integratedSecurity=true;";
 
-		return DriverManager.getConnection(conStr);
+		conn = DriverManager.getConnection(conStr);
+		
+		// Part of Nick suggestion
+		Thread.currentThread().setContextClassLoader(current);
+		
+		return conn;
+		
 	}
 
 	private static Integer nextSimID() {
@@ -187,16 +210,52 @@ public class SQLDataCollector {
 
 	}
 
+	private void saveAllParams() {
+		int run = RunState.getInstance().getRunInfo().getRunNumber();
+
+		String sqlStr = "INSERT INTO AllParameters VALUES (" + simID + ", "
+				+ run + ", ?, ? )";
+
+		Schema schema = RunEnvironment.getInstance().getParameters()
+				.getSchema();
+
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = conn.prepareStatement(sqlStr);
+			for (String paramName : schema.parameterNames()) {
+				if (isSimData(paramName)) {
+					continue;
+				} else {
+					pstmt.setString(1, paramName);
+					pstmt.setString(2, GetParameter(paramName).toString());
+					pstmt.executeUpdate();
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		} finally {
+			try {
+				pstmt.close();
+			} catch (Throwable ignore) {
+			}
+		}
+
+	}
+
 	private void saveRunParams() {
 		int run = RunState.getInstance().getRunInfo().getRunNumber();
 		double ssM = (Double) GetParameter("suddenStopMagnitude");
 		int ssS = (Integer) GetParameter("suddenStopStart");
 		int rndSeed = (Integer) GetParameter("randomSeed");
 		Double robCheck = null;
+		String robCheckName = null;
 
-		String sqlStr = "INSERT INTO RunParameters VALUES (" + simID
-				+ ", " + run + ", " + ssM + "," + ssS + ", " + rndSeed + ", "
-				+ robCheck + ")";
+		String sqlStr = "INSERT INTO RunParameters VALUES (" + simID + ", "
+				+ run + ", " + ssM + "," + ssS + ", " + rndSeed + ", "
+				+ robCheck + ", " + robCheckName + ")";
 
 		Statement stmt = null;
 		try {
@@ -227,17 +286,16 @@ public class SQLDataCollector {
 				+ "InitialFUC, RDEfficiency, TargetLeverage, "
 				+ "MaxExternalEquity, LearningRate, Born ) "
 				+ "VALUES (?,?,?,?,?,?,?,?,?)";
-				
+
 		String firmsPerTickDataStr = "INSERT INTO [IndividualFirmsPerTick] ("
 				+ "Simulation, RunNumber, Tick, Firm, "
 				+ "Profit, Quantity, RD, FirstUnitCost, "
-				+ "Capital, Debt, StructuralCost, ToBeKilled, "
-				
+				+ "Capital, Debt, MinVarCost, ToBeKilled, "
+
 				+ "AcumQ, MedCost, TotFixedCost, TotVarCost, "
 				+ "Interest, ExpectedEquityRetribution, Performance, "
-				+ "EBITDA, MktShare"
-				+ " ) "
-				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "EBITDA, MktShare, ExpectedCapitalRetribution" + " ) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		try {
 			mktDataPstm = conn.prepareStatement(mktDataStr);
@@ -261,9 +319,9 @@ public class SQLDataCollector {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 	}
-	
+
 	private static boolean isSimData(String paramName) {
 		return (paramName == "simDescription");
 	}
@@ -289,7 +347,7 @@ public class SQLDataCollector {
 			mktDataPstm.setInt(2, run);
 			mktDataPstm.setDouble(3, tick);
 			mktDataPstm.setDouble(4, suppMan.price);
-			mktDataPstm.setDouble(5, suppMan.totalQuantity);
+			mktDataPstm.setDouble(5, suppMan.totalQuantityPerPeriod);
 			mktDataPstm.execute();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -326,7 +384,7 @@ public class SQLDataCollector {
 			firmsConstDataPstm.setDouble(6, f.getTargetLeverage());
 			firmsConstDataPstm.setDouble(7, f.getMaxExternalEquity());
 			firmsConstDataPstm.setDouble(8, f.getLearningRate());
-			firmsConstDataPstm.setDouble(9, f.getBorn());
+			firmsConstDataPstm.setDouble(9, f.getBornInYears());
 			firmsConstDataPstm.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -345,24 +403,26 @@ public class SQLDataCollector {
 			firmsPerTickDataPstm.setInt(2, run);
 			firmsPerTickDataPstm.setDouble(3, tick);
 			firmsPerTickDataPstm.setFloat(4, f.agentIntID);
-			firmsPerTickDataPstm.setDouble(5, f.getProfit());
-			firmsPerTickDataPstm.setDouble(6, f.getQuantity());
-			firmsPerTickDataPstm.setDouble(7, f.getRD());
+			firmsPerTickDataPstm.setDouble(5, f.getProfitPerPeriod());
+			firmsPerTickDataPstm.setDouble(6, f.getQuantityPerPeriod());
+			firmsPerTickDataPstm.setDouble(7, f.getRDPerPeriod());
 			firmsPerTickDataPstm.setDouble(8, f.getFirstUnitCost());
 			firmsPerTickDataPstm.setDouble(9, f.getCapital());
-			firmsPerTickDataPstm.setDouble(10, f.getDebt()-f.getCash());
-			firmsPerTickDataPstm.setDouble(11, f.getStructuralCost());			
+			firmsPerTickDataPstm.setDouble(10, f.getDebt() - f.getCash());
+			firmsPerTickDataPstm.setDouble(11, f.getMinVarCost());
 			firmsPerTickDataPstm.setBoolean(12, f.isToBeKilled());
-		
+
 			firmsPerTickDataPstm.setDouble(13, f.getAcumQ());
-			firmsPerTickDataPstm.setDouble(14, f.getMedCost());
-			firmsPerTickDataPstm.setDouble(15, f.getTotFixedCost());
-			firmsPerTickDataPstm.setDouble(16, f.getTotVarCost());
-			firmsPerTickDataPstm.setDouble(17, f.getInterest());
-			firmsPerTickDataPstm.setDouble(18, f.getExpectedEquityRetribution());
+			firmsPerTickDataPstm.setDouble(14, f.getMedCostPerPeriod());
+			firmsPerTickDataPstm.setDouble(15, f.getTotFixedCostPerPeriod());
+			firmsPerTickDataPstm.setDouble(16, f.getTotVarCostPerPeriod());
+			firmsPerTickDataPstm.setDouble(17, f.getInterestPerPeriod());
+			firmsPerTickDataPstm.setDouble(18,
+					f.getExpectedEquityRetributionPerPeriod());
 			firmsPerTickDataPstm.setDouble(19, f.getPerformance());
-			firmsPerTickDataPstm.setDouble(20, f.getEBITDA());
+			firmsPerTickDataPstm.setDouble(20, f.getEBITDAPerPeriod());
 			firmsPerTickDataPstm.setDouble(21, f.getMktShare());
+			firmsPerTickDataPstm.setDouble(22, f.getExpectedCapitalRetributionPerPeriod());
 			firmsPerTickDataPstm.execute();
 		} catch (SQLException e1) {
 			e1.printStackTrace();

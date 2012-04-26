@@ -15,7 +15,7 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="repast.simphony.batch.BatchMain"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-params &quot;${file_prompt:the Batch Run Parameters File Name:params.xml}&quot; &quot;${workspace_loc:suddenStop}/suddenStop - Batch.rs&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-params &quot;${file_prompt:the Batch Run Parameters File Name:params.xml}&quot; &quot;${workspace_loc:suddenStop}/suddenStop.rs&quot;"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="suddenStop"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xss10M -Xmx400M"/>
 </launchConfiguration>

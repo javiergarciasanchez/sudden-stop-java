@@ -1,0 +1,455 @@
+<repast.simphony.data2.engine.DataSetDescriptor>
+  <name>Per Lev</name>
+  <type>AGGREGATE</type>
+  <inclTick>true</inclTick>
+  <inclBatchRun>false</inclBatchRun>
+  <inclRandomSeed>false</inclRandomSeed>
+  <scheduleParams>
+    <start>1.0</start>
+    <interval>1.0</interval>
+    <priority>-Infinity</priority>
+    <duration>-1.0</duration>
+    <frequency>REPEAT</frequency>
+  </scheduleParams>
+  <methodDataSources class="linked-hash-map">
+    <entry>
+      <string>UpToVarCostCash L1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>UpToVarCostCash L1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getUpToVarCostPerUnitCash</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>UpToVarCostCash L2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>UpToVarCostCash L2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getUpToVarCostPerUnitCash</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>UpToVarCostCash L3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>UpToVarCostCash L3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getUpToVarCostPerUnitCash</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MedCostCash L1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MedCostCash L1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getMedCostPerUnitCash</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MedCostCash L2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MedCostCash L2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getMedCostPerUnitCash</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MedCostCash L3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MedCostCash L3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getMedCostPerUnitCash</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Price</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Price</id>
+        <className>suddenStop.SupplyManager</className>
+        <methodName>getPrice</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Int L1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Int L1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getInterestPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Int L2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Int L2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getInterestPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Int L3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Int L3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getInterestPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>IntPerUnit_Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>IntPerUnit_Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getInterestPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>IntPerUnit_Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>IntPerUnit_Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getInterestPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>IntPerUnit_Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>IntPerUnit_Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getInterestPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>NoCashPerUnit-L1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>NoCashPerUnit-L1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getNoCashFixedCostsPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>NoCashPerUnit-L2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>NoCashPerUnit-L2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getNoCashFixedCostsPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>NoCashPerUnit-L3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>NoCashPerUnit-L3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getNoCashFixedCostsPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ROI Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ROI Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getROI</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ROI Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ROI Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getROI</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ROI Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ROI Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getROI</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Mkt Share Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Mkt Share Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getMktShare</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Mkt Share Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Mkt Share Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getMktShare</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Mkt Share Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Mkt Share Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getMktShare</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MedCost Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MedCost Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getMedCostPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MedCost Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MedCost Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getMedCostPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MedCost Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MedCost Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getMedCostPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Q Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Q Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getQuantityPerPeriod</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Q Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Q Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getQuantityPerPeriod</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Q Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Q Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getQuantityPerPeriod</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Perf Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Perf Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getPerformance</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Perf Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Perf Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getPerformance</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Perf Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Perf Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getPerformance</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Agr Q Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Agr Q Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getQuantityPerPeriod</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Agr Q Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Agr Q Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getQuantityPerPeriod</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Agr Q Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Agr Q Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getQuantityPerPeriod</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Cash Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Cash Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getCashPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Cash Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Cash Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getCashPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Cash Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Cash Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getCashPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Cash Needs Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Cash Needs Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getCashNeedsPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Cash Needs Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Cash Needs Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getCashNeedsPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Cash Needs Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Cash Needs Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getCashNeedsPerUnit</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>OptMkUP Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>OptMkUP Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getOptimalMarkUp</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>OptMkUP Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>OptMkUP Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getOptimalMarkUp</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>OptMkUP Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>OptMkUP Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getOptimalMarkUp</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MargCost Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MargCost Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getMarginalCost</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MargCost Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MargCost Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getMarginalCost</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>MargCost Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>MargCost Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getMarginalCost</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+  </methodDataSources>
+  <countSources class="linked-hash-map">
+    <entry>
+      <string>Firms# Lev1</string>
+      <repast.simphony.data2.engine.CountSourceDefinition>
+        <typeName>suddenStop.Lev1</typeName>
+        <id>Firms# Lev1</id>
+      </repast.simphony.data2.engine.CountSourceDefinition>
+    </entry>
+    <entry>
+      <string>Firms# Lev2</string>
+      <repast.simphony.data2.engine.CountSourceDefinition>
+        <typeName>suddenStop.Lev2</typeName>
+        <id>Firms# Lev2</id>
+      </repast.simphony.data2.engine.CountSourceDefinition>
+    </entry>
+    <entry>
+      <string>Firms# Lev3</string>
+      <repast.simphony.data2.engine.CountSourceDefinition>
+        <typeName>suddenStop.Lev3</typeName>
+        <id>Firms# Lev3</id>
+      </repast.simphony.data2.engine.CountSourceDefinition>
+    </entry>
+  </countSources>
+  <customNADataSources class="linked-hash-map"/>
+  <customAggDataSources class="linked-hash-map"/>
+</repast.simphony.data2.engine.DataSetDescriptor>

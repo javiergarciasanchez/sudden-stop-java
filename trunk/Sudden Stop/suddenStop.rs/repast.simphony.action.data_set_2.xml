@@ -18,7 +18,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost</id>
         <className>suddenStop.Firm</className>
-        <methodName>getMedCost</methodName>
+        <methodName>getMedCostPerPeriod</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
@@ -34,7 +34,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>Quantity</id>
         <className>suddenStop.Firm</className>
-        <methodName>getQuantity</methodName>
+        <methodName>getQuantityPerPeriod</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>

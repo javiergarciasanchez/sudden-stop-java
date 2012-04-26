@@ -17,7 +17,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Mean</id>
         <className>suddenStop.Firm</className>
-        <methodName>getMedCost</methodName>
+        <methodName>getMedCostPerUnit</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -70,8 +70,8 @@
       <string>TotalQuantity</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>TotalQuantity</id>
-        <className>suddenStop.SupplyManager</className>
-        <methodName>getTotalQuantity</methodName>
+        <className>suddenStop.Firm</className>
+        <methodName>getQuantityPerPeriod</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -80,7 +80,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Max</id>
         <className>suddenStop.Firm</className>
-        <methodName>getMedCost</methodName>
+        <methodName>getMedCostPerUnit</methodName>
         <aggType>MAX</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -89,16 +89,16 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Min</id>
         <className>suddenStop.Firm</className>
-        <methodName>getMedCost</methodName>
+        <methodName>getMedCostPerUnit</methodName>
         <aggType>MIN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>RONA Mean</string>
+      <string>ROI Mean</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>RONA Mean</id>
+        <id>ROI Mean</id>
         <className>suddenStop.Firm</className>
-        <methodName>getRONA</methodName>
+        <methodName>getROI</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -125,7 +125,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>Quantity Max</id>
         <className>suddenStop.Firm</className>
-        <methodName>getQuantity</methodName>
+        <methodName>getQuantityPerPeriod</methodName>
         <aggType>MAX</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -134,7 +134,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>Quantity Min</id>
         <className>suddenStop.Firm</className>
-        <methodName>getQuantity</methodName>
+        <methodName>getQuantityPerPeriod</methodName>
         <aggType>MIN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -143,7 +143,16 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>Quantity Mean</id>
         <className>suddenStop.Firm</className>
-        <methodName>getQuantity</methodName>
+        <methodName>getQuantityPerPeriod</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>RD Mean</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>RD Mean</id>
+        <className>suddenStop.Firm</className>
+        <methodName>getRDPerPeriod</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
