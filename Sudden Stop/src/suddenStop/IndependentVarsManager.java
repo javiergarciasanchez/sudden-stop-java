@@ -124,6 +124,16 @@ public class IndependentVarsManager {
 	}
 
 	/*
+	 * Add new firm to the respective cohort counter of each indepvar
+	 */
+	public void addNewFirm(Firm f) {
+		for (IndepVarsNames key : indepVars.keySet()) {
+			indepVars.get(key).maxCount[f.getCohort(key) - 1]++;
+		}
+
+	}
+
+	/*
 	 * Get random indep vars
 	 */
 	public double getRandfirstUnitCost() {
@@ -205,6 +215,10 @@ public class IndependentVarsManager {
 
 	}
 
+	public int getTotalCountByCohort(IndepVarsNames indepVar, int varCoh) {
+		return indepVars.get(indepVar).maxCount[varCoh - 1];
+	}
+
 	public double getCountByCohort(IndepVarsNames indepVar, int varCoh) {
 		return (indepVars.get(indepVar).depVars.get(FIRMS_COUNT))[varCoh - 1];
 	}
@@ -255,6 +269,36 @@ public class IndependentVarsManager {
 
 	public double getROIByLevCohort3() {
 		return getMeanByCohort(TARGET_LEVERAGE, ROI_SUM, 3);
+	}
+
+	public double getFirmsCountAsPercetangeByLevCohort1() {
+		return getCountByCohort(TARGET_LEVERAGE, 1)
+				/ getTotalCountByCohort(TARGET_LEVERAGE, 1);
+	}
+
+	public double getFirmsCountAsPercetangeByLevCohort2() {
+		return getCountByCohort(TARGET_LEVERAGE, 2)
+				/ getTotalCountByCohort(TARGET_LEVERAGE, 2);
+	}
+
+	public double getFirmsCountAsPercetangeByLevCohort3() {
+		return getCountByCohort(TARGET_LEVERAGE, 3)
+				/ getTotalCountByCohort(TARGET_LEVERAGE, 3);
+	}
+
+	public double getFirmsCountAsPercetangeByTimeCohort1() {
+		return getCountByCohort(TIME_OF_ENTRY, 1)
+				/ getTotalCountByCohort(TIME_OF_ENTRY, 1);
+	}
+
+	public double getFirmsCountAsPercetangeByTimeCohort2() {
+		return getCountByCohort(TIME_OF_ENTRY, 2)
+				/ getTotalCountByCohort(TIME_OF_ENTRY, 2);
+	}
+
+	public double getFirmsCountAsPercetangeByTimeCohort3() {
+		return getCountByCohort(TIME_OF_ENTRY, 3)
+				/ getTotalCountByCohort(TIME_OF_ENTRY, 3);
 	}
 
 }

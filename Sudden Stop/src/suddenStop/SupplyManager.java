@@ -20,14 +20,17 @@ public class SupplyManager {
 	public Normal innovationErrorNormal = null;
 
 	public double price = 0;
+	public double prevPrice = 0;
 
 	public double dead = 0;
 
 	public int bornFirms = 0;
 
 	public double totalFirms = 1.0;
+	public double prevTotalFirms = 0;
 
 	public double totalQuantityPerPeriod = 0;
+	public double prevTotalQuantityPerPeriod = 0;
 
 	public SupplyManager(Context<Object> context,
 			IndependentVarsManager independentVarsManager) {
@@ -35,7 +38,8 @@ public class SupplyManager {
 		this.context = context;
 		context.add(this);
 
-		price = (Double) GetParameter("priceOfSubstitute");
+		prevPrice = (Double) GetParameter("priceOfSubstitute");
+		price = prevPrice;
 
 		iniKNormal = RandomHelper.createNormal(
 				(Double) GetParameter("iniKMean"),
@@ -67,7 +71,7 @@ public class SupplyManager {
 		processOffers();
 
 		killToBeKilledFirms();
-		
+
 		planNextYear();
 
 		if (!RunEnvironment.getInstance().isBatch()) {
@@ -113,6 +117,7 @@ public class SupplyManager {
 			f = (Firm) o;
 			totalQuantityPerPeriod += f.getQuantityPerPeriod();
 		}
+		prevPrice = price;
 		price = Demand.price(totalQuantityPerPeriod);
 
 		for (Object o : context.getObjects(Firm.class)) {
@@ -142,8 +147,10 @@ public class SupplyManager {
 		}
 
 		firms = context.getObjects(Firm.class);
+		prevTotalFirms = totalFirms;
 		totalFirms = firms.size();
 
+		prevTotalQuantityPerPeriod = totalQuantityPerPeriod;
 		totalQuantityPerPeriod = 0.0;
 		for (Object o : firms) {
 			Firm f = (Firm) o;

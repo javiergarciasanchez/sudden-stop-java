@@ -294,7 +294,7 @@ public class SQLDataCollector {
 
 				+ "AcumQ, MedCost, TotFixedCost, TotVarCost, "
 				+ "Interest, ExpectedEquityRetribution, Performance, "
-				+ "EBITDA, MktShare, ExpectedCapitalRetribution" + " ) "
+				+ "EBITDA, MktShare, ExpectedCapitalRetribution ) "
 				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		try {
@@ -413,7 +413,7 @@ public class SQLDataCollector {
 			firmsPerTickDataPstm.setBoolean(12, f.isToBeKilled());
 
 			firmsPerTickDataPstm.setDouble(13, f.getAcumQ());
-			firmsPerTickDataPstm.setDouble(14, f.getMedCostPerPeriod());
+			firmsPerTickDataPstm.setDouble(14, f.getMedCost());
 			firmsPerTickDataPstm.setDouble(15, f.getTotFixedCostPerPeriod());
 			firmsPerTickDataPstm.setDouble(16, f.getTotVarCostPerPeriod());
 			firmsPerTickDataPstm.setDouble(17, f.getInterestPerPeriod());

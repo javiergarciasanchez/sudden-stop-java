@@ -17,7 +17,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Mean</id>
         <className>suddenStop.Firm</className>
-        <methodName>getMedCostPerUnit</methodName>
+        <methodName>getMedCost</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -80,7 +80,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Max</id>
         <className>suddenStop.Firm</className>
-        <methodName>getMedCostPerUnit</methodName>
+        <methodName>getMedCost</methodName>
         <aggType>MAX</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -89,7 +89,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Min</id>
         <className>suddenStop.Firm</className>
-        <methodName>getMedCostPerUnit</methodName>
+        <methodName>getMedCost</methodName>
         <aggType>MIN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
