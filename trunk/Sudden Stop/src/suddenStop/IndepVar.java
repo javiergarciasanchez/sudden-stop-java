@@ -7,11 +7,13 @@ import static suddenStop.DepVarsNames.*;
 
 public class IndepVar {
 	double[] limit;
+	int[] maxCount;
 	AbstractContinousDistribution distrib;
 	HashMap<DepVarsNames, double[]> depVars;
 
 	public IndepVar(int cohorts) {
 		limit = new double[cohorts - 1];
+		maxCount = new int[cohorts];
 		depVars = new HashMap<DepVarsNames, double[]>();
 		resetDepVars(cohorts);
 	}

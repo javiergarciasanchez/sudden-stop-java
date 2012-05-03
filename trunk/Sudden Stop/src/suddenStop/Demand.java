@@ -15,36 +15,80 @@ public class Demand {
 	public static double price(double quantity) {
 
 		int periods = (Integer) GetParameter("periods");
-		double passthru = (Double) GetParameter("SSPassthru");		
 		double elast = (Double) GetParameter("demandElasticity");
 		double subst = (Double) GetParameter("priceOfSubstitute");
 		double demandParam = (Double) GetParameter("demandParameter");
 		double demandShift = (Double) GetParameter("demandShift") / periods;
+
 		double tick = GetTickCount();
 
-		double tmpCrisisImpact = 1.0 - getSSMagnitude() * passthru;
+		/*
+		 * SSMagnitude is the fall of P x Q
+		 * 
+		 * Demand function is adjusted to get this result
+		 * 
+		 * See mathematica "SS impact on q.nb"
+		 */
+		double sSDemandImpact = (1.0 - getSSMagnitude())
+				* pow(1.0 - getSSQuantityImpact(), -1.0 + 1.0 / elast);
 
 		if (quantity > 0) {
 			return min(
 					subst,
 					demandParam * pow(1.0 + demandShift, tick / elast)
 							* pow(quantity * periods, -1.0 / elast))
-					* tmpCrisisImpact;
+					* sSDemandImpact;
 		} else {
-			return (Double) GetParameter("priceOfSubstitute") * tmpCrisisImpact;
+			return (Double) GetParameter("priceOfSubstitute") * sSDemandImpact;
 		}
 
 	}
 
-	public static double getSSMagnitude() {
-		int sSDuration = (Integer) GetParameter("suddenStopDuration")
-				* (Integer) GetParameter("periods");
-		int sSStart = (Integer) GetParameter("suddenStopStart")
+	public static boolean isSS() {
+		double sSM = (Double) GetParameter("suddenStopMagnitude");
+		double sSD = (Double) GetParameter("suddenStopDuration")
 				* (Integer) GetParameter("periods");
 
-		if ((sSDuration + sSStart > GetTickCount())
-				&& (GetTickCount() >= sSStart)) {
-			return (Double) GetParameter("suddenStopMagnitude");
+		int sSS = (Integer) GetParameter("suddenStopStart")
+				* (Integer) GetParameter("periods");
+
+		return (sSM > 0.0) && (sSD + sSS > GetTickCount())
+				&& (GetTickCount() >= sSS);
+
+	}
+
+	public static double getSSQuantityImpact() {
+		return getSSQuantityImpact(GetTickCount());
+	}
+
+	public static double getSSQuantityImpact(double tick) {
+
+		return getSSImpactSmoothing(tick,
+				(Double) GetParameter("suddenStopQuantityImpact"))
+				* (Double) GetParameter("SSPassthru");
+
+	}
+
+	public static double getSSMagnitude() {
+		return getSSMagnitude(GetTickCount());
+	}
+
+	public static double getSSMagnitude(double tick) {
+
+		return getSSImpactSmoothing(tick, (Double) GetParameter("suddenStopMagnitude"))
+				* (Double) GetParameter("SSPassthru");
+
+	}
+
+	public static double getSSImpactSmoothing(double tick, double magn) {
+
+		double sSD = (Double) GetParameter("suddenStopDuration")
+				* (Integer) GetParameter("periods");
+
+		int sSS = (Integer) GetParameter("suddenStopStart")
+				* (Integer) GetParameter("periods");
+		if (isSS()) {
+			return magn - (tick - sSS) * magn / sSD;
 		} else {
 			return 0.0;
 		}
@@ -56,7 +100,4 @@ public class Demand {
 		return "Demand";
 	}
 
-	public static boolean isSS() {
-		return Demand.getSSMagnitude() > 0.0;
-	}
 }

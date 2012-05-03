@@ -10,18 +10,13 @@ public class Cohort {
 	public double getOptimalMarkUp() {
 		return f.getOptimalMarkUp();
 	}
-	
+
 	public double getWACC() {
 		return f.getWACC();
 	}
 
 	public double getAge() {
 		return f.getAge();
-	}
-
-	// It includes equity cost
-	public double getMedCostPerPeriod() {
-		return f.getMedCostPerPeriod();
 	}
 
 	public double getEBITPerPeriod() {
@@ -104,6 +99,10 @@ public class Cohort {
 		return f.getDepreciationPerPeriod();
 	}
 
+	public double getDepreciationPerUnit() {
+		return f.getDepreciationPerPeriod() / f.getQuantityPerPeriod();
+	}
+
 	public double getFirstUnitCost() {
 		return f.getFirstUnitCost();
 	}
@@ -164,10 +163,10 @@ public class Cohort {
 		return f.getBornInYears();
 	}
 
-	public double getMedCostPerUnit() {
-		return f.getMedCostPerPeriod() / getQuantityPerPeriod();
+	public double getMedCost() {
+		return f.getMedCost();
 	}
-	
+
 	public double getMarginalCost() {
 		return f.getMarginalCost();
 	}
@@ -176,10 +175,11 @@ public class Cohort {
 		return getInterestPerPeriod() / getQuantityPerPeriod();
 	}
 
-	public double getMedCostPerUnitCash() {
-		return (getMedCostPerPeriod() - getDepreciationPerPeriod()
-				- (getExpectedCapitalRetributionPerPeriod() - getInterestPerPeriod() ) )
-				/ getQuantityPerPeriod();
+	public double getMedCostCash() {
+
+		return getMedCost() - getDepreciationPerUnit()
+				- getExpectedCapitalRetributionPerUnit() + getInterestPerUnit();
+
 	}
 
 	public double getVarCostPerUnit() {
@@ -195,11 +195,11 @@ public class Cohort {
 		return getDepreciationPerPeriod() / getQuantityPerPeriod();
 	}
 
-	public double getExpectedEquityRetributionPerPeriodPerUnit() {
+	public double getExpectedEquityRetributionPerUnit() {
 		return getExpectedEquityRetributionPerPeriod() / getQuantityPerPeriod();
 	}
 
-	public double getExpectedCapitalRetributionPerPeriodPerUnit() {
+	public double getExpectedCapitalRetributionPerUnit() {
 		return getExpectedCapitalRetributionPerPeriod()
 				/ getQuantityPerPeriod();
 	}
@@ -207,15 +207,19 @@ public class Cohort {
 	public double getUpToVarCostPerUnitCash() {
 		return getCashFixedCostsPerUnit() + getVarCostPerUnit();
 	}
-	
-	public double getCashPerUnit(){
+
+	public double getCashPerUnit() {
 		return getCash() / getQuantityPerPeriod();
 	}
-	
-	public double getCashNeedsPerUnit(){
-		return getMedCostPerUnitCash() - getCashPerUnit();
+
+	public double getCashNeedsPerUnit() {
+		return getMedCostCash() - getCashPerUnit();
 	}
 
+	public double getRDPerUnit(){
+		return getRDPerPeriod()/ getQuantityPerPeriod();
+	}
+	
 	public String toString() {
 		return f.agentID;
 	}

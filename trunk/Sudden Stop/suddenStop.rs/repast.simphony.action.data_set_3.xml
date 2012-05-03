@@ -44,7 +44,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCostCash L1</id>
         <className>suddenStop.Lev1</className>
-        <methodName>getMedCostPerUnitCash</methodName>
+        <methodName>getMedCostCash</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -53,7 +53,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCostCash L2</id>
         <className>suddenStop.Lev2</className>
-        <methodName>getMedCostPerUnitCash</methodName>
+        <methodName>getMedCostCash</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -62,7 +62,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCostCash L3</id>
         <className>suddenStop.Lev3</className>
-        <methodName>getMedCostPerUnitCash</methodName>
+        <methodName>getMedCostCash</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -215,7 +215,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Lev1</id>
         <className>suddenStop.Lev1</className>
-        <methodName>getMedCostPerUnit</methodName>
+        <methodName>getMedCost</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -224,7 +224,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Lev2</id>
         <className>suddenStop.Lev2</className>
-        <methodName>getMedCostPerUnit</methodName>
+        <methodName>getMedCost</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -233,7 +233,7 @@
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>MedCost Lev3</id>
         <className>suddenStop.Lev3</className>
-        <methodName>getMedCostPerUnit</methodName>
+        <methodName>getMedCost</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
@@ -423,6 +423,87 @@
         <id>MargCost Lev3</id>
         <className>suddenStop.Lev3</className>
         <methodName>getMarginalCost</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Sales Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Sales Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getSalesPerPeriod</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Sales Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Sales Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getSalesPerPeriod</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Sales Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Sales Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getSalesPerPeriod</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Firms#% Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Firms#% Lev1</id>
+        <className>suddenStop.IndependentVarsManager</className>
+        <methodName>getFirmsCountAsPercetangeByLevCohort1</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Firms#% Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Firms#% Lev2</id>
+        <className>suddenStop.IndependentVarsManager</className>
+        <methodName>getFirmsCountAsPercetangeByLevCohort2</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Firms#% Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Firms#% Lev3</id>
+        <className>suddenStop.IndependentVarsManager</className>
+        <methodName>getFirmsCountAsPercetangeByLevCohort3</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Lev Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Lev Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getNetLeverage</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Lev Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Lev Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getNetLeverage</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>Lev Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Lev Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getNetLeverage</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>

@@ -18,15 +18,15 @@ public class FirmState implements Cloneable {
 	 */
 	double capital;
 	double debt;
-	double availableFundsFromOperationsPerPeriod;
 	double firstUnitCost;
 	double acumQ;
 	double profitPerPeriod;
 	double quantityPerPeriod;
-	double rDPerPeriod;
 
 	private double born;
 
+	private double rDPerPeriod;
+	private double availableFundsFromOperationsPerPeriod;
 	private double externalEquityAvailablePerPeriod;
 	private double capitalProductivity;
 	private double minVarCost;
@@ -34,8 +34,6 @@ public class FirmState implements Cloneable {
 	private double performance;
 
 	public FirmState() {
-
-		born = GetTickCount();
 
 		/*
 		 * Obtain independent variables
@@ -65,7 +63,14 @@ public class FirmState implements Cloneable {
 		/*
 		 * Initialize the remaining variables
 		 */
+		born = GetTickCount();
 		debt = capital * targetLeverage;
+		rDPerPeriod = 0.0; // There is no R&D until it is planned
+		acumQ = 0.0;
+		quantityPerPeriod = 0.0;
+		profitPerPeriod = 0.0;
+		availableFundsFromOperationsPerPeriod = 0.0;
+		externalEquityAvailablePerPeriod = 0.0;
 
 	}
 
@@ -163,9 +168,9 @@ public class FirmState implements Cloneable {
 	 * By assuming M&M, it is assumed that cash excess receives a proper return
 	 * according to risk
 	 */
-	public double getMedCostPerPeriod() {
-		return getTotVarCostPerPeriod() + getTotFixedCostPerPeriod()
-				+ getExpectedCapitalRetributionPerPeriod();
+	public double getMedCost() {
+		return (getTotVarCostPerPeriod() + getTotFixedCostPerPeriod() + getExpectedCapitalRetributionPerPeriod())
+				/ getQuantityPerPeriod();
 	}
 
 	// Calculates cost using learning curve: cost of new acummulated Q minus
@@ -244,7 +249,7 @@ public class FirmState implements Cloneable {
 	}
 
 	public double getCapitalProductivityPerPeriod() {
-		return capitalProductivity / (Integer) GetParameter("periods");
+		return getCapitalProductivity() / (Integer) GetParameter("periods");
 	}
 
 	public double getCostOfDebt() {
@@ -275,7 +280,11 @@ public class FirmState implements Cloneable {
 	}
 
 	public double getInterestPerPeriod() {
-		return getCostOfDebt() * getDebt() / (Integer) GetParameter("periods");
+		return getCostOfDebt()
+				* getDebt()
+				/ (Integer) GetParameter("periods")
+				* (1 + Demand.getSSMagnitude()
+						* (Double) GetParameter("SSdebtImpactFactor"));
 	}
 
 	public double getExpectedEquityRetributionPerPeriod() {
@@ -347,10 +356,6 @@ public class FirmState implements Cloneable {
 		this.maxExternalEquity = maxExternalEquity;
 	}
 
-	public void setCapitalProductivity(double capitalProductivity) {
-		this.capitalProductivity = capitalProductivity;
-	}
-
 	public void setrDEfficiency(double rDEfficiency) {
 		this.rDEfficiency = rDEfficiency;
 	}
@@ -367,12 +372,12 @@ public class FirmState implements Cloneable {
 		return quantityPerPeriod;
 	}
 
-	public void setQuantityPerPeriod(double quantity) {
-		this.quantityPerPeriod = quantity;
-	}
-
 	public double getRDPerPeriod() {
 		return rDPerPeriod;
+	}
+	
+	public double setRDPerPeriod(double rDPerPeriod) {
+		return this.rDPerPeriod = rDPerPeriod;
 	}
 
 	public double getExternalEquityAvailablePerPeriod() {
@@ -396,7 +401,7 @@ public class FirmState implements Cloneable {
 	}
 
 	public double getCapitalProductivity() {
-		return capitalProductivity;
+		return capitalProductivity * (1.0 - Demand.getSSQuantityImpact());
 	}
 
 	public void setAvailableFundsFromOperationsPerPeriod(
