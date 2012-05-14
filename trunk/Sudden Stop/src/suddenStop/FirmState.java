@@ -5,6 +5,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.pow;
 import static repast.simphony.essentials.RepastEssentials.GetParameter;
 import static repast.simphony.essentials.RepastEssentials.GetTickCount;
+import static suddenStop.CashUsage.ONLY_CASH;
 
 public class FirmState implements Cloneable {
 
@@ -28,7 +29,6 @@ public class FirmState implements Cloneable {
 	private double rDPerPeriod;
 	private double availableFundsFromOperationsPerPeriod;
 	private double externalEquityAvailablePerPeriod;
-	private double capitalProductivity;
 	private double minVarCost;
 	private double fixedCost;
 	private double performance;
@@ -55,7 +55,6 @@ public class FirmState implements Cloneable {
 		/*
 		 * Read constant state variables
 		 */
-		capitalProductivity = (Double) GetParameter("capitalProductivity");
 		minVarCost = (Double) GetParameter("minVarCost");
 		fixedCost = (Double) GetParameter("fixedCost");
 		performance = (Double) GetParameter("initialPerformance");
@@ -141,7 +140,7 @@ public class FirmState implements Cloneable {
 		}
 
 		if (Demand.isSS())
-			cashUsage = CashUsage.ONLY_CASH;
+			cashUsage = ONLY_CASH;
 
 		switch (cashUsage) {
 		case LEVERAGE:
@@ -246,10 +245,6 @@ public class FirmState implements Cloneable {
 
 	public double getMaxExternalEquity() {
 		return maxExternalEquity;
-	}
-
-	public double getCapitalProductivityPerPeriod() {
-		return getCapitalProductivity() / (Integer) GetParameter("periods");
 	}
 
 	public double getCostOfDebt() {
@@ -375,7 +370,7 @@ public class FirmState implements Cloneable {
 	public double getRDPerPeriod() {
 		return rDPerPeriod;
 	}
-	
+
 	public double setRDPerPeriod(double rDPerPeriod) {
 		return this.rDPerPeriod = rDPerPeriod;
 	}
@@ -398,10 +393,6 @@ public class FirmState implements Cloneable {
 
 	public double getLearningRate() {
 		return learningRate;
-	}
-
-	public double getCapitalProductivity() {
-		return capitalProductivity * (1.0 - Demand.getSSQuantityImpact());
 	}
 
 	public void setAvailableFundsFromOperationsPerPeriod(
