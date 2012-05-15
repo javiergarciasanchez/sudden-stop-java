@@ -46,12 +46,10 @@ public class Firm {
 
 		context.add(this);
 
-		currentState = new FirmState();
-		nextState = currentState.clone();
+		nextState = new FirmState();
 
 		nextState.quantityPerPeriod = nextState.getCapital()
-				* (Double) GetParameter("firstUnitCapitalProductivity")
-				/ (Integer) GetParameter("periods");
+				* nextState.getCapitalProductivityPerPeriod();
 
 		currentState = nextState.clone();
 
@@ -95,7 +93,7 @@ public class Firm {
 
 		// Define quantityPerPeriod offered
 		nextState.quantityPerPeriod = nextState.getCapital()
-				* getCapitalProductivityPerPeriod();
+				* nextState.getCapitalProductivityPerPeriod();
 
 		nextState.resetExternalEquityAvailable();
 
@@ -318,7 +316,8 @@ public class Firm {
 				* (1.0 + st.getLRExpon())
 				* pow(st.getAcumQ() + st.getQuantityPerPeriod(),
 						st.getLRExpon()) + st.getMinVarCost()
-				+ (wACCxPer + deprecxPer) / getCapitalProductivityPerPeriod();
+				+ (wACCxPer + deprecxPer)
+				/ st.getCapitalProductivityPerPeriod();
 
 	}
 
@@ -328,54 +327,16 @@ public class Firm {
 		double optRD = pow(
 				nextState.getFirstUnitCost()
 						/ nextState.getRDEfficiency()
-						* (pow(nextState.getAcumQ()
-								+ nextState.getQuantityPerPeriod(),
+						* (pow(nextState.getAcumQ() + nextState.getQuantityPerPeriod(),
 								1.0 + nextState.getLRExpon()) - pow(
-								nextState.getAcumQ(),
-								1.0 + nextState.getLRExpon())), 0.5) - 1.0;
+								nextState.getAcumQ(), 1.0 + nextState.getLRExpon())),
+				0.5) - 1.0;
 
 		/*
 		 * There is a minimum amount of RD to make FUC decrease
 		 */
-		nextState
-				.setRDPerPeriod(max(1.0 / nextState.rDEfficiency - 1.0, optRD));
+		nextState.setRDPerPeriod( max(1.0 / nextState.rDEfficiency - 1.0, optRD));
 
-	}
-
-	public double getCapitalProductivity() {
-
-		int periods = (Integer) GetParameter("periods");
-		double maxCP = (Double) GetParameter("maxCapitalProductivity")
-				/ periods;
-		double fUCP = (Double) GetParameter("firstUnitCapitalProductivity")
-				/ (Integer) GetParameter("periods");
-		double fUC = currentState.getFirstUnitCost();
-		double minProdCost = currentState.getMinVarCost();
-		double quantity = currentState.getQuantityPerPeriod();
-		double c1, c2;
-		double retVal;
-
-		/*
-		 * Winter 1984 implies capital productivity = const / unitprodcost
-		 * 
-		 * a Shift is added, so the capital productivity can be handle to reach
-		 * some max and min
-		 */
-		c2 = (maxCP - fUCP) * minProdCost * fUC / (fUC - minProdCost);
-		c1 = fUCP - c2 / fUC;
-
-		if (quantity == 0.0) {
-			retVal = fUCP;
-		} else {
-			retVal = c1 + c2 / (currentState.getTotVarCostPerPeriod() / quantity);
-		}
-
-		return retVal * (1.0 - Demand.getSSQuantityImpact());
-
-	}
-
-	public double getCapitalProductivityPerPeriod() {
-		return getCapitalProductivity() / (Integer) GetParameter("periods");
 	}
 
 	public double getOptimalMarkUp() {

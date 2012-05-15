@@ -234,15 +234,8 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
-				<parameter name="maxCapitalProductivity" displayName="Max Capital Productivity" type="double" 
+				<parameter name="capitalProductivity" displayName="Capital Productivity" type="double" 
 						defaultValue="4.0" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-									
-		/>
-
-				<parameter name="firstUnitCapitalProductivity" displayName="First Unit Capital Productivity" type="double" 
-						defaultValue="0.5" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
