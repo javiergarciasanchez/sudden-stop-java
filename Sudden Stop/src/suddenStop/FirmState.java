@@ -5,6 +5,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.pow;
 import static repast.simphony.essentials.RepastEssentials.GetParameter;
 import static repast.simphony.essentials.RepastEssentials.GetTickCount;
+import static suddenStop.CashUsage.ONLY_CASH;
 
 public class FirmState implements Cloneable {
 
@@ -141,7 +142,7 @@ public class FirmState implements Cloneable {
 		}
 
 		if (Demand.isSS())
-			cashUsage = CashUsage.ONLY_CASH;
+			cashUsage = ONLY_CASH;
 
 		switch (cashUsage) {
 		case LEVERAGE:
