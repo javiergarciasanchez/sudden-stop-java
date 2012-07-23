@@ -20,6 +20,30 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
+      <string>MedCost Max</string>
+      <SeriesData>
+        <label>MedCost Max</label>
+        <color>
+          <red>0</red>
+          <green>204</green>
+          <blue>102</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>MedCost Min</string>
+      <SeriesData>
+        <label>MedCost Min</label>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
       <string>Price</string>
       <SeriesData>
         <label>Price</label>
@@ -37,7 +61,7 @@
         <label>MedCost Mean</label>
         <color>
           <red>255</red>
-          <green>0</green>
+          <green>255</green>
           <blue>0</blue>
           <alpha>255</alpha>
         </color>
