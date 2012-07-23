@@ -156,6 +156,24 @@
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
+    <entry>
+      <string>ROI Max</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ROI Max</id>
+        <className>suddenStop.Firm</className>
+        <methodName>getROI</methodName>
+        <aggType>MAX</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ROI Min</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ROI Min</id>
+        <className>suddenStop.Firm</className>
+        <methodName>getROI</methodName>
+        <aggType>MIN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
   </methodDataSources>
   <countSources class="linked-hash-map">
     <entry>

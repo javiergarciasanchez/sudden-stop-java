@@ -50,8 +50,13 @@ public class FirmState implements Cloneable {
 		/*
 		 * Obtain other random state variables
 		 */
+/*		
 		capital = max((Double) GetParameter("minimumCapital"),
 				Firm.supplyManager.iniKNormal.nextDouble());
+*/
+		double equity = max((Double) GetParameter("minimumCapital"),
+				Firm.supplyManager.iniKNormal.nextDouble());
+		capital = equity / (1 - targetLeverage);
 
 		/*
 		 * Read constant state variables

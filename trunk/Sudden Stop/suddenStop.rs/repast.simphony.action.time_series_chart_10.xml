@@ -32,9 +32,9 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>MedCost Lev1</string>
+      <string>Cash Needs Lev1</string>
       <SeriesData>
-        <label>MedCost Lev1</label>
+        <label>Cash Needs Lev1</label>
         <color>
           <red>0</red>
           <green>255</green>
@@ -44,9 +44,9 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>Cash Needs Lev1</string>
+      <string>MedCost Lev1</string>
       <SeriesData>
-        <label>Cash Needs Lev1</label>
+        <label>MedCost Lev1</label>
         <color>
           <red>0</red>
           <green>255</green>

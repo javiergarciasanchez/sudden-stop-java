@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>ROI</name>
+  <name>Performance</name>
   <dataSet>Firm_Agr</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>ROI</chartTitle>
+  <chartTitle>Performance</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -51,18 +51,6 @@
           <red>255</red>
           <green>255</green>
           <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>ROI Mean</string>
-      <SeriesData>
-        <label>ROI Mean</label>
-        <color>
-          <red>0</red>
-          <green>0</green>
-          <blue>255</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
