@@ -27,10 +27,8 @@ public class SupplyManager {
 	public int bornFirms = 0;
 
 	public double totalFirms = 1.0;
-	public double prevTotalFirms = 0;
 
 	public double totalQuantityPerPeriod = 0;
-	public double prevTotalQuantityPerPeriod = 0;
 
 	public SupplyManager(Context<Object> context,
 			IndependentVarsManager independentVarsManager) {
@@ -147,10 +145,8 @@ public class SupplyManager {
 		}
 
 		firms = context.getObjects(Firm.class);
-		prevTotalFirms = totalFirms;
 		totalFirms = firms.size();
 
-		prevTotalQuantityPerPeriod = totalQuantityPerPeriod;
 		totalQuantityPerPeriod = 0.0;
 		for (Object o : firms) {
 			Firm f = (Firm) o;

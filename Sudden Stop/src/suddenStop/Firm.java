@@ -85,11 +85,9 @@ public class Firm {
 	public void moveToNextState() {
 
 		// apply innovation
-		if ((Boolean) GetParameter("innovationAvailable")) {
-			nextState.firstUnitCost = nextState.firstUnitCost
-					/ ((nextState.getRDPerPeriod() + 1.0) * nextState.rDEfficiency)
-					* supplyManager.innovationErrorNormal.nextDouble();
-		}
+		nextState.firstUnitCost = nextState.firstUnitCost
+				/ ((nextState.getRDPerPeriod() + 1.0) * nextState.rDEfficiency)
+				* supplyManager.innovationErrorNormal.nextDouble();
 
 		// Define quantityPerPeriod offered
 		nextState.quantityPerPeriod = nextState.getCapital()
@@ -151,9 +149,8 @@ public class Firm {
 
 		raiseFunds(nextState, LEVERAGE, getNetInvestment(currentState, price));
 
-		if ((Boolean) GetParameter("innovationAvailable")) {
-			selectRD();
-		}
+		selectRD();
+
 	}
 
 	/*
@@ -188,7 +185,7 @@ public class Firm {
 		}
 
 		// Check Performance
-		if (!Demand.isSS() || (Boolean) GetParameter("checkPerfOnSS")) {
+		if (!Demand.isSS()) {
 			perfStatus = (calcPerformance(st) >= getMinimumPerformance(st));
 		} else {
 			perfStatus = true;
@@ -198,7 +195,7 @@ public class Firm {
 	}
 
 	private double getMinimumPerformance(FirmState st) {
-		return st.getWACC();
+		return st.getMinimumPerformance();
 	}
 
 	private double calcProfitPerPeriod(FirmState st, double price) {
@@ -208,16 +205,19 @@ public class Firm {
 	}
 
 	private double calcPerformance(FirmState st) {
-		return (Double) GetParameter("performanceWeight") * st.getPerformance()
-				+ (1 - (Double) GetParameter("performanceWeight"))
-				* st.getROI();
+		double w = (Double) GetParameter("performanceWeight");
+		return w * st.getPerformance() + (1 - w) * st.getROI();
 	}
 
 	private void acumulateVariables() {
 
 		nextState.setPerformance(calcPerformance(currentState));
-		nextState.acumQ = currentState.getAcumQ()
-				+ currentState.getQuantityPerPeriod();
+
+		nextState.setAcumQ(currentState.getAcumQ()
+				+ currentState.getQuantityPerPeriod());
+
+		nextState.setAcumProfit(currentState.getAcumProfit()
+				+ currentState.getProfitPerPeriod());
 
 	}
 
@@ -282,29 +282,11 @@ public class Firm {
 		optCapIncrPercent = (Double) GetParameter("investmentParam")
 				* (1 - getOptimalMarkUp() * getMarginalCost(st) / price);
 
-		// getSSGrowthOportunity assures that net investment is >=0
+		// net investment should be >=0
 		return max(
 				optCapIncrPercent * st.getCapital()
-						+ st.getDepreciationPerPeriod(),
-				getSSGrowthOportunity());
+						+ st.getDepreciationPerPeriod(), 0.0);
 
-	}
-
-	/*
-	 * Incumbents take into account Phoenix miracle in growth decisions
-	 */
-	private double getSSGrowthOportunity() {
-		if (!(Boolean) GetParameter("sSGrowthOpportunity") || !Demand.isSS())
-			return 0.0;
-
-		double tick = GetTickCount();
-		double totalQuantityFall = supplyManager.prevTotalQuantityPerPeriod
-				- supplyManager.totalQuantityPerPeriod;
-
-		double totalQExpectedRecovery = totalQuantityFall
-				- Demand.getSSImpactSmoothing(tick + 1, totalQuantityFall);
-
-		return getMktShare() * totalQExpectedRecovery;
 	}
 
 	private double getMarginalCost(FirmState st) {
@@ -327,15 +309,17 @@ public class Firm {
 		double optRD = pow(
 				nextState.getFirstUnitCost()
 						/ nextState.getRDEfficiency()
-						* (pow(nextState.getAcumQ() + nextState.getQuantityPerPeriod(),
+						* (pow(nextState.getAcumQ()
+								+ nextState.getQuantityPerPeriod(),
 								1.0 + nextState.getLRExpon()) - pow(
-								nextState.getAcumQ(), 1.0 + nextState.getLRExpon())),
-				0.5) - 1.0;
+								nextState.getAcumQ(),
+								1.0 + nextState.getLRExpon())), 0.5) - 1.0;
 
 		/*
 		 * There is a minimum amount of RD to make FUC decrease
 		 */
-		nextState.setRDPerPeriod( max(1.0 / nextState.rDEfficiency - 1.0, optRD));
+		nextState
+				.setRDPerPeriod(max(1.0 / nextState.rDEfficiency - 1.0, optRD));
 
 	}
 
@@ -395,6 +379,10 @@ public class Firm {
 		return currentState.getTotFixedCostPerPeriod();
 	}
 
+	public double getCashFixedCostsPerPeriod() {
+		return currentState.getCashFixedCostsPerPeriod();
+	}
+
 	public double getTotVarCostPerPeriod() {
 		return currentState.getTotVarCostPerPeriod();
 	}
@@ -405,6 +393,10 @@ public class Firm {
 
 	public double getROI() {
 		return currentState.getROI();
+	}
+
+	public double getRONA() {
+		return currentState.getRONA();
 	}
 
 	public double getProfitPerPeriod() {
@@ -476,6 +468,10 @@ public class Firm {
 		return currentState.getAcumQ();
 	}
 
+	public double getAcumProfit() {
+		return currentState.getAcumProfit();
+	}
+
 	public double getRDPerPeriod() {
 		return currentState.getRDPerPeriod();
 	}
@@ -502,10 +498,6 @@ public class Firm {
 
 	public double getMinVarCost() {
 		return currentState.getMinVarCost();
-	}
-
-	public double getFixedCostPerPeriod() {
-		return currentState.getFixedCostPerPeriod();
 	}
 
 	public double getBorn() {
@@ -577,4 +569,5 @@ public class Firm {
 		return 0;
 
 	}
+
 }

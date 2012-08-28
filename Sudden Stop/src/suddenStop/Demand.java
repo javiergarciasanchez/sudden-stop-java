@@ -22,24 +22,15 @@ public class Demand {
 
 		double tick = GetTickCount();
 
-		/*
-		 * SSMagnitude is the fall of P x Q
-		 * 
-		 * Demand function is adjusted to get this result
-		 * 
-		 * See mathematica "SS impact on q.nb"
-		 */
-		double sSDemandImpact = (1.0 - getSSMagnitude())
-				* pow(1.0 - getSSQuantityImpact(), -1.0 + 1.0 / elast);
-
 		if (quantity > 0) {
 			return min(
 					subst,
 					demandParam * pow(1.0 + demandShift, tick / elast)
 							* pow(quantity * periods, -1.0 / elast))
-					* sSDemandImpact;
+					* (1.0 - getSSMagnitude());
 		} else {
-			return (Double) GetParameter("priceOfSubstitute") * sSDemandImpact;
+			return (Double) GetParameter("priceOfSubstitute")
+					* (1.0 - getSSMagnitude());
 		}
 
 	}
@@ -57,38 +48,10 @@ public class Demand {
 
 	}
 
-	public static double getSSQuantityImpact() {
-		return getSSQuantityImpact(GetTickCount());
-	}
-
-	public static double getSSQuantityImpact(double tick) {
-
-		return getSSImpactSmoothing(tick,
-				(Double) GetParameter("suddenStopQuantityImpact"))
-				* (Double) GetParameter("SSPassthru");
-
-	}
-
 	public static double getSSMagnitude() {
-		return getSSMagnitude(GetTickCount());
-	}
 
-	public static double getSSMagnitude(double tick) {
-
-		return getSSImpactSmoothing(tick, (Double) GetParameter("suddenStopMagnitude"))
-				* (Double) GetParameter("SSPassthru");
-
-	}
-
-	public static double getSSImpactSmoothing(double tick, double magn) {
-
-		double sSD = (Double) GetParameter("suddenStopDuration")
-				* (Integer) GetParameter("periods");
-
-		int sSS = (Integer) GetParameter("suddenStopStart")
-				* (Integer) GetParameter("periods");
 		if (isSS()) {
-			return magn - (tick - sSS) * magn / sSD;
+			return (Double) GetParameter("suddenStopMagnitude");
 		} else {
 			return 0.0;
 		}
