@@ -23,4 +23,6 @@
 <repast.simphony.action.time_series_chart context="suddenStop" file="repast.simphony.action.time_series_chart_20.xml" />
 <repast.simphony.action.time_series_chart context="suddenStop" file="repast.simphony.action.time_series_chart_21.xml" />
 <repast.simphony.action.time_series_chart context="suddenStop" file="repast.simphony.action.time_series_chart_22.xml" />
+<repast.simphony.action.time_series_chart context="suddenStop" file="repast.simphony.action.time_series_chart_23.xml" />
+<repast.simphony.action.time_series_chart context="suddenStop" file="repast.simphony.action.time_series_chart_24.xml" />
 </Scenario>

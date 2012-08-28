@@ -286,17 +286,25 @@ public class SQLDataCollector {
 				+ "InitialFUC, RDEfficiency, TargetLeverage, "
 				+ "MaxExternalEquity, LearningRate, Born ) "
 				+ "VALUES (?,?,?,?,?,?,?,?,?)";
-
+/* Full Version
+ 
 		String firmsPerTickDataStr = "INSERT INTO [IndividualFirmsPerTick] ("
 				+ "Simulation, RunNumber, Tick, Firm, "
 				+ "Profit, Quantity, RD, FirstUnitCost, "
 				+ "Capital, Debt, MinVarCost, ToBeKilled, "
-
-				+ "AcumQ, MedCost, TotFixedCost, TotVarCost, "
+				+ "AcumQ, AcumProfit, MedCost, TotFixedCost, TotVarCost, "
 				+ "Interest, ExpectedEquityRetribution, Performance, "
 				+ "EBITDA, MktShare, ExpectedCapitalRetribution ) "
-				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+*/
+		// Short version
+		String firmsPerTickDataStr = "INSERT INTO [IndividualFirmsPerTick] ("
+			+ "Simulation, RunNumber, Tick, Firm, "
+			+ "Profit, Quantity, Capital, Debt, "
+			+ "AcumQ, AcumProfit, MedCost, MktShare, Interest ) "
+			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		
 		try {
 			mktDataPstm = conn.prepareStatement(mktDataStr);
 			firmsConstDataPstm = conn.prepareStatement(firmsConstDataStr);
@@ -397,7 +405,7 @@ public class SQLDataCollector {
 	}
 
 	private void savePerTickFirmData(int run, double tick, Firm f) {
-
+/* Full Version 
 		try {
 			firmsPerTickDataPstm.setInt(1, simID);
 			firmsPerTickDataPstm.setInt(2, run);
@@ -413,16 +421,39 @@ public class SQLDataCollector {
 			firmsPerTickDataPstm.setBoolean(12, f.isToBeKilled());
 
 			firmsPerTickDataPstm.setDouble(13, f.getAcumQ());
-			firmsPerTickDataPstm.setDouble(14, f.getMedCost());
-			firmsPerTickDataPstm.setDouble(15, f.getTotFixedCostPerPeriod());
-			firmsPerTickDataPstm.setDouble(16, f.getTotVarCostPerPeriod());
-			firmsPerTickDataPstm.setDouble(17, f.getInterestPerPeriod());
-			firmsPerTickDataPstm.setDouble(18,
+			firmsPerTickDataPstm.setDouble(14, f.getAcumProfit());
+			firmsPerTickDataPstm.setDouble(15, f.getMedCost());
+			firmsPerTickDataPstm.setDouble(16, f.getTotFixedCostPerPeriod());
+			firmsPerTickDataPstm.setDouble(17, f.getTotVarCostPerPeriod());
+			firmsPerTickDataPstm.setDouble(18, f.getInterestPerPeriod());
+			firmsPerTickDataPstm.setDouble(19,
 					f.getExpectedEquityRetributionPerPeriod());
-			firmsPerTickDataPstm.setDouble(19, f.getPerformance());
-			firmsPerTickDataPstm.setDouble(20, f.getEBITDAPerPeriod());
-			firmsPerTickDataPstm.setDouble(21, f.getMktShare());
-			firmsPerTickDataPstm.setDouble(22, f.getExpectedCapitalRetributionPerPeriod());
+			firmsPerTickDataPstm.setDouble(20, f.getPerformance());
+			firmsPerTickDataPstm.setDouble(21, f.getEBITDAPerPeriod());
+			firmsPerTickDataPstm.setDouble(22, f.getMktShare());
+			firmsPerTickDataPstm.setDouble(23, f.getExpectedCapitalRetributionPerPeriod());
+*/
+		
+		// Short Version		
+		try {
+			firmsPerTickDataPstm.setInt(1, simID);
+			firmsPerTickDataPstm.setInt(2, run);
+			firmsPerTickDataPstm.setDouble(3, tick);
+			firmsPerTickDataPstm.setFloat(4, f.agentIntID);
+			
+			firmsPerTickDataPstm.setDouble(5, f.getProfitPerPeriod());
+			firmsPerTickDataPstm.setDouble(6, f.getQuantityPerPeriod());
+			firmsPerTickDataPstm.setDouble(7, f.getCapital());
+			firmsPerTickDataPstm.setDouble(8, f.getDebt() - f.getCash());
+			
+			firmsPerTickDataPstm.setDouble(9, f.getAcumQ());
+			firmsPerTickDataPstm.setDouble(10, f.getAcumProfit());
+			firmsPerTickDataPstm.setDouble(11, f.getMedCost());
+			firmsPerTickDataPstm.setDouble(12, f.getMktShare());
+			firmsPerTickDataPstm.setDouble(13, f.getInterestPerPeriod());
+		// End short version
+
+		
 			firmsPerTickDataPstm.execute();
 		} catch (SQLException e1) {
 			e1.printStackTrace();

@@ -42,6 +42,10 @@ public class Cohort {
 	public double getTotFixedCostPerPeriod() {
 		return f.getTotFixedCostPerPeriod();
 	}
+	
+	public double getCashFixedCostsPerPeriod(){
+		return f.getCashFixedCostsPerPeriod();
+	}
 
 	public double getTotVarCostPerPeriod() {
 		return f.getTotVarCostPerPeriod();
@@ -53,6 +57,10 @@ public class Cohort {
 
 	public double getROI() {
 		return f.getROI();
+	}
+
+	public double getRONA() {
+		return f.getRONA();
 	}
 
 	public double getProfitPerPeriod() {
@@ -151,10 +159,6 @@ public class Cohort {
 		return f.getMinVarCost();
 	}
 
-	public double getFixedCostPerPeriod() {
-		return f.getFixedCostPerPeriod();
-	}
-
 	public double getBorn() {
 		return f.getBorn();
 	}
@@ -187,8 +191,7 @@ public class Cohort {
 	}
 
 	public double getCashFixedCostsPerUnit() {
-		return (getRDPerPeriod() + getFixedCostPerPeriod())
-				/ getQuantityPerPeriod();
+		return getCashFixedCostsPerPeriod() / getQuantityPerPeriod();
 	}
 
 	public double getNoCashFixedCostsPerUnit() {

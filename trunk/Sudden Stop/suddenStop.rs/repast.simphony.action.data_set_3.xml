@@ -507,6 +507,33 @@
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
+    <entry>
+      <string>RONA Lev1</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>RONA Lev1</id>
+        <className>suddenStop.Lev1</className>
+        <methodName>getRONA</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>RONA Lev2</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>RONA Lev2</id>
+        <className>suddenStop.Lev2</className>
+        <methodName>getRONA</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>RONA Lev3</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>RONA Lev3</id>
+        <className>suddenStop.Lev3</className>
+        <methodName>getRONA</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
   </methodDataSources>
   <countSources class="linked-hash-map">
     <entry>
