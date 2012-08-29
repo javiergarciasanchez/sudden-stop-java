@@ -12,8 +12,7 @@ public class SuddenStopBuilder extends DefaultContext<Object> implements
 	@Override
 	public Context<Object> build(Context<Object> context) {
 
-		IndependentVarsManager ivm = new IndependentVarsManager(context);
-		SupplyManager sm = new SupplyManager(context, ivm);
+		SupplyManager sm = new SupplyManager(context);
 
 		if (RunEnvironment.getInstance().isBatch()) {
 			new SQLDataCollector(context, sm);

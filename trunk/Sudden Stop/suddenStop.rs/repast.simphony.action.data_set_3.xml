@@ -454,33 +454,6 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>Firms#% Lev1</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Firms#% Lev1</id>
-        <className>suddenStop.IndependentVarsManager</className>
-        <methodName>getFirmsCountAsPercetangeByLevCohort1</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>Firms#% Lev2</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Firms#% Lev2</id>
-        <className>suddenStop.IndependentVarsManager</className>
-        <methodName>getFirmsCountAsPercetangeByLevCohort2</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>Firms#% Lev3</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Firms#% Lev3</id>
-        <className>suddenStop.IndependentVarsManager</className>
-        <methodName>getFirmsCountAsPercetangeByLevCohort3</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
       <string>Lev Lev1</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>Lev Lev1</id>

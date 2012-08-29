@@ -5,7 +5,6 @@ import java.util.List;
 
 import cern.jet.random.*;
 import repast.simphony.context.Context;
-import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.*;
 import repast.simphony.random.*;
 import repast.simphony.util.collections.IndexedIterable;
@@ -15,9 +14,14 @@ public class SupplyManager {
 
 	private Context<Object> context;
 
-	public Normal iniKNormal = null;
 	public Normal entrantsNormal = null;
 	public Normal innovationErrorNormal = null;
+
+	public Normal fUCDistrib = null;
+	public Normal iniEquityDistrib = null;
+	public Uniform rDEfficiencyDistrib = null;
+	public Uniform targetLeverageDistrib = null;
+	public Uniform learningRateDistrib = null;
 
 	public double price = 0;
 	public double prevPrice = 0;
@@ -30,8 +34,7 @@ public class SupplyManager {
 
 	public double totalQuantityPerPeriod = 0;
 
-	public SupplyManager(Context<Object> context,
-			IndependentVarsManager independentVarsManager) {
+	public SupplyManager(Context<Object> context) {
 
 		this.context = context;
 		context.add(this);
@@ -39,18 +42,39 @@ public class SupplyManager {
 		prevPrice = (Double) GetParameter("priceOfSubstitute");
 		price = prevPrice;
 
-		iniKNormal = RandomHelper.createNormal(
-				(Double) GetParameter("iniKMean"),
-				(Double) GetParameter("iniKStdDev")
-						* (Double) GetParameter("iniKMean"));
-
-		entrantsNormal = RandomHelper.createNormal(
-				(Double) GetParameter("entrantsMean"),
-				(Double) GetParameter("entrantsStdDev")
-						* (Double) GetParameter("entrantsMean"));
+		double entrantsMean = (Double) GetParameter("entrantsMean");
+		entrantsNormal = RandomHelper.createNormal(entrantsMean,
+				(Double) GetParameter("entrantsStdDev") * entrantsMean);
 
 		innovationErrorNormal = RandomHelper.createNormal(1.0,
 				(Double) GetParameter("innovationErrorStdDev"));
+
+		/* Create distributions for initial variables of firms */
+
+		// FIRST UNIT COST
+		double fUCMean = (Double) GetParameter("firstUnitCostMean");
+		fUCDistrib = RandomHelper.createNormal(fUCMean,
+				(Double) GetParameter("firstUnitCostStdDev") * fUCMean);
+
+		// INITIAL EQUITY
+		double iniEquityMean = (Double) GetParameter("iniKMean");
+		iniEquityDistrib = RandomHelper.createNormal(iniEquityMean,
+				(Double) GetParameter("iniKStdDev") * iniEquityMean);
+
+		//RD_EFFICIENCY
+		rDEfficiencyDistrib = RandomHelper.createUniform(
+				(Double) GetParameter("rDEfficiencyMin"),
+				(Double) GetParameter("rDEfficiencyMax"));
+
+		// TARGET_LEVERAGE
+		targetLeverageDistrib = RandomHelper.createUniform(
+				(Double) GetParameter("leverageMin"),
+				(Double) GetParameter("leverageMax"));
+
+		// LEARNING_RATE
+		learningRateDistrib = RandomHelper.createUniform(
+				(Double) GetParameter("learningRateMin"),
+				(Double) GetParameter("learningRateMax"));
 
 		Firm.supplyManager = this;
 
@@ -72,9 +96,6 @@ public class SupplyManager {
 
 		planNextYear();
 
-		if (!RunEnvironment.getInstance().isBatch()) {
-			Firm.independentVarsManager.collectData();
-		}
 
 	}
 

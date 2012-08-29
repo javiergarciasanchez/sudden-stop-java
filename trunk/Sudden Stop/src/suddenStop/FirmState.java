@@ -37,21 +37,28 @@ public class FirmState implements Cloneable {
 	public FirmState() {
 
 		/*
-		 * Obtain independent variables
+		 * Obtain random variables
 		 */
-		firstUnitCost = Firm.independentVarsManager.getRandfirstUnitCost();
+		// A minimum FUC is set to 10% of mean
+		firstUnitCost = max(0.1 * (Double) GetParameter("firstUnitCostMean"),
+				Firm.supplyManager.fUCDistrib.nextDouble());
 		initialFUC = firstUnitCost;
-		rDEfficiency = Firm.independentVarsManager.getRandRDEfficiency();
-		targetLeverage = Firm.independentVarsManager.getRandTargetLeverage();
-		// External Equity is a percentage of capital
-		maxExternalEquity = Firm.independentVarsManager.getRandEquityAccess();
-		learningRate = Firm.independentVarsManager.getRandLearningRate();
+
+		rDEfficiency = max(0.0,
+				Firm.supplyManager.rDEfficiencyDistrib.nextDouble());
+		targetLeverage = Firm.supplyManager.targetLeverageDistrib.nextDouble();
+		learningRate = Firm.supplyManager.learningRateDistrib.nextDouble();
 
 		/*
-		 * Obtain other random state variables
+		 * Equity and Capital.
+		 * 
+		 * Equity is chosen according to distribution, truncated so capital
+		 * won't be lower than minimum
 		 */
-		double equity = max((Double) GetParameter("minimumCapital"),
-				Firm.supplyManager.iniKNormal.nextDouble());
+		double minEquity = (Double) GetParameter("minimumCapital")
+				* (1 - targetLeverage);
+		double equity = max(minEquity,
+				Firm.supplyManager.iniEquityDistrib.nextDouble());
 		capital = equity / (1 - targetLeverage);
 
 		/*
@@ -96,14 +103,18 @@ public class FirmState implements Cloneable {
 
 	public void resetExternalEquityAvailable() {
 		int periods = (Integer) GetParameter("periods");
-
+		
 		if (Demand.isSS()) {
 			externalEquityAvailablePerPeriod = 0.0;
 		} else {
 			externalEquityAvailablePerPeriod = getMaxExternalEquity()
-					* getCapital() / periods;
+			* getCapital() / periods;
 		}
 
+	}
+
+	private double getMaxExternalEquity() {
+		return (Double) GetParameter("maxExternalEquity");		
 	}
 
 	public double getDebtAvailableByNewEquity(double newEquity,
@@ -261,10 +272,6 @@ public class FirmState implements Cloneable {
 		return targetLeverage;
 	}
 
-	public double getMaxExternalEquity() {
-		return maxExternalEquity;
-	}
-
 	public double getCapitalProductivityPerPeriod() {
 		return getCapitalProductivity() / (Integer) GetParameter("periods");
 	}
@@ -365,10 +372,6 @@ public class FirmState implements Cloneable {
 		this.targetLeverage = targetLeverage;
 	}
 
-	public void setMaxExternalEquity(double maxExternalEquity) {
-		this.maxExternalEquity = maxExternalEquity;
-	}
-
 	public void setrDEfficiency(double rDEfficiency) {
 		this.rDEfficiency = rDEfficiency;
 	}
@@ -425,26 +428,6 @@ public class FirmState implements Cloneable {
 	public void setExternalEquityAvailablePerPeriod(
 			double externalEquityAvailablePerPeriod) {
 		this.externalEquityAvailablePerPeriod = externalEquityAvailablePerPeriod;
-	}
-
-	public double getIndepVarValue(IndepVarsNames key) {
-
-		switch (key) {
-		case FIRST_UNIT_COST:
-			return getFirstUnitCost();
-		case TARGET_LEVERAGE:
-			return getTargetLeverage();
-		case RD_EFFICIENCY:
-			return this.getRDEfficiency();
-		case EQUITY_ACCESS:
-			return this.getMaxExternalEquity();
-		case LEARNING_RATE:
-			return this.getLearningRate();
-		case TIME_OF_ENTRY:
-			return this.getBornInYears();
-		}
-
-		return 0;
 	}
 
 }

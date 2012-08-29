@@ -21,18 +21,14 @@ import static repast.simphony.essentials.RepastEssentials.RemoveAgentFromModel;
 import static suddenStop.CashUsage.CASH;
 import static suddenStop.CashUsage.LEVERAGE;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
-import static suddenStop.IndepVarsNames.*;
 
 public class Firm {
 
 	public static SupplyManager supplyManager;
-	public static IndependentVarsManager independentVarsManager;
 
 	private FirmState currentState, nextState;
 	private boolean toBeKilled = false;
@@ -55,16 +51,14 @@ public class Firm {
 
 		if (!RunEnvironment.getInstance().isBatch()) {
 			shadowFirms = new ArrayList<Cohort>(3);
-			addToCohorts(context);
+			addToCohorts(context, 3);
 		}
-
-		independentVarsManager.addNewFirm(this);
 
 	}
 
-	private void addToCohorts(Context<Object> context) {
+	private void addToCohorts(Context<Object> context, int cohorts) {
 		Object c = null;
-		switch (getCohort(TARGET_LEVERAGE)) {
+		switch (getLevCohort(cohorts)) {
 		case 1:
 			c = new Lev1(this);
 			context.add(c);
@@ -80,6 +74,15 @@ public class Firm {
 		}
 		shadowFirms.add((Cohort) c);
 
+	}
+
+	private int getLevCohort(int cohorts) {
+		
+		double min = (Double) GetParameter("leverageMin");
+		double max = (Double) GetParameter("leverageMax");
+		double cohortSize = (max - min) / cohorts;
+		
+		return   (int) (Math.floor((getNetLeverage() - min) / cohortSize) + 1);
 	}
 
 	public void moveToNextState() {
@@ -488,10 +491,6 @@ public class Firm {
 		return currentState.getTargetLeverage();
 	}
 
-	public double getMaxExternalEquity() {
-		return currentState.getMaxExternalEquity();
-	}
-
 	public double getLearningRate() {
 		return currentState.getLearningRate();
 	}
@@ -510,64 +509,6 @@ public class Firm {
 
 	public String toString() {
 		return this.agentID;
-	}
-
-	public double getIndepVarValue(IndepVarsNames key) {
-		return currentState.getIndepVarValue(key);
-	}
-
-	public int getCohort(IndepVarsNames key) {
-		return getCohort(getIndepVarValue(key),
-				independentVarsManager.getCohortLimit(key));
-	}
-
-	private int getCohort(double fVal, double[] lim) {
-
-		for (int i = 0; i < independentVarsManager.cohorts - 1; i++) {
-			if (fVal < lim[i])
-				return i + 1;
-		}
-
-		return independentVarsManager.cohorts;
-
-	}
-
-	public double getField(String var) {
-		Field f = null;
-		try {
-			f = Class.forName("suddenStop.FirmState").getDeclaredField(var);
-		} catch (Throwable e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-
-		try {
-			return f.getDouble(this.currentState);
-		} catch (Throwable e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		return 0;
-
-	}
-
-	public double get(String var) {
-		Method m = null;
-		try {
-			m = Class.forName("suddenStop.FirmState").getDeclaredMethod(var);
-		} catch (Throwable e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-
-		try {
-			return (Double) m.invoke(this);
-		} catch (Throwable e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		return 0;
-
 	}
 
 }

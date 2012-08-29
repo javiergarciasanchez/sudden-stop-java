@@ -24,6 +24,13 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
+				<parameter name="maxExternalEquity" displayName="Max External Equity ()%)" type="double" 
+						defaultValue="10000.0" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
+
 				<parameter name="minimumCapital" displayName="Minimum Capital" type="double" 
 						defaultValue="1.0" 
 						isReadOnly="false" 
@@ -62,12 +69,6 @@
 		/>
 				<parameter name="rDEfficiencyMin" displayName="RD Efficiency Min" type="double" 
 						defaultValue="0.0" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-									
-		/>
-				<parameter name="equityStdDev" displayName="Equity Access Std Dev" type="double" 
-						defaultValue="0.1" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -146,12 +147,6 @@
 		/>
 				<parameter name="learningRateMin" displayName="Learning Rate Min" type="double" 
 						defaultValue="0.85" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-									
-		/>
-				<parameter name="equityMean" displayName="Equity Access Mean" type="double" 
-						defaultValue="0.4" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
