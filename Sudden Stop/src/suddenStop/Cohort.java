@@ -147,10 +147,6 @@ public class Cohort {
 		return f.getTargetLeverage();
 	}
 
-	public double getMaxExternalEquity() {
-		return f.getMaxExternalEquity();
-	}
-
 	public double getLearningRate() {
 		return f.getLearningRate();
 	}

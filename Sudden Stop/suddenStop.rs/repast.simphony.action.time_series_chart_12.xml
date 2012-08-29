@@ -20,18 +20,6 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>Mkt Share Lev3</string>
-      <SeriesData>
-        <label>Mkt Share Lev3</label>
-        <color>
-          <red>255</red>
-          <green>0</green>
-          <blue>102</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
       <string>Mkt Share Lev1</string>
       <SeriesData>
         <label>Mkt Share Lev1</label>
@@ -39,6 +27,18 @@
           <red>0</red>
           <green>255</green>
           <blue>0</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>Mkt Share Lev3</string>
+      <SeriesData>
+        <label>Mkt Share Lev3</label>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>102</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

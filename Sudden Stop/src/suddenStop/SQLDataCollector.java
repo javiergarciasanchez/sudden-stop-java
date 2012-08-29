@@ -250,12 +250,9 @@ public class SQLDataCollector {
 		double ssM = (Double) GetParameter("suddenStopMagnitude");
 		int ssS = (Integer) GetParameter("suddenStopStart");
 		int rndSeed = (Integer) GetParameter("randomSeed");
-		Double robCheck = null;
-		String robCheckName = null;
 
 		String sqlStr = "INSERT INTO RunParameters VALUES (" + simID + ", "
-				+ run + ", " + ssM + "," + ssS + ", " + rndSeed + ", "
-				+ robCheck + ", " + robCheckName + ")";
+				+ run + ", " + ssM + "," + ssS + ", " + rndSeed + " )";
 
 		Statement stmt = null;
 		try {
@@ -284,8 +281,8 @@ public class SQLDataCollector {
 		String firmsConstDataStr = "INSERT INTO IndividualFirms ("
 				+ "Simulation, RunNumber, Firm, "
 				+ "InitialFUC, RDEfficiency, TargetLeverage, "
-				+ "MaxExternalEquity, LearningRate, Born ) "
-				+ "VALUES (?,?,?,?,?,?,?,?,?)";
+				+ "LearningRate, Born ) "
+				+ "VALUES (?,?,?,?,?,?,?,?)";
 /* Full Version
  
 		String firmsPerTickDataStr = "INSERT INTO [IndividualFirmsPerTick] ("
@@ -303,7 +300,7 @@ public class SQLDataCollector {
 			+ "Profit, Quantity, Capital, Debt, "
 			+ "AcumQ, AcumProfit, MedCost, MktShare, Interest ) "
 			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		
+		// End of Short Version
 		
 		try {
 			mktDataPstm = conn.prepareStatement(mktDataStr);
@@ -390,9 +387,8 @@ public class SQLDataCollector {
 			firmsConstDataPstm.setDouble(4, f.getInitialFUC());
 			firmsConstDataPstm.setDouble(5, f.getRDEfficiency());
 			firmsConstDataPstm.setDouble(6, f.getTargetLeverage());
-			firmsConstDataPstm.setDouble(7, f.getMaxExternalEquity());
-			firmsConstDataPstm.setDouble(8, f.getLearningRate());
-			firmsConstDataPstm.setDouble(9, f.getBornInYears());
+			firmsConstDataPstm.setDouble(7, f.getLearningRate());
+			firmsConstDataPstm.setDouble(8, f.getBornInYears());
 			firmsConstDataPstm.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

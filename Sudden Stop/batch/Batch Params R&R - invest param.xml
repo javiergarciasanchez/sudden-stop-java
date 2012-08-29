@@ -1,6 +1,6 @@
 <?xml version="1.0"?><sweep runs="1"> 
 <parameter name="capitalProductivity" type="constant" constant_type="double" value="4.0" />
-<parameter name="investmentParam" type="constant" constant_type="double" value="1.0" />
+<parameter name="investmentParam" type="constant" constant_type="double" value="2.0" />
 <parameter name="maxExternalEquity" type="constant" constant_type="double" value="10000.0" />
 <parameter name="cohorts" type="constant" constant_type="int" value="3" />
 <parameter name="costOfDebt" type="constant" constant_type="double" value="0.07" />
@@ -34,9 +34,9 @@
 <parameter name="leverageMin" type="constant" constant_type="double" value="-0.3" />
 <parameter name="timeCohorts" type="constant" constant_type="java.lang.String" value="3;6" />
 <parameter name="wACC" type="constant" constant_type="double" value="0.1" />
-<parameter name="randomSeed" type="number" number_type="int"  start="1" end="100" step="1" >
+<parameter name="randomSeed" type="number" number_type="int"  start="1" end="50" step="1" >
 <parameter name="suddenStopMagnitude" type="list" value_type="double" values="0.0 0.1 0.2 0.3 0.09 0.1 0.11" />
-<parameter name="suddenStopStart" type="list" value_type="int" values="0 7 7 7 30 30 30" >
+<parameter name="suddenStopStart" type="list" value_type="int" values="0 4 4 4 30 30 30" >
 </parameter>
 </parameter>
 </sweep>
