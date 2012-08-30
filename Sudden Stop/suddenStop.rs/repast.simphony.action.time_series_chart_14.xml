@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Agr Quantity Per Lev</name>
+  <name>Sales per Lev</name>
   <dataSet>Per Lev</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Agr Quantity Per Lev</chartTitle>
+  <chartTitle>Sales per Lev</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -20,21 +20,9 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>Agr Q Lev2</string>
+      <string>Sales Lev3</string>
       <SeriesData>
-        <label>Agr Q Lev2</label>
-        <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>Agr Q Lev3</string>
-      <SeriesData>
-        <label>Agr Q Lev3</label>
+        <label>Sales Lev3</label>
         <color>
           <red>255</red>
           <green>0</green>
@@ -44,11 +32,23 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>Agr Q Lev1</string>
+      <string>Sales Lev1</string>
       <SeriesData>
-        <label>Agr Q Lev1</label>
+        <label>Sales Lev1</label>
         <color>
           <red>0</red>
+          <green>255</green>
+          <blue>51</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>Sales Lev2</string>
+      <SeriesData>
+        <label>Sales Lev2</label>
+        <color>
+          <red>255</red>
           <green>255</green>
           <blue>0</blue>
           <alpha>255</alpha>

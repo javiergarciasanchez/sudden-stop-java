@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Quantity</name>
-  <dataSet>Firm_Agr</dataSet>
+  <name>ROI by Lev</name>
+  <dataSet>Per Lev</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Quantity</chartTitle>
+  <chartTitle>ROI by Lev</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -20,11 +20,23 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>Quantity Max</string>
+      <string>ROI Lev3</string>
       <SeriesData>
-        <label>Quantity Max</label>
+        <label>ROI Lev3</label>
         <color>
-          <red>102</red>
+          <red>255</red>
+          <green>0</green>
+          <blue>102</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>ROI Lev1</string>
+      <SeriesData>
+        <label>ROI Lev1</label>
+        <color>
+          <red>0</red>
           <green>255</green>
           <blue>0</blue>
           <alpha>255</alpha>
@@ -32,25 +44,13 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>Quantity Min</string>
+      <string>ROI Lev2</string>
       <SeriesData>
-        <label>Quantity Min</label>
+        <label>ROI Lev2</label>
         <color>
           <red>255</red>
-          <green>204</green>
-          <blue>204</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>Quantity Mean</string>
-      <SeriesData>
-        <label>Quantity Mean</label>
-        <color>
-          <red>0</red>
-          <green>0</green>
-          <blue>255</blue>
+          <green>255</green>
+          <blue>0</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

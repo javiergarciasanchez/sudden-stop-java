@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Marginal Cost Per Lev</name>
+  <name>RONA by Lev</name>
   <dataSet>Per Lev</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Marg Cost Per Lev</chartTitle>
+  <chartTitle>RONA by Lev</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -20,49 +20,37 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>MargCost Lev1</string>
+      <string>RONA Lev3</string>
       <SeriesData>
-        <label>MargCost Lev1</label>
-        <color>
-          <red>0</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>MargCost Lev2</string>
-      <SeriesData>
-        <label>MargCost Lev2</label>
-        <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>Price</string>
-      <SeriesData>
-        <label>Price</label>
-        <color>
-          <red>0</red>
-          <green>0</green>
-          <blue>255</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>MargCost Lev3</string>
-      <SeriesData>
-        <label>MargCost Lev3</label>
+        <label>RONA Lev3</label>
         <color>
           <red>255</red>
           <green>0</green>
           <blue>51</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>RONA Lev2</string>
+      <SeriesData>
+        <label>RONA Lev2</label>
+        <color>
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>RONA Lev1</string>
+      <SeriesData>
+        <label>RONA Lev1</label>
+        <color>
+          <red>0</red>
+          <green>255</green>
+          <blue>153</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
