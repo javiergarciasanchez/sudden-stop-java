@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Price &amp; MedCost per Time</name>
+  <name>Performance per Time</name>
   <dataSet>Per Lev</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Price &amp; MedCost per Time</chartTitle>
+  <chartTitle>Performance per Time</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -20,33 +20,9 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>MedCost Tim2</string>
+      <string>Perf Tim3</string>
       <SeriesData>
-        <label>MedCost Tim2</label>
-        <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>MedCost Tim1</string>
-      <SeriesData>
-        <label>MedCost Tim1</label>
-        <color>
-          <red>0</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>MedCost Tim3</string>
-      <SeriesData>
-        <label>MedCost Tim3</label>
+        <label>Perf Tim3</label>
         <color>
           <red>255</red>
           <green>0</green>
@@ -56,13 +32,25 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>Price</string>
+      <string>Perf Tim2</string>
       <SeriesData>
-        <label>Price</label>
+        <label>Perf Tim2</label>
+        <color>
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>Perf Tim1</string>
+      <SeriesData>
+        <label>Perf Tim1</label>
         <color>
           <red>0</red>
-          <green>51</green>
-          <blue>204</blue>
+          <green>255</green>
+          <blue>0</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

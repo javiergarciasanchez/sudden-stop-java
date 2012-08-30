@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Mkt Share Per Lev</name>
+  <name>Performance by Lev</name>
   <dataSet>Per Lev</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>MktShare Per Lev</chartTitle>
+  <chartTitle>Performance Per Lev</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -20,11 +20,11 @@
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>Mkt Share Lev1</string>
+      <string>Perf Lev2</string>
       <SeriesData>
-        <label>Mkt Share Lev1</label>
+        <label>Perf Lev2</label>
         <color>
-          <red>0</red>
+          <red>255</red>
           <green>255</green>
           <blue>0</blue>
           <alpha>255</alpha>
@@ -32,9 +32,9 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>Mkt Share Lev3</string>
+      <string>Perf Lev3</string>
       <SeriesData>
-        <label>Mkt Share Lev3</label>
+        <label>Perf Lev3</label>
         <color>
           <red>255</red>
           <green>0</green>
@@ -44,11 +44,11 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>Mkt Share Lev2</string>
+      <string>Perf Lev1</string>
       <SeriesData>
-        <label>Mkt Share Lev2</label>
+        <label>Perf Lev1</label>
         <color>
-          <red>255</red>
+          <red>0</red>
           <green>255</green>
           <blue>0</blue>
           <alpha>255</alpha>

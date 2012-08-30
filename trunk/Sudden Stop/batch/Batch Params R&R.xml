@@ -2,7 +2,6 @@
 <parameter name="capitalProductivity" type="constant" constant_type="double" value="4.0" />
 <parameter name="investmentParam" type="constant" constant_type="double" value="1.0" />
 <parameter name="maxExternalEquity" type="constant" constant_type="double" value="10000.0" />
-<parameter name="cohorts" type="constant" constant_type="int" value="3" />
 <parameter name="costOfDebt" type="constant" constant_type="double" value="0.07" />
 <parameter name="database" type="constant" constant_type="java.lang.String" value="Simulations" />
 <parameter name="demandElasticity" type="constant" constant_type="double" value="2.0" />
@@ -13,8 +12,8 @@
 <parameter name="entrantsStdDev" type="constant" constant_type="double" value="0.1" />
 <parameter name="firstUnitCostMean" type="constant" constant_type="double" value="2.0" />
 <parameter name="firstUnitCostStdDev" type="constant" constant_type="double" value="0.1" />
-<parameter name="iniKMean" type="constant" constant_type="double" value="4.0" />
-<parameter name="iniKStdDev" type="constant" constant_type="double" value="0.1" />
+<parameter name="iniEquityMean" type="constant" constant_type="double" value="4.0" />
+<parameter name="iniEquityStdDev" type="constant" constant_type="double" value="0.1" />
 <parameter name="innovationErrorStdDev" type="constant" constant_type="double" value="0.1" />
 <parameter name="learningRateMax" type="constant" constant_type="double" value="1.0" />
 <parameter name="learningRateMin" type="constant" constant_type="double" value="0.85" />

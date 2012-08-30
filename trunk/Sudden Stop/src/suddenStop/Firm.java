@@ -58,6 +58,8 @@ public class Firm {
 
 	private void addToCohorts(Context<Object> context, int cohorts) {
 		Object c = null;
+
+		// Add to leverage Cohorts
 		switch (getLevCohort(cohorts)) {
 		case 1:
 			c = new Lev1(this);
@@ -73,16 +75,46 @@ public class Firm {
 			break;
 		}
 		shadowFirms.add((Cohort) c);
+		
+		// Add to Time Cohorts
+		switch (getTimeCohort(cohorts)) {
+		case 1:
+			c = new Tim1(this);
+			context.add(c);
+			break;
+		case 2:
+			c = new Tim2(this);
+			context.add(c);
+			break;
+		case 3:
+			c = new Tim3(this);
+			context.add(c);
+			break;
+		}
+		shadowFirms.add((Cohort) c);
 
 	}
 
 	private int getLevCohort(int cohorts) {
-		
+
 		double min = (Double) GetParameter("leverageMin");
 		double max = (Double) GetParameter("leverageMax");
 		double cohortSize = (max - min) / cohorts;
-		
-		return   (int) (Math.floor((getNetLeverage() - min) / cohortSize) + 1);
+
+		return (int) (Math.floor((getNetLeverage() - min) / cohortSize) + 1);
+	}
+
+	private int getTimeCohort(int cohorts) {
+		int[] lim = supplyManager.timeCohortLimits;
+		double born = currentState.getBornInYears();
+
+		for (int i = 0; i < lim.length; i++) {
+			if (born < lim[i])
+				return i + 1;
+		}
+
+		return lim.length + 1;
+
 	}
 
 	public void moveToNextState() {

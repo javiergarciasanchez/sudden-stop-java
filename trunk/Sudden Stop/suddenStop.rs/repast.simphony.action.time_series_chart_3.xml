@@ -1,68 +1,56 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Price &amp; MedCost per Time</name>
-  <dataSet>Per Lev</dataSet>
+  <name>Firms</name>
+  <dataSet>Firm_Agr</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Price &amp; MedCost per Time</chartTitle>
+  <chartTitle>Firms</chartTitle>
   <type>TIME_SERIES</type>
   <background>
-    <red>192</red>
-    <green>192</green>
-    <blue>192</blue>
-    <alpha>255</alpha>
-  </background>
-  <gridLineColor>
     <red>255</red>
     <green>255</green>
     <blue>255</blue>
+    <alpha>255</alpha>
+  </background>
+  <gridLineColor>
+    <red>0</red>
+    <green>0</green>
+    <blue>0</blue>
     <alpha>255</alpha>
   </gridLineColor>
   <showGrid>true</showGrid>
   <seriesIds>
     <entry>
-      <string>MedCost Tim2</string>
+      <string>Born</string>
       <SeriesData>
-        <label>MedCost Tim2</label>
+        <label>Born</label>
         <color>
           <red>255</red>
-          <green>255</green>
+          <green>200</green>
           <blue>0</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
     </entry>
     <entry>
-      <string>MedCost Tim1</string>
+      <string>Dead</string>
       <SeriesData>
-        <label>MedCost Tim1</label>
+        <label>Dead</label>
         <color>
           <red>0</red>
           <green>255</green>
-          <blue>0</blue>
+          <blue>255</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
     </entry>
     <entry>
-      <string>MedCost Tim3</string>
+      <string>Firms#</string>
       <SeriesData>
-        <label>MedCost Tim3</label>
+        <label>Firms#</label>
         <color>
-          <red>255</red>
+          <red>0</red>
           <green>0</green>
-          <blue>102</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>Price</string>
-      <SeriesData>
-        <label>Price</label>
-        <color>
-          <red>0</red>
-          <green>51</green>
-          <blue>204</blue>
+          <blue>255</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

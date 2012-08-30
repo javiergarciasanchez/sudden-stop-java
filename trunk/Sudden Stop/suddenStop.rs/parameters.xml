@@ -24,21 +24,8 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
-				<parameter name="maxExternalEquity" displayName="Max External Equity ()%)" type="double" 
-						defaultValue="10000.0" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-									
-		/>
-
 				<parameter name="minimumCapital" displayName="Minimum Capital" type="double" 
 						defaultValue="1.0" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-									
-		/>
-				<parameter name="iniKStdDev" displayName="Ini K Std Dev" type="double" 
-						defaultValue="0.1" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -55,13 +42,19 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
+				<parameter name="iniEquityStdDev" displayName="Initial Equity Std Dev" type="double" 
+						defaultValue="0.1" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
 				<parameter name="suddenStopStart" displayName="SS Start" type="int" 
 						defaultValue="30" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
 		/>
-				<parameter name="timeCohorts" displayName="Time Cohorts Limits" type="java.lang.String" 
+				<parameter name="timeCohorts" displayName="Time Cohorts Limits (Years sep by ;)" type="java.lang.String" 
 						defaultValue="3;6" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
@@ -77,12 +70,6 @@
 						defaultValue="localhost" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
-									
-		/>
-				<parameter name="cohorts" displayName="Cohorts" type="int" 
-						defaultValue="3" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
 		/>
 				<parameter name="demandElasticity" displayName="Demand Elasticity" type="double" 
@@ -127,6 +114,18 @@
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
 		/>
+				<parameter name="maxExternalEquity" displayName="Max External Equity (%)" type="double" 
+						defaultValue="10000.0" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
+				<parameter name="iniEquityMean" displayName="Initial Equity Mean" type="double" 
+						defaultValue="4.0" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
+									
+		/>
 				<parameter name="wACC" displayName="WACC" type="double" 
 						defaultValue="0.1" 
 						isReadOnly="false" 
@@ -159,12 +158,6 @@
 		/>
 				<parameter name="leverageMax" displayName="Target Leverage Max" type="double" 
 						defaultValue="0.6" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
-									
-		/>
-				<parameter name="iniKMean" displayName="Ini K Mean" type="double" 
-						defaultValue="4.0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									

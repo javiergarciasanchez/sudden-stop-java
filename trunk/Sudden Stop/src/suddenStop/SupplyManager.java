@@ -22,6 +22,8 @@ public class SupplyManager {
 	public Uniform rDEfficiencyDistrib = null;
 	public Uniform targetLeverageDistrib = null;
 	public Uniform learningRateDistrib = null;
+	
+	public int[] timeCohortLimits = null;
 
 	public double price = 0;
 	public double prevPrice = 0;
@@ -49,6 +51,13 @@ public class SupplyManager {
 		innovationErrorNormal = RandomHelper.createNormal(1.0,
 				(Double) GetParameter("innovationErrorStdDev"));
 
+		/* Read Time Cohorts limits */
+		String[] tmp = ((String) GetParameter("timeCohorts")).split(";");
+		timeCohortLimits = new int[tmp.length];
+		for (int i = 0; i < tmp.length; i++) {
+			timeCohortLimits[i] = new Integer(tmp[i]);
+		}
+
 		/* Create distributions for initial variables of firms */
 
 		// FIRST UNIT COST
@@ -57,11 +66,11 @@ public class SupplyManager {
 				(Double) GetParameter("firstUnitCostStdDev") * fUCMean);
 
 		// INITIAL EQUITY
-		double iniEquityMean = (Double) GetParameter("iniKMean");
+		double iniEquityMean = (Double) GetParameter("iniEquityMean");
 		iniEquityDistrib = RandomHelper.createNormal(iniEquityMean,
-				(Double) GetParameter("iniKStdDev") * iniEquityMean);
+				(Double) GetParameter("iniEquityStdDev") * iniEquityMean);
 
-		//RD_EFFICIENCY
+		// RD_EFFICIENCY
 		rDEfficiencyDistrib = RandomHelper.createUniform(
 				(Double) GetParameter("rDEfficiencyMin"),
 				(Double) GetParameter("rDEfficiencyMax"));
@@ -95,7 +104,6 @@ public class SupplyManager {
 		killToBeKilledFirms();
 
 		planNextYear();
-
 
 	}
 
