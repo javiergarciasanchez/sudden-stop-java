@@ -26,7 +26,6 @@ public class SupplyManager {
 	public int[] timeCohortLimits = null;
 
 	public double price = 0;
-	public double prevPrice = 0;
 
 	public double dead = 0;
 
@@ -41,8 +40,7 @@ public class SupplyManager {
 		this.context = context;
 		context.add(this);
 
-		prevPrice = (Double) GetParameter("priceOfSubstitute");
-		price = prevPrice;
+		price = (Double) GetParameter("priceOfSubstitute");
 
 		double entrantsMean = (Double) GetParameter("entrantsMean");
 		entrantsNormal = RandomHelper.createNormal(entrantsMean,
@@ -144,7 +142,7 @@ public class SupplyManager {
 			f = (Firm) o;
 			totalQuantityPerPeriod += f.getQuantityPerPeriod();
 		}
-		prevPrice = price;
+
 		price = Demand.price(totalQuantityPerPeriod);
 
 		for (Object o : context.getObjects(Firm.class)) {
@@ -175,13 +173,13 @@ public class SupplyManager {
 
 		firms = context.getObjects(Firm.class);
 		totalFirms = firms.size();
-
+/*
 		totalQuantityPerPeriod = 0.0;
 		for (Object o : firms) {
 			Firm f = (Firm) o;
 			totalQuantityPerPeriod += f.getQuantityPerPeriod();
 		}
-
+*/
 	}
 
 	private void planNextYear() {
