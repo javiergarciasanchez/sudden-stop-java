@@ -75,7 +75,7 @@ public class Firm {
 			break;
 		}
 		shadowFirms.add((Cohort) c);
-		
+
 		// Add to Time Cohorts
 		switch (getTimeCohort(cohorts)) {
 		case 1:
@@ -240,8 +240,10 @@ public class Firm {
 	}
 
 	private double calcPerformance(FirmState st) {
+		double p = (Integer) GetParameter("periods");
 		double w = (Double) GetParameter("performanceWeight");
-		return w * st.getPerformance() + (1 - w) * st.getROI();
+		return (1 - (1 - w) / p) * st.getPerformance() + (1 - w) / p
+				* st.getROI();
 	}
 
 	private void acumulateVariables() {

@@ -1,0 +1,41 @@
+<?xml version="1.0"?><sweep runs="1"> 
+<parameter name="capitalProductivity" type="constant" constant_type="double" value="4.0" />
+<parameter name="investmentParam" type="constant" constant_type="double" value="1.0" />
+<parameter name="maxExternalEquity" type="constant" constant_type="double" value="0.4" />
+<parameter name="costOfDebt" type="constant" constant_type="double" value="0.07" />
+<parameter name="database" type="constant" constant_type="java.lang.String" value="Simulations" />
+<parameter name="demandElasticity" type="constant" constant_type="double" value="2.0" />
+<parameter name="demandParameter" type="constant" constant_type="double" value="250.0" />
+<parameter name="demandShift" type="constant" constant_type="double" value="0.03" />
+<parameter name="depreciation" type="constant" constant_type="double" value="0.1" />
+<parameter name="entrantsMean" type="constant" constant_type="double" value="10.0" />
+<parameter name="entrantsStdDev" type="constant" constant_type="double" value="0.1" />
+<parameter name="firstUnitCostMean" type="constant" constant_type="double" value="2.0" />
+<parameter name="firstUnitCostStdDev" type="constant" constant_type="double" value="0.1" />
+<parameter name="iniEquityMean" type="constant" constant_type="double" value="4.0" />
+<parameter name="iniEquityStdDev" type="constant" constant_type="double" value="0.1" />
+<parameter name="innovationErrorStdDev" type="constant" constant_type="double" value="0.1" />
+<parameter name="learningRateMax" type="constant" constant_type="double" value="1.0" />
+<parameter name="learningRateMin" type="constant" constant_type="double" value="0.85" />
+<parameter name="minimumCapital" type="constant" constant_type="double" value="1.0" />
+<parameter name="minVarCost" type="constant" constant_type="double" value="0.7" />
+<parameter name="performanceWeight" type="constant" constant_type="double" value="0.6" />
+<parameter name="periods" type="constant" constant_type="int" value="1" />
+<parameter name="priceOfSubstitute" type="constant" constant_type="double" value="3.0" />
+<parameter name="rDEfficiencyMax" type="constant" constant_type="double" value="1.0" />
+<parameter name="rDEfficiencyMin" type="constant" constant_type="double" value="0.0" />
+<parameter name="SQLServer" type="constant" constant_type="java.lang.String" value="localhost" />
+<parameter name="suddenStopDuration" type="constant" constant_type="double" value="1.0" />
+<parameter name="simDescription" type="constant" constant_type="java.lang.String" value="LR 0.85-1.0 &amp; SS 8%" />
+<parameter name="stopAt" type="constant" constant_type="double" value="50.0" />
+<parameter name="supplyElasticity" type="constant" constant_type="double" value="0.5" />
+<parameter name="leverageMax" type="constant" constant_type="double" value="0.6" />
+<parameter name="leverageMin" type="constant" constant_type="double" value="-0.3" />
+<parameter name="timeCohorts" type="constant" constant_type="java.lang.String" value="3;6" />
+<parameter name="wACC" type="constant" constant_type="double" value="0.1" />
+<parameter name="randomSeed" type="number" number_type="int"  start="101" end="200" step="1" >
+<parameter name="suddenStopMagnitude" type="list" value_type="double" values="0.0 0.08 0.1 0.2 0.08 0.09 0.1" />
+<parameter name="suddenStopStart" type="list" value_type="int" values="0 7 7 7 30 30 30" >
+</parameter>
+</parameter>
+</sweep>

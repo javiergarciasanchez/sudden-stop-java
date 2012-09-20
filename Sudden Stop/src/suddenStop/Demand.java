@@ -18,15 +18,16 @@ public class Demand {
 		double elast = (Double) GetParameter("demandElasticity");
 		double subst = (Double) GetParameter("priceOfSubstitute");
 		double demandParam = (Double) GetParameter("demandParameter");
-		double demandShift = (Double) GetParameter("demandShift") / periods;
+		double demandShift = (Double) GetParameter("demandShift");
 
-		double tick = GetTickCount();
+		double time = GetTickCount() / periods;
+		double annualQuantity = quantity * periods;
 
 		if (quantity > 0) {
 			return min(
 					subst,
-					demandParam * pow(1.0 + demandShift, tick / elast)
-							* pow(quantity * periods, -1.0 / elast))
+					demandParam * pow(1.0 + demandShift, time / elast)
+							* pow(annualQuantity, -1.0 / elast))
 					* (1.0 - getSSMagnitude());
 		} else {
 			return (Double) GetParameter("priceOfSubstitute")
